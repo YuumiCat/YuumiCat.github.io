@@ -180,6 +180,114 @@
             
 
   
+    <article id="post-HDFS编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/01/13/HDFS%E7%BC%96%E7%A8%8B/" target="_blank">HDFS编程</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/01/13/HDFS%E7%BC%96%E7%A8%8B/" class="archive-article-date">
+        <time datetime="2019-01-13T02:26:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="HDFS编程"><a href="#HDFS编程" class="headerlink" title="HDFS编程"></a>HDFS编程</h3><hr>
+<h4 id="HDFS编程简介"><a href="#HDFS编程简介" class="headerlink" title="HDFS编程简介"></a>HDFS编程简介</h4><pre><code>FileSystem：文件系统编程的入口点
+本地开发和服务器端的版本“不一定”需要相同，最好是相同
+打包到服务器运行，我们是不打hadoop的依赖进去的 这叫所谓的瘦包
+瘦包：仅仅包含源码  很小的
+胖包：所有的东西都打进去，一般公司不建议使用</code></pre><h4 id="POM文件配置"><a href="#POM文件配置" class="headerlink" title="POM文件配置"></a>POM文件配置</h4><p>Maven依赖查询：<a href="https://mvnrepository.com/" target="_blank" rel="noopener">https://mvnrepository.com/</a></p>
+<h5 id="配置hadoop依赖"><a href="#配置hadoop依赖" class="headerlink" title="配置hadoop依赖"></a>配置hadoop依赖</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">hadoop.version</span>&gt;</span>2.6.0-cdh5.16.2<span class="tag">&lt;/<span class="name">hadoop.version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoop.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="配置cdh仓库地址"><a href="#配置cdh仓库地址" class="headerlink" title="配置cdh仓库地址"></a>配置cdh仓库地址</h5><p>因为下载的是cdh版本，所以必须配置cdh仓库地址</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="HDFS编程方法示例"><a href="#HDFS编程方法示例" class="headerlink" title="HDFS编程方法示例"></a>HDFS编程方法示例</h4><h5 id="获取文件操作对象"><a href="#获取文件操作对象" class="headerlink" title="获取文件操作对象"></a>获取文件操作对象</h5><p>get()方法的第三个参数是指定操作用户名，如不指定则会使用当前本机的用户名，可能会有权限问题</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://39.107.23.136:9000"</span>);</span><br><span class="line">      FileSystem fileSystem = FileSystem.get(uri, <span class="keyword">new</span> Configuration(), <span class="string">"black"</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="关闭资源"><a href="#关闭资源" class="headerlink" title="关闭资源"></a>关闭资源</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileSystem.close();</span><br></pre></td></tr></table></figure>
+<h5 id="创建目录方法"><a href="#创建目录方法" class="headerlink" title="创建目录方法"></a>创建目录方法</h5><p>在hdfs上的 / 目录下创建hdfs目录</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mkdir</span><span class="params">()</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    fileSystem.mkdirs(<span class="keyword">new</span> Path(<span class="string">"/hdfs"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="创建目录方法-1"><a href="#创建目录方法-1" class="headerlink" title="创建目录方法"></a>创建目录方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void mkdir()throws Exception&#123;</span><br><span class="line">    fileSystem.mkdirs(new Path(&quot;&#x2F;hdfs1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="将本地文件上传至hdfs"><a href="#将本地文件上传至hdfs" class="headerlink" title="将本地文件上传至hdfs"></a>将本地文件上传至hdfs</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  @Test</span><br><span class="line">public void copyFromLocalFile ()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;input&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;&#x2F;hdfs&quot;);</span><br><span class="line">    fileSystem.copyFromLocalFile(src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="将hdfs文件拉取至本地"><a href="#将hdfs文件拉取至本地" class="headerlink" title="将hdfs文件拉取至本地"></a>将hdfs文件拉取至本地</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将hdfs上文件的内容复制到本地所指定的文件中，必须指定本地路径和存储数据的文件名，delsrc参数是个boolean值，表示是否删除源数据</span><br><span class="line">@Test</span><br><span class="line">public void copyToLocalFile()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;&#x2F;hdfs&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;output&#x2F;black.txt&quot;);</span><br><span class="line">    fileSystem.copyToLocalFile(true,src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="将hdfs上文件剪切至目标位置并重命名"><a href="#将hdfs上文件剪切至目标位置并重命名" class="headerlink" title="将hdfs上文件剪切至目标位置并重命名"></a>将hdfs上文件剪切至目标位置并重命名</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void rename()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;&#x2F;hdfs&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;&#x2F;hdfs1&#x2F;blackrename&quot;);</span><br><span class="line">    fileSystem.rename(src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="删除hdfs上目标位置文件"><a href="#删除hdfs上目标位置文件" class="headerlink" title="删除hdfs上目标位置文件"></a>删除hdfs上目标位置文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void delete()throws Exception&#123;</span><br><span class="line">    fileSystem.delete(new Path(&quot;&#x2F;hdfs1&#x2F;black&quot;),true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="获取文件下的目录信息"><a href="#获取文件下的目录信息" class="headerlink" title="获取文件下的目录信息"></a>获取文件下的目录信息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void listFiles()throws Exception&#123;</span><br><span class="line">    &#x2F;&#x2F;获取文件状态，因为文件可能多个，所以返回迭代器</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; files &#x3D; fileSystem.listFiles(new Path(&quot;&#x2F;hdfs1&#x2F;&quot;), true);</span><br><span class="line">    while (files.hasNext())&#123;</span><br><span class="line">        &#x2F;&#x2F;获取其中一个文件的状态信息</span><br><span class="line">        LocatedFileStatus fileStatus &#x3D; files.next();</span><br><span class="line">        short replication &#x3D; fileStatus.getReplication();</span><br><span class="line">        long accessTime &#x3D; fileStatus.getAccessTime();</span><br><span class="line">        FsPermission permission &#x3D; fileStatus.getPermission();</span><br><span class="line">        long len &#x3D; fileStatus.getLen();</span><br><span class="line">        Path path &#x3D; fileStatus.getPath();</span><br><span class="line">        boolean directory &#x3D; fileStatus.isDirectory();</span><br><span class="line">        System.out.println(replication + &quot;---&quot; + permission + &quot;---&quot; + len + &quot;---&quot; + path);</span><br><span class="line">        &#x2F;&#x2F;获取文件的块信息，因为一个文件可能不止一个块存储，因此返回的是数组</span><br><span class="line">        BlockLocation[] blockLocations &#x3D; fileStatus.getBlockLocations();</span><br><span class="line">        &#x2F;&#x2F;遍历数组</span><br><span class="line">        for (BlockLocation location:blockLocations)&#123;</span><br><span class="line">            &#x2F;&#x2F;获取块所在主机信息，之所以是数组，是因为块可能存在副本</span><br><span class="line">            String[] hosts &#x3D; location.getHosts();</span><br><span class="line">            for (String host:hosts)&#123;</span><br><span class="line">                System.out.println(host);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/01/13/HDFS%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hive安装部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -302,13 +410,13 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h3 id="Hadoop单机环境部署"><a href="#Hadoop单机环境部署" class="headerlink" title="Hadoop单机环境部署"></a>Hadoop单机环境部署</h3><hr>
-<h4 id="环境部署前置条件"><a href="#环境部署前置条件" class="headerlink" title="环境部署前置条件"></a>环境部署前置条件</h4><p>1、准备一台6G内存以上的虚拟机，有条件的话大一点更好<br>2、配置好主机名并将IP地址与主机名做映射<br>3、关闭防火墙<br>4、安装好java环境，安装目录为<code>/usr/java</code>安装目录为/usr/java的原因是方便以后CDH的安装<br>5、创建属于自己的linux账户，当然，直接使用root用户也可以</p>
+<h4 id="环境部署前置条件"><a href="#环境部署前置条件" class="headerlink" title="环境部署前置条件"></a>环境部署前置条件</h4><p>1、准备一台6G内存以上的虚拟机，有条件的话大一点更好<br>2、配置好主机名并将IP地址与主机名做映射,本地端和服务器端都需要配置<br>3、关闭防火墙<br>4、安装好java环境，安装目录为<code>/usr/java</code>安装目录为/usr/java的原因是方便以后CDH的安装<br>5、创建属于自己的linux账户，当然，直接使用root用户也可以</p>
 <h4 id="hadoop下载"><a href="#hadoop下载" class="headerlink" title="hadoop下载"></a>hadoop下载</h4><p><a href="http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.16.2.tar.gz" target="_blank" rel="noopener">hadoop安装包</a></p>
 <h4 id="创建环境目录"><a href="#创建环境目录" class="headerlink" title="创建环境目录"></a>创建环境目录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">创建black账户</span></span><br><span class="line">[root@black ~]$ useradd black</span><br><span class="line"><span class="meta">#</span><span class="bash">切换至</span></span><br><span class="line">[root@black ~]$ su - black</span><br><span class="line"><span class="meta">#</span><span class="bash">创建环境部署所需目录</span></span><br><span class="line">[black@black ~]$ mkdir app data lib software sourcecode tmp log</span><br></pre></td></tr></table></figure>
 <p>app：安装目录     data：数据目录        lib：jar包目录      software：安装包目录    sourcecode：源代码目录    tmp：临时文件目录    log：日志目录</p>
 <h4 id="hadoop安装与环境变量配置"><a href="#hadoop安装与环境变量配置" class="headerlink" title="hadoop安装与环境变量配置"></a>hadoop安装与环境变量配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">将安装包使用工具上传至software目录下</span></span><br><span class="line"><span class="meta">#</span><span class="bash">将安装包解压至app目录下</span></span><br><span class="line">black@black software]$ tar -zxvf hadoop-2.6.0-cdh5.16.2.tar.gz -C ../app/</span><br><span class="line"><span class="meta">#</span><span class="bash">创建软连接，好处是可以在版本升级时无需改变环境变量</span></span><br><span class="line">[black@black app]$ ln -s hadoop-2.6.0-cdh5.16.2/ hadoop</span><br><span class="line"><span class="meta">#</span><span class="bash">环境变量配置</span></span><br><span class="line">[black@black ~]$ vi .bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash">环境变量具体内容，将hadoop之外的组件一并配置可以省去在安装其他组件配置</span></span><br><span class="line">export JAVA_HOME=/usr/java</span><br><span class="line">export SCALA_HOME=/usr/scala</span><br><span class="line">export HADOOP_HOME=/home/black/app/hadoop</span><br><span class="line">export HIVE_HOME=/home/black/app/hive</span><br><span class="line">export HBASE_HOME=/home/black/app/hbase</span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$&#123;SCALA_HOME&#125;/bin:$&#123;HADOOP_HOME&#125;/bin:$&#123;HADOOP_HOME&#125;/sbin:$&#123;HIVE_HOME&#125;/bin:$&#123;HIVE_HOME&#125;/sbin:$&#123;HBASE_HOME&#125;/bin:$&#123;HBASE_HOME&#125;/sbin:$PATH</span><br><span class="line"><span class="meta">#</span><span class="bash">保存后刷新环境变量配置</span></span><br><span class="line">[black@black ~]$ source .bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash">测试环境变量是否生效</span></span><br><span class="line">[black@black ~]$ which hadoop</span><br></pre></td></tr></table></figure>
 <h4 id="信任关系配置"><a href="#信任关系配置" class="headerlink" title="信任关系配置"></a>信任关系配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[black@black ~]$ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa</span><br><span class="line">[black@black ~]$ cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line">[black@black ~]$ chmod 0600 ~/.ssh/authorized_keys</span><br><span class="line">[black@black ~]$ ssh black date</span><br></pre></td></tr></table></figure>
-<h4 id="hdfs配置文件"><a href="#hdfs配置文件" class="headerlink" title="hdfs配置文件"></a>hdfs配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入配置文件目录</span></span><br><span class="line">[black@black ~]$ cd ~/app/hadoop/etc/hadoop/</span><br><span class="line"><span class="meta">#</span><span class="bash">core-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://black:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/black/tmp&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">hdfs-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:9868&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.secondary.https-address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:9869&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="hdfs配置文件"><a href="#hdfs配置文件" class="headerlink" title="hdfs配置文件"></a>hdfs配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入配置文件目录</span></span><br><span class="line">[black@black ~]$ cd ~/app/hadoop/etc/hadoop/</span><br><span class="line"><span class="meta">#</span><span class="bash">core-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://black:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/black/tmp&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">hdfs-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:9868&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.secondary.https-address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:9869&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.datanode.use.datanode.hostname&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="MR与Yarn配置文件"><a href="#MR与Yarn配置文件" class="headerlink" title="MR与Yarn配置文件"></a>MR与Yarn配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yarn-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:18088&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">mapred-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">slaves配置输入本机名即可</span></span><br><span class="line">black</span><br></pre></td></tr></table></figure>
 <h4 id="格式化及启动"><a href="#格式化及启动" class="headerlink" title="格式化及启动"></a>格式化及启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[black@black hadoop]$ hdfs namenode -format</span><br><span class="line">[black@black hadoop]$ start-dfs.sh</span><br><span class="line">[black@black hadoop]$ start-yarn.sh</span><br></pre></td></tr></table></figure>
 <h4 id="web访问界面"><a href="#web访问界面" class="headerlink" title="web访问界面"></a>web访问界面</h4><p><a href="http://IP地址:50070" target="_blank" rel="noopener">http://IP地址:50070</a><br><a href="http://IP地址:18088" target="_blank" rel="noopener">http://IP地址:18088</a><br>这个地方如果windows做了地址映射也可用主机名访问</p>
@@ -339,6 +447,97 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2019/01/10/hadoop%E5%8D%95%E6%9C%BA%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-单元测试框架 junit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/" target="_blank">单元测试框架junit</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/" class="archive-article-date">
+        <time datetime="2018-05-09T13:30:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-09</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>###各注解介绍与注意事项<br>1、@Before和@After分别是在每个测试方式执行前后执行，一个测试方法执行一次@Before和@After<br>2、@BeforeClass和@AfterClass是在所有测试方法执行的前后执行， 只执行一次@BeforeClass和@AfterClass<br>3、@BeforeClass和@AfterClass定义的方式必须是static<br>4、@Test加在单元测试代码前<br>5、测试代码与开发代码包命名规范为包名相同<br>6、测试类命名规范为Test+开发代码类名或者开发代码类名+test<br>7、junit 4版本以上测试方法名不需要以test开头</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><h5 id="开发代码"><a href="#开发代码" class="headerlink" title="开发代码"></a>开发代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.blackdata.hadoop.junit;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Before和-After测试用例"><a href="#Before和-After测试用例" class="headerlink" title="@Before和@After测试用例"></a>@Before和@After测试用例</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.blackdata.hadoop.junit;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.yarn.webapp.hamlet.Hamlet;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalTest</span> </span>&#123;</span><br><span class="line">    Cal cal;</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cal = <span class="keyword">new</span> Cal();</span><br><span class="line">        System.out.println(<span class="string">"--setUp--"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> add = cal.add(<span class="number">3</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(add);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">divide</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> divide = cal.divide(<span class="number">6</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(divide);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cal =<span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"--tearDown--"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Before和-After测试结果"><a href="#Before和-After测试结果" class="headerlink" title="@Before和@After测试结果"></a>@Before和@After测试结果</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--setUp--</span><br><span class="line"><span class="number">3</span></span><br><span class="line">--tearDown--</span><br><span class="line"></span><br><span class="line">--setUp--</span><br><span class="line"><span class="number">5</span></span><br><span class="line">--tearDown--</span><br></pre></td></tr></table></figure>
+<h5 id="BeforeClass和-AfterClass测试用例"><a href="#BeforeClass和-AfterClass测试用例" class="headerlink" title="@BeforeClass和@AfterClass测试用例"></a>@BeforeClass和@AfterClass测试用例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package com.blackdata.hadoop.junit;</span><br><span class="line">import org.junit.AfterClass;</span><br><span class="line">import org.junit.BeforeClass;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">public class TestCal &#123;</span><br><span class="line">    static Cal cal;</span><br><span class="line">    @BeforeClass</span><br><span class="line">    public static void setUp()&#123;</span><br><span class="line">        cal &#x3D; new Cal();</span><br><span class="line">        System.out.println(&quot;--setUp--&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void add()&#123;</span><br><span class="line">        int add &#x3D; cal.add(3, 2);</span><br><span class="line">        System.out.println(add);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void divide()&#123;</span><br><span class="line">        int divide &#x3D; cal.divide(6, 2);</span><br><span class="line">        System.out.println(divide);</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterClass</span><br><span class="line">    public static void tearDown()&#123;</span><br><span class="line">        cal &#x3D;null;</span><br><span class="line">        System.out.println(&quot;--tearDown--&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="BeforeClass和-AfterClass结果"><a href="#BeforeClass和-AfterClass结果" class="headerlink" title="@BeforeClass和@AfterClass结果"></a>@BeforeClass和@AfterClass结果</h5><p>```java<br>–setUp–<br>3<br>5<br>–tearDown–</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">测试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/">展开全文 >></a>
     </p>
     
 
@@ -498,6 +697,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
              
               <li class="article-tag-list-item">

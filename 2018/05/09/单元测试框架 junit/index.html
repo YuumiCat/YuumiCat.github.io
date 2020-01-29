@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://YuumiCat.com">
-  <title>Archives: 2019/1 | 韩勃然的博客</title>
+  <title>单元测试框架junit | 韩勃然的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="blackdata,企业在职">
-<meta property="og:type" content="website">
-<meta property="og:title" content="韩勃然的博客">
-<meta property="og:url" content="http://yuumicat.com/archives/2019/01/index.html">
+  <meta name="description" content="###各注解介绍与注意事项1、@Before和@After分别是在每个测试方式执行前后执行，一个测试方法执行一次@Before和@After2、@BeforeClass和@AfterClass是在所有测试方法执行的前后执行， 只执行一次@BeforeClass和@AfterClass3、@BeforeClass和@AfterClass定义的方式必须是static4、@Test加在单元测试代码前5、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单元测试框架junit">
+<meta property="og:url" content="http://yuumicat.com/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="blackdata,企业在职">
+<meta property="og:description" content="###各注解介绍与注意事项1、@Before和@After分别是在每个测试方式执行前后执行，一个测试方法执行一次@Before和@After2、@BeforeClass和@AfterClass是在所有测试方法执行的前后执行， 只执行一次@BeforeClass和@AfterClass3、@BeforeClass和@AfterClass定义的方式必须是static4、@Test加在单元测试代码前5、">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-09T13:30:16.000Z">
+<meta property="article:modified_time" content="2020-01-15T07:56:44.562Z">
 <meta property="article:author" content="YuumiCat">
+<meta property="article:tag" content="测试">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
@@ -173,151 +176,234 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-单元测试框架 junit" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/01/13/HDFS%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-        <time datetime="2019-01-13T02:26:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-13</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/01/13/HDFS%E7%BC%96%E7%A8%8B/" target="_blank">HDFS编程</a>
   
+    <h1 class="article-title" itemprop="name">
+      单元测试框架junit
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/" class="archive-article-date">
+        <time datetime="2018-05-09T13:30:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-09</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">399字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">2分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>###各注解介绍与注意事项<br>1、@Before和@After分别是在每个测试方式执行前后执行，一个测试方法执行一次@Before和@After<br>2、@BeforeClass和@AfterClass是在所有测试方法执行的前后执行， 只执行一次@BeforeClass和@AfterClass<br>3、@BeforeClass和@AfterClass定义的方式必须是static<br>4、@Test加在单元测试代码前<br>5、测试代码与开发代码包命名规范为包名相同<br>6、测试类命名规范为Test+开发代码类名或者开发代码类名+test<br>7、junit 4版本以上测试方法名不需要以test开头</p>
+<h4 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h4><h5 id="开发代码"><a href="#开发代码" class="headerlink" title="开发代码"></a>开发代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.blackdata.hadoop.junit;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Before和-After测试用例"><a href="#Before和-After测试用例" class="headerlink" title="@Before和@After测试用例"></a>@Before和@After测试用例</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.blackdata.hadoop.junit;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.yarn.webapp.hamlet.Hamlet;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalTest</span> </span>&#123;</span><br><span class="line">    Cal cal;</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cal = <span class="keyword">new</span> Cal();</span><br><span class="line">        System.out.println(<span class="string">"--setUp--"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> add = cal.add(<span class="number">3</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(add);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">divide</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> divide = cal.divide(<span class="number">6</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(divide);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cal =<span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"--tearDown--"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Before和-After测试结果"><a href="#Before和-After测试结果" class="headerlink" title="@Before和@After测试结果"></a>@Before和@After测试结果</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--setUp--</span><br><span class="line"><span class="number">3</span></span><br><span class="line">--tearDown--</span><br><span class="line"></span><br><span class="line">--setUp--</span><br><span class="line"><span class="number">5</span></span><br><span class="line">--tearDown--</span><br></pre></td></tr></table></figure>
+<h5 id="BeforeClass和-AfterClass测试用例"><a href="#BeforeClass和-AfterClass测试用例" class="headerlink" title="@BeforeClass和@AfterClass测试用例"></a>@BeforeClass和@AfterClass测试用例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package com.blackdata.hadoop.junit;</span><br><span class="line">import org.junit.AfterClass;</span><br><span class="line">import org.junit.BeforeClass;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">public class TestCal &#123;</span><br><span class="line">    static Cal cal;</span><br><span class="line">    @BeforeClass</span><br><span class="line">    public static void setUp()&#123;</span><br><span class="line">        cal &#x3D; new Cal();</span><br><span class="line">        System.out.println(&quot;--setUp--&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void add()&#123;</span><br><span class="line">        int add &#x3D; cal.add(3, 2);</span><br><span class="line">        System.out.println(add);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void divide()&#123;</span><br><span class="line">        int divide &#x3D; cal.divide(6, 2);</span><br><span class="line">        System.out.println(divide);</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterClass</span><br><span class="line">    public static void tearDown()&#123;</span><br><span class="line">        cal &#x3D;null;</span><br><span class="line">        System.out.println(&quot;--tearDown--&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="BeforeClass和-AfterClass结果"><a href="#BeforeClass和-AfterClass结果" class="headerlink" title="@BeforeClass和@AfterClass结果"></a>@BeforeClass和@AfterClass结果</h5><p>```java<br>–setUp–<br>3<br>5<br>–tearDown–</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          YuumiCat
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://YuumiCat.com/2018/05/09/单元测试框架 junit/" title="单元测试框架junit" target="_blank">http://YuumiCat.com/2018/05/09/单元测试框架 junit/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">测试</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/01/11/hive%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-        <time datetime="2019-01-11T12:36:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-11</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2019/01/10/hadoop%E5%8D%95%E6%9C%BA%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hadoop单机环境部署
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/01/11/hive%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" target="_blank">Hive安装部署</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/01/10/hadoop%E5%8D%95%E6%9C%BA%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-        <time datetime="2019-01-10T10:51:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-10</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/01/10/hadoop%E5%8D%95%E6%9C%BA%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" target="_blank">Hadoop单机环境部署</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -358,8 +444,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
