@@ -472,6 +472,96 @@
 
 
   
+    <article id="post-windows下搭建hadoop开发环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2018/11/08/windows%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" target="_blank">windows下搭建hadoop开发环境</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2018/11/08/windows%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="archive-article-date">
+        <time datetime="2018-11-07T20:30:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-08</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="Windows搭建hadoop本地开发环境"><a href="#Windows搭建hadoop本地开发环境" class="headerlink" title="Windows搭建hadoop本地开发环境"></a>Windows搭建hadoop本地开发环境</h3><hr>
+<h4 id="前置环境需求"><a href="#前置环境需求" class="headerlink" title="前置环境需求"></a>前置环境需求</h4><p>电脑上已安装jdk1.8并配置好环境变量<br>电脑上已安装idea<br>已安装maven3.6.3并配置好环境变量（之所以用3.6.3版本是因为考虑到spark3.0对maven的要求为此版本）</p>
+<h4 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h4><p><a href="http://archive.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz" target="_blank" rel="noopener">hadoop2.7.6安装包</a><br><a href="https://github.com/xltuo/hadoop-2.7.6-windows-bin" target="_blank" rel="noopener">hadoop-2.7.6-windows-bin</a></p>
+<h4 id="环境搭建与配置"><a href="#环境搭建与配置" class="headerlink" title="环境搭建与配置"></a>环境搭建与配置</h4><p>解压hadoop2.7.6安装包至安装目录（自己定，安装在哪都行）<br>解压hadoop-2.7.6-windows-bin压缩包<br><img src="/images/hadoop_windows_bin.jpg" alt="enter description here"><br>将hadoop-2.7.6的bin目录下文件替换成hadoop-2.7.6-windows-bin目录下的文件<br><img src="/images/hadoop_bin.jpg" alt=""><br>将hadoop-2.7.6的bin目录下hadoop.dll文件复制到C:\Windows\System32目录下一份<br><img src="/images/hadoop.dll.jpg" alt="enter description here"><br>hadoop环境变量配置(参考java环境变量配置方法即可)<br>运行mr程序成功结果如下：<br><img src="/images/wc%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt="enter description here"></p>
+<h4 id="常见报错与解决办法"><a href="#常见报错与解决办法" class="headerlink" title="常见报错与解决办法"></a>常见报错与解决办法</h4><p>常见两种报错<br>java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries<br>java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z<br>解决办法<br>下载winutils.exe和hadoop.dll将两个文件放入hadoop的bin目录下<br>hadoop.dll同时放在C:\Windows\System32目录下<br>注：我已经在hadoop-2.7.6-windows-bin目录下提供了，因此不需要额外下载，按照上面的操作一般不会产生报错</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">测试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2018/11/08/windows%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-单元测试框架 junit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -506,8 +596,7 @@
 <h5 id="Before和-After测试用例"><a href="#Before和-After测试用例" class="headerlink" title="@Before和@After测试用例"></a>@Before和@After测试用例</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.blackdata.hadoop.junit;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.yarn.webapp.hamlet.Hamlet;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CalTest</span> </span>&#123;</span><br><span class="line">    Cal cal;</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cal = <span class="keyword">new</span> Cal();</span><br><span class="line">        System.out.println(<span class="string">"--setUp--"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> add = cal.add(<span class="number">3</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(add);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">divide</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> divide = cal.divide(<span class="number">6</span>, <span class="number">2</span>);</span><br><span class="line">        System.out.println(divide);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span></span>&#123;</span><br><span class="line">        cal =<span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"--tearDown--"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="Before和-After测试结果"><a href="#Before和-After测试结果" class="headerlink" title="@Before和@After测试结果"></a>@Before和@After测试结果</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--setUp--</span><br><span class="line"><span class="number">3</span></span><br><span class="line">--tearDown--</span><br><span class="line"></span><br><span class="line">--setUp--</span><br><span class="line"><span class="number">5</span></span><br><span class="line">--tearDown--</span><br></pre></td></tr></table></figure>
 <h5 id="BeforeClass和-AfterClass测试用例"><a href="#BeforeClass和-AfterClass测试用例" class="headerlink" title="@BeforeClass和@AfterClass测试用例"></a>@BeforeClass和@AfterClass测试用例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package com.blackdata.hadoop.junit;</span><br><span class="line">import org.junit.AfterClass;</span><br><span class="line">import org.junit.BeforeClass;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">public class TestCal &#123;</span><br><span class="line">    static Cal cal;</span><br><span class="line">    @BeforeClass</span><br><span class="line">    public static void setUp()&#123;</span><br><span class="line">        cal &#x3D; new Cal();</span><br><span class="line">        System.out.println(&quot;--setUp--&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void add()&#123;</span><br><span class="line">        int add &#x3D; cal.add(3, 2);</span><br><span class="line">        System.out.println(add);</span><br><span class="line">    &#125;</span><br><span class="line">    @Test</span><br><span class="line">    public void divide()&#123;</span><br><span class="line">        int divide &#x3D; cal.divide(6, 2);</span><br><span class="line">        System.out.println(divide);</span><br><span class="line">    &#125;</span><br><span class="line">    @AfterClass</span><br><span class="line">    public static void tearDown()&#123;</span><br><span class="line">        cal &#x3D;null;</span><br><span class="line">        System.out.println(&quot;--tearDown--&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="BeforeClass和-AfterClass结果"><a href="#BeforeClass和-AfterClass结果" class="headerlink" title="@BeforeClass和@AfterClass结果"></a>@BeforeClass和@AfterClass结果</h5><p>```java<br>–setUp–<br>3<br>5<br>–tearDown–</p>
-
+<h5 id="BeforeClass和-AfterClass结果"><a href="#BeforeClass和-AfterClass结果" class="headerlink" title="@BeforeClass和@AfterClass结果"></a>@BeforeClass和@AfterClass结果</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--setUp--</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line">--tearDown--</span><br></pre></td></tr></table></figure>
     
 
     
@@ -692,19 +781,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
             
             <div class="clearfix"></div>
