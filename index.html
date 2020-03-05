@@ -719,7 +719,146 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    
+    <h3 id="Hadoop的IO模型"><a href="#Hadoop的IO模型" class="headerlink" title="Hadoop的IO模型"></a>Hadoop的IO模型</h3><hr>
+<h4 id="MapReduce相关文章链接"><a href="#MapReduce相关文章链接" class="headerlink" title="MapReduce相关文章链接"></a>MapReduce相关文章链接</h4><p><a href="https://yuumicat.github.io/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">MapReduce的基本原理和运行流程</a><br><a href="https://yuumicat.github.io/2018/12/04/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（一）</a><br><a href="https://yuumicat.github.io/2018/12/05/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（二）</a><br><a href="https://yuumicat.github.io/2018/12/07/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（三）</a><br><a href="https://yuumicat.github.io/2018/12/08/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%9B%9B%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（四）</a><br><a href="https://yuumicat.github.io/2018/12/09/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%94%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（五）</a><br><a href="https://yuumicat.github.io/2018/12/12/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AD%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（六）</a><br><a href="https://yuumicat.github.io/2018/12/16/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%83%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（七）</a><br><a href="https://yuumicat.github.io/2018/12/19/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AB%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（八）</a></p>
+<h4 id="什么是数据序列化"><a href="#什么是数据序列化" class="headerlink" title="什么是数据序列化"></a>什么是数据序列化</h4><ul>
+<li><p>序列化</p>
+<p> 内存中的对象 ==&gt; 字节数组</p>
+</li>
+<li><p>反序列化</p>
+<p> 字节数组 ==&gt; 内存中的对象</p>
+<h4 id="数据序列化的条件"><a href="#数据序列化的条件" class="headerlink" title="数据序列化的条件"></a>数据序列化的条件</h4><p>数据中心中最稀缺的资源就是网络带宽，在数据量巨大的分布式系统中，数据的紧凑高效传输和解析十分重要，因此数据序列化需要满足以下条件：</p>
+</li>
+<li><p>紧凑：序列化出来的字节尽可能少。</p>
+</li>
+<li><p>快速：编码和解码速度要快。</p>
+</li>
+<li><p>可扩展：如果增加了新的序列化协议，可以在原有基础上进行扩展。</p>
+</li>
+<li><p>支持互操作：需要在不同语言编写的程序之间使用相同的序列化协议。</p>
+<h4 id="Writable接口"><a href="#Writable接口" class="headerlink" title="Writable接口"></a>Writable接口</h4><p>Java的序列化方法很重，最终编码出来的字节码中有很多冗余信息，这样就不满足“紧凑”的条件，因此Hadoop自己实现了一套序列化接口，就叫Writable接口</p>
+</li>
+</ul>
+<p>Writable接口定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Writable</span> </span>&#123;</span><br><span class="line">  <span class="comment">/** </span></span><br><span class="line"><span class="comment">   * Serialize the fields of this object to &lt;code&gt;out&lt;/code&gt;.</span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> out &lt;code&gt;DataOuput&lt;/code&gt; to serialize this object into.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(DataOutput out)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/** </span></span><br><span class="line"><span class="comment">   * Deserialize the fields of this object from &lt;code&gt;in&lt;/code&gt;.  </span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * &lt;p&gt;For efficiency, implementations should attempt to re-use storage in the </span></span><br><span class="line"><span class="comment">   * existing object where possible.&lt;/p&gt;</span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> in &lt;code&gt;DataInput&lt;/code&gt; to deseriablize this object from.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">readFields</span><span class="params">(DataInput in)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Writable的基本类型"><a href="#Writable的基本类型" class="headerlink" title="Writable的基本类型"></a>Writable的基本类型</h4><p>Hadoop本身提供了对Java基本类型的Writable封装，对String类型封装为Text类，也提供了对Array和Map集合类型的Writable封装。如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>Java基本类型</th>
+<th>Writable</th>
+<th>序列化后长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>布尔型 boolean</td>
+<td>BooleanWritable</td>
+<td>1</td>
+</tr>
+<tr>
+<td>字节型 byte</td>
+<td>ByteWritable</td>
+<td>1</td>
+</tr>
+<tr>
+<td>整形 int</td>
+<td>IntWritable or VIntWritable</td>
+<td>4 or 1~5</td>
+</tr>
+<tr>
+<td>浮点型 float</td>
+<td>FloatWritable</td>
+<td>4</td>
+</tr>
+<tr>
+<td>长整型 long</td>
+<td>LongWritable or VLongWritable</td>
+<td>8 or 1~9</td>
+</tr>
+<tr>
+<td>双精度浮点类型 double</td>
+<td>DoubleWritable</td>
+<td>8</td>
+</tr>
+<tr>
+<td>集合类型的封装一般来说，首先要在序列化的时候把序列的大小写入进去，然后再将集合中的元素依次序列化。</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#### 自定义Writable类型</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>##### 自定义序列化类的实现步骤</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>implements Writable接口</p>
+</li>
+<li><p>必须有一个无参构造方法</p>
+</li>
+<li><p>write和readFields方法中进行序列化与反序列化</p>
+</li>
+<li><p>写出去的字段顺序和读进来的字段顺序必须一致</p>
+</li>
+<li><p>可以选择重写toString方法来定义输出的风格样式</p>
+<h5 id="实现readFields和write方法的原则"><a href="#实现readFields和write方法的原则" class="headerlink" title="实现readFields和write方法的原则"></a>实现readFields和write方法的原则</h5><p>自定义Writable封装类一般由基本类型、集合类型和引用类型组成。自定义的Writable类型首先需要实现Writable接口，在实现readFields和write方法的时候有以下原则：</p>
+</li>
+<li><p>基本类型可以用read{类型}，write{类型}，如readInt方法。</p>
+</li>
+<li><p>String类型和可变长类型可以使用Hadoop提供的WritableUtils类辅助。</p>
+</li>
+<li><p>集合类型参考Hadoop的ArrayWritable等类型的自定义实现，一般情况下，在序列化过程中，先将集合大小写进去，然后将集合的元素一一序列化；在反序列化过程在，先将集合的大小读取出来，然后在内存中开辟这个大小的空间，再将集合中的元素一一反序列化到内存中。</p>
+</li>
+<li><p>引用类型本身必须也实现了Writable接口，直接调用引用类型的readFields和write方法。</p>
+<h4 id="通用Writable类型"><a href="#通用Writable类型" class="headerlink" title="通用Writable类型"></a>通用Writable类型</h4></li>
+<li><p>ObjectWritable</p>
+<p> 处理null、Java数组、字符串String、Java基本类型、枚举和Writable的子类6中情况，但是使用ObjectWritable将类名、实例序列化，一般情况下类名会比较长，造成资源浪费。</p>
+</li>
+</ul>
+<p>实际应用场景中一般不适用ObjectWritable。</p>
+<ul>
+<li><p>GenericWritable</p>
+<p> 如果类型的数量不是很多，而且可以事先知道，可以通过一个静态数组指定所有类型，再序列化的时候使用数组下标代替类名进行序列化。数组下边使用一个字节就能存储，这样相比于ObjectWritable大大减少了资源浪费。</p>
+<h4 id="文件压缩"><a href="#文件压缩" class="headerlink" title="文件压缩"></a>文件压缩</h4><h5 id="常用文件压缩类型"><a href="#常用文件压缩类型" class="headerlink" title="常用文件压缩类型"></a>常用文件压缩类型</h5><p>文件压缩可以减少磁盘存储空间的使用，也可以减少数据在网络上的传输时间，与Hadoop结合的常用算法有以下几种：</p>
+</li>
+</ul>
+<p>Gzip：压缩效率和速度剧中，不可切分。</p>
+<p>Bzip2：压缩效率搞，但是速度慢，可切分。</p>
+<p>LZO，LZ4，Snappy：压缩速度块，但是压缩效率不高，不可切分。</p>
+<p>ps：</p>
+<p>LZO在加索引的情况下可以切分。</p>
+<p>Snappy和LZ4的解压缩速率比LZO高出很多。</p>
+<h5 id="关于文件分片"><a href="#关于文件分片" class="headerlink" title="关于文件分片"></a>关于文件分片</h5><p>文件分片后会交给Map进行处理，如果文件不支持分片，那就无法被分到不同的Map进行处理，最终这个文件会被放到一个Map任务上进行处理，这样的话MR程序的运行效率就会很低（本来可以并行处理的现在编程单机处理了）。所以一般在选择文件压缩格式时都要选择可以切分的压缩格式。</p>
+<h5 id="合理选择压缩格式"><a href="#合理选择压缩格式" class="headerlink" title="合理选择压缩格式"></a>合理选择压缩格式</h5><p>综合节约磁盘空间，网络带宽和MR的执行效率考虑，一般使用如下压缩格式：</p>
+<ul>
+<li><p>对于经常访问的数据，使用LZO + 索引的方式存储，因为它的解压速度非常快，这样对于读取文件的速度就非常快。</p>
+</li>
+<li><p>对于不经常访问的数据，采用bzip2压缩存储，比如历史比较久远的数据</p>
+</li>
+<li><p>Map和Reduce中间的数据传输，采用Snappy压缩，因为它的压缩和解压速度都非常快。</p>
+</li>
+</ul>
+<h4 id="代码实操"><a href="#代码实操" class="headerlink" title="代码实操"></a>代码实操</h4><h5 id="实操目标"><a href="#实操目标" class="headerlink" title="实操目标"></a>实操目标</h5><p>1、自定义一个在map和reduce之间传输的序列化类</p>
+<p>2、在reduce端输出时将数据转换成json格式</p>
+<ul>
+<li>将数据反序列化到了自定义的writable类中后，数据不再是json，需在reduce端输出时将数据转换成json格式，因此定义一个将数据转换成json格式的方法</li>
+</ul>
+<p>3、定义一个通用的传输序列化类</p>
+<p>实际应用场景中要解析的字段一般都会很多，如果全部都重写一遍序列化操作工作量会很大，可以编写一个    通用的序列化接口来避免重复编写序列化代码（数据传输类的优化）</p>
+<ul>
+<li><p>使用map，将所有字段都存放到map中，然后将map传递到reduce端，而且Hadoop框架也提供有MapWritable类型。但是这里有个问题，map是将key值和value值一起存放到map中，每次传输都会把key值信息也传递出去，但其实key值的信息是固定范围内的那些字段值：device_id,ip,order_ip…等。这会造成大量的网络浪费。不过这种方式编程简单，只需要把值放入这个map集合中的即可。</p>
+</li>
+<li><p>只传输value值，，不传输key值。可以使用array将这些value值传输端，但是需要保证每一个value值的相对位置是一定的，不能发生错乱，否则会导致解析错乱。可以自定义一个通用类实现这个功能。</p>
+</li>
+</ul>
+<h5 id="代码结构："><a href="#代码结构：" class="headerlink" title="代码结构："></a>代码结构：</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── job</span><br><span class="line">│   └── ParseLogJob.java</span><br><span class="line">└── mr</span><br><span class="line">    ├── LogBeanWritable.java</span><br><span class="line">    ├── LogFieldWritable.java</span><br><span class="line">    └── LogGenericWritable.java</span><br></pre></td></tr></table></figure>
+<h5 id="代码链接"><a href="#代码链接" class="headerlink" title="代码链接"></a>代码链接</h5><p><a href="\code\hadoop\MapReduce\hadoop的IO模型\wyetl.zip">代码下载</a></p>
+
     
 
     
@@ -804,7 +943,45 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    
+    <h3 id="编写一个MR程序"><a href="#编写一个MR程序" class="headerlink" title="编写一个MR程序"></a>编写一个MR程序</h3><hr>
+<h4 id="MapReduce相关文章链接"><a href="#MapReduce相关文章链接" class="headerlink" title="MapReduce相关文章链接"></a>MapReduce相关文章链接</h4><p><a href="https://yuumicat.github.io/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">MapReduce的基本原理和运行流程</a><br><a href="https://yuumicat.github.io/2018/12/04/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（一）</a><br><a href="https://yuumicat.github.io/2018/12/05/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（二）</a><br><a href="https://yuumicat.github.io/2018/12/07/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（三）</a><br><a href="https://yuumicat.github.io/2018/12/08/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%9B%9B%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（四）</a><br><a href="https://yuumicat.github.io/2018/12/09/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%94%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（五）</a><br><a href="https://yuumicat.github.io/2018/12/12/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AD%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（六）</a><br><a href="https://yuumicat.github.io/2018/12/16/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%83%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（七）</a><br><a href="https://yuumicat.github.io/2018/12/19/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AB%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（八）</a></p>
+<h4 id="数据需求"><a href="#数据需求" class="headerlink" title="数据需求"></a>数据需求</h4><p>用户每天在网站上产生的各种行为，比如浏览，下单，支付等，这些行为都会被网站记录下来，形成用户行为日志，并存储在HDFS上，日志格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2018</span>-<span class="number">06</span>-<span class="number">07</span> <span class="number">12</span>:<span class="number">27</span>:<span class="number">29.856</span>ΠpageviewΠ&#123;<span class="string">"device_id"</span>:<span class="string">"abnbeed"</span>, <span class="string">"user_id"</span>:<span class="string">"76415"</span>,<span class="string">"ip"</span>:<span class="string">"112.10.180.209"</span>,<span class="string">"session_id"</span>:<span class="string">"3393051"</span>,<span class="string">"req_url"</span>:<span class="string">"http://www.bigdataclass.com/category"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>拿到这些日志后，需要将这些字段解析出可以被数据仓库读取的序列化格式。最简单的，存成JSON格式，大数据中JSON格式不是最常用的数据格式，这里以JSON格式为例是因为它比较简单，易于处理。</p>
+<h4 id="开发环境准备"><a href="#开发环境准备" class="headerlink" title="开发环境准备"></a>开发环境准备</h4><ul>
+<li><p>java1.8环境</p>
+</li>
+<li><p>Hadoop环境</p>
+</li>
+<li><p>windows下hadoop本地开发环境（参考我另一篇博客）</p>
+</li>
+<li><p>IDEA开发工具</p>
+</li>
+<li><p>Maven项目管理工具</p>
+</li>
+<li><p>windows下ssh连接工具</p>
+<h4 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h4><p><a href="https://gitlab.com/yktceshi/testdata" target="_blank" rel="noopener">测试数据</a></p>
+<h4 id="pom-xml文件"><a href="#pom-xml文件" class="headerlink" title="pom.xml文件"></a>pom.xml文件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sourceDirectory</span>&gt;</span>src/main<span class="tag">&lt;/<span class="name">sourceDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>make-assembly<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>scope参数表示编译时需要这个jar包但是最终打包时不将这个jar包打包进去。 这样可以使我们的程序打包出来的jar包比较小。</p>
+</li>
+<li><p>org.apache.maven.plugins的maven-assembly-plugin可以将java程序打包成可执行的jar包。</p>
+</li>
+<li><p>descriptorRef用于设置打包出来的jar包的后缀名。</p>
+</li>
+<li><p>execution用于配置运行时的一些参数。</p>
+<h4 id="编写MR程序"><a href="#编写MR程序" class="headerlink" title="编写MR程序"></a>编写MR程序</h4><p>配置完pom文件并导入依赖后在src/main/java目录下建立com.bigdata.etl.job包，并在该包内创建<a href="\code\hadoop\MapReduce\编写一个MR程序\ParseLogJob.java">ParseLogJob.java</a>类,具体操作在代码文件中</p>
+<h4 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h4><h5 id="windows本地测试"><a href="#windows本地测试" class="headerlink" title="windows本地测试"></a>windows本地测试</h5><p>在代码中将输入和输出路径写死后点击运行即可</p>
+<h5 id="集群运行测试"><a href="#集群运行测试" class="headerlink" title="集群运行测试"></a>集群运行测试</h5></li>
+<li><p>使用maven工具进行打包</p>
+<p> mvn clean package命令或者idea插件自带的package工具都可以</p>
+</li>
+<li><p>将jar包上传至hadoop集群<br>  xftp、FileZilla等工具都可以</p>
+</li>
+<li><p>运行jar包执行任务<br> hadoop jar 【jar包目录】 com.bigdata.etl.job.ParseLogJob 【数据输入路径】 【数据输出路径】</p>
+</li>
+</ul>
+
     
 
     
@@ -1265,11 +1442,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
+                <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1277,7 +1454,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hive</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
