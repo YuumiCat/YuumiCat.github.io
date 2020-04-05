@@ -6,21 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://YuumiCat.com">
-  <title>Hive安装部署 | 韩勃然的博客</title>
+  <title>Tag: Scala | 韩勃然的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Hive安装部署 环境部署前置条件已经安装完成hadoop并启动 mysql安装mysql安装使用root用户 123456789101112131415161718192021222324#如果缺少libaio依赖则需要先安装依赖[root@black ~]# yum install libaio#查看是否已经安装了mysql[root@black ~]$ rpm -qa|grep mysql#">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hive安装部署">
-<meta property="og:url" content="http://yuumicat.com/2018/01/16/hive%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/index.html">
+  <meta name="description" content="blackdata,企业在职">
+<meta property="og:type" content="website">
+<meta property="og:title" content="韩勃然的博客">
+<meta property="og:url" content="http://yuumicat.com/tags/Scala/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="Hive安装部署 环境部署前置条件已经安装完成hadoop并启动 mysql安装mysql安装使用root用户 123456789101112131415161718192021222324#如果缺少libaio依赖则需要先安装依赖[root@black ~]# yum install libaio#查看是否已经安装了mysql[root@black ~]$ rpm -qa|grep mysql#">
+<meta property="og:description" content="blackdata,企业在职">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-01-16T12:36:10.000Z">
-<meta property="article:modified_time" content="2020-02-12T12:15:12.412Z">
 <meta property="article:author" content="YuumiCat">
-<meta property="article:tag" content="hive">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
@@ -176,240 +173,108 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hive安装部署" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2018/10/09/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" class="archive-article-date">
+        <time datetime="2018-10-09T11:19:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-09</time>
+</a>
+
+        </div>
+    	 
   
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/2018/10/09/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" target="_blank">Scala入门与实战</a>
   
-    <h1 class="article-title" itemprop="name">
-      Hive安装部署
     </h1>
   
 
 
-  
-  
-        
-        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
-              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
-        </span>
-
-<a href="/2018/01/16/hive%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-        <time datetime="2018-01-16T12:36:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-16</time>
-</a>
-
-  
-  
-    
-<div style="margin-top:10px;">
-  <span class="post-time">
-    <span class="post-meta-item-icon">
-      <!-- fonts.scss -->
-      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
-      <i class="icon-statistics"></i>
-      <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">671字</span>
-    </span>
-  </span>
-
-  <span class="post-time">
-    &nbsp; | &nbsp;
-    <span class="post-meta-item-icon">
-      <i class="icon-book icon"></i>
-      <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">3分</span>
-    </span>
-  </span>
-</div>
-
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="Hive安装部署"><a href="#Hive安装部署" class="headerlink" title="Hive安装部署"></a>Hive安装部署</h3><hr>
-<h4 id="环境部署前置条件"><a href="#环境部署前置条件" class="headerlink" title="环境部署前置条件"></a>环境部署前置条件</h4><p>已经安装完成hadoop并启动</p>
-<h4 id="mysql安装"><a href="#mysql安装" class="headerlink" title="mysql安装"></a>mysql安装</h4><p>mysql安装使用root用户</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">如果缺少libaio依赖则需要先安装依赖</span></span><br><span class="line">[root@black ~]# yum install libaio</span><br><span class="line"><span class="meta">#</span><span class="bash">查看是否已经安装了mysql</span></span><br><span class="line">[root@black ~]$ rpm -qa|grep mysql</span><br><span class="line"><span class="meta">#</span><span class="bash">如安装了则卸载</span></span><br><span class="line">[root@black ~]$ rpm -e --nodeps  mysql-libs-5.1.73-7.el6.x86_64</span><br><span class="line"><span class="meta">#</span><span class="bash">将安装包解压至app目录下</span></span><br><span class="line">[root@black app]$ unzip mysql-libs.zip</span><br><span class="line"><span class="meta">#</span><span class="bash">进入到mysql-libs文件夹下</span></span><br><span class="line">root@black mysql-libs]# cd mysql-libs/</span><br><span class="line"><span class="meta">#</span><span class="bash">安装mysql服务端</span></span><br><span class="line">[root@black mysql-libs]# rpm -ivh MySQL-server-5.6.24-1.el6.x86_64.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash">安装mysql客户端</span></span><br><span class="line">[root@black mysql-libs]# rpm -ivh MySQL-client-5.6.24-1.el6.x86_64.rpm</span><br><span class="line"><span class="meta">#</span><span class="bash">启动mysql</span></span><br><span class="line">[root@black mysql-libs]# service mysql start</span><br><span class="line">查看mysql默认的随机密码</span><br><span class="line">[root@black mysql-libs]# cat /root/.mysql_secret</span><br><span class="line"><span class="meta">#</span><span class="bash">连接mysql</span></span><br><span class="line">[root@black mysql-libs]# mysql -uroot -pCd2Zfh_k84Z8P6yT</span><br><span class="line"><span class="meta">#</span><span class="bash">修改密码为000000</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> SET PASSWORD=PASSWORD(<span class="string">'000000'</span>);</span></span><br><span class="line"><span class="meta">#</span><span class="bash">退出</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> quit;</span></span><br></pre></td></tr></table></figure>
-<h4 id="mysql配置"><a href="#mysql配置" class="headerlink" title="mysql配置"></a>mysql配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">连接mysql</span></span><br><span class="line">[root@black mysql-libs]# mysql -uroot -p000000</span><br><span class="line"><span class="meta">#</span><span class="bash">使用mysql数据库</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> use mysql;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">查看用户表内容</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> select User, Host, Password from user;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">修改user表，把Host表内容修改为%</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> update user <span class="built_in">set</span> host=<span class="string">'%'</span> <span class="built_in">where</span> host=<span class="string">'localhost'</span>;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">删除root用户的其他host</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> delete from user <span class="built_in">where</span> Host=<span class="string">'black'</span>;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> delete from user <span class="built_in">where</span> Host=<span class="string">'127.0.0.1'</span>;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> delete from user <span class="built_in">where</span> Host=<span class="string">'::1'</span>;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">刷新</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> flush privileges;</span></span><br></pre></td></tr></table></figure>
-<h4 id="hive安装与环境变量配置"><a href="#hive安装与环境变量配置" class="headerlink" title="hive安装与环境变量配置"></a>hive安装与环境变量配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">解压安装包至app目录</span></span><br><span class="line">[black@black software]$ tar -zxvf hive-1.1.0-cdh5.16.2.tar.gz -C ~/app/</span><br><span class="line"><span class="meta">#</span><span class="bash">设置软链接</span></span><br><span class="line">[black@black app]$ ln -s hive-1.1.0-cdh5.16.2/ hive</span><br><span class="line"><span class="meta">#</span><span class="bash">环境变量在安装hadoop时配完了所以省略了</span></span><br><span class="line"><span class="meta">#</span><span class="bash">解压并拷贝mysql驱动包至hive的lib目录</span></span><br><span class="line">[black@black mysql-connector-java-5.1.27]$ cp mysql-connector-java-5.1.27-bin.jar ~/app/hive/lib/</span><br></pre></td></tr></table></figure>
-<h5 id="hive-site-xml配置"><a href="#hive-site-xml配置" class="headerlink" title="hive-site.xml配置"></a>hive-site.xml配置</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">编辑hive-site.xml文件</span></span><br><span class="line">[black@black ~]$ vim ~/app/hive/conf/hive-site.xml</span><br><span class="line"><span class="meta">#</span><span class="bash">具体文件内容</span></span><br><span class="line">&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">          &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;jdbc:mysql://black:3306/hive?createDatabaseIfNotExist=true&amp;amp;useSSL=false&lt;/value&gt;</span><br><span class="line">          &lt;description&gt;JDBC connect string for a JDBC metastore&lt;/description&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">          &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">          &lt;description&gt;Driver class name for a JDBC metastore&lt;/description&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">          &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">          &lt;description&gt;username to use against metastore database&lt;/description&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">          &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;000000&lt;/value&gt;</span><br><span class="line">          &lt;description&gt;password to use against metastore database&lt;/description&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="metastore-hiveserver2服务启动"><a href="#metastore-hiveserver2服务启动" class="headerlink" title="metastore + hiveserver2服务启动"></a>metastore + hiveserver2服务启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">后台启动服务</span></span><br><span class="line">[black@black ~]$ nohup hive --service  metastore &gt; ~/log/metastore.log 2&gt;&amp;1 &amp;</span><br><span class="line">[black@black ~]$ nohup  hiveserver2  &gt; ~/log/hiveserver2.log 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash">测试hiveserver2服务</span></span><br><span class="line">[black@black log]$ beeline</span><br><span class="line"><span class="meta">beeline&gt;</span><span class="bash"> !connect jdbc:hive2://black:10000/default</span></span><br></pre></td></tr></table></figure>
-    
-
-    
-    <div class="page-reward">
-      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
-        <div class="tooltip tooltip-east">
-          <span class="tooltip-item">
-            赏
-          </span>
-          <span class="tooltip-content">
-            <span class="tooltip-text">
-              <span class="tooltip-inner">
-                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
-                    class="icon icon-quo-right"></i></p>
-                <div class="reward-box">
-                  
-                  
-                </div>
-              </span>
-            </span>
-          </span>
-        </div>
-      </a>
-    </div>
-    
-
-    
-    <div class="declare"> 
-      <ul class="post-copyright">
-        <li>
-          <strong>本文作者：</strong>
-          YuumiCat
-        </li>
-        <li>
-          <strong>本文链接：</strong>
-          <a href="http://YuumiCat.com/2018/01/16/hive安装部署/" title="Hive安装部署" target="_blank">http://YuumiCat.com/2018/01/16/hive安装部署/</a>
-        </li>
-        
-        <li>
-          <strong>版权声明： </strong>
+        <div class="article-info info-on-right">
           
-          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
-        </li>
-        
-      </ul>
-    </div>
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
         		</li>
       		
 		</ul>
 	</div>
 
-    
+          
 
-    
-
-    
-    
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a> -->
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2018/01/16/hive%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/" alt="微信分享二维码"> -->
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-
-    
-    <div class="clearfix"></div>
-  </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-<nav id="article-nav">
   
-    <a href="/2018/05/09/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%20junit/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          单元测试框架junit
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/01/10/hadoop%E5%8D%95%E6%9C%BA%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hadoop单机环境部署</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2018/10/09/Scala%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85/" class="archive-article-date">
+        <time datetime="2018-10-09T11:19:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-09</time>
+</a>
 
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-    </div>
-</aside>
+    	 
+  
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/2018/10/09/Scala%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85/" target="_blank">Scala简介与安装</a>
+  
+    </h1>
+  
 
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
+          
 
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
+  
 
-
-
-
-
-
-
-
+    
 
 
           </div>
@@ -450,9 +315,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

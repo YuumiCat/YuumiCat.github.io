@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="MapReduce的基本原理和运行流程 MR的设计起源 Google最早用 Map Reducef做搜索中的倒排索引  数据集可以分解成许多小的数据集  每一个小数据集都可以完全并行地进行处理 MR的优点 批处理PB级别数据(比如排序)  线性扩展  运行稳定,容错性高  可编程 map的运行过程&#x3D;&#x3D;运行过程&#x3D;&#x3D;  MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转">
+  <meta name="description" content="MapReduce的基本原理和运行流程 MR的设计起源 Google最早用 Map Reducef做搜索中的倒排索引  数据集可以分解成许多小的数据集  每一个小数据集都可以完全并行地进行处理 MR的优点 批处理PB级别数据(比如排序)  线性扩展  运行稳定,容错性高  可编程 map的运行过程 运行过程 MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转换成K-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MapReduce的基本原理和运行流程">
 <meta property="og:url" content="http://yuumicat.com/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="MapReduce的基本原理和运行流程 MR的设计起源 Google最早用 Map Reducef做搜索中的倒排索引  数据集可以分解成许多小的数据集  每一个小数据集都可以完全并行地进行处理 MR的优点 批处理PB级别数据(比如排序)  线性扩展  运行稳定,容错性高  可编程 map的运行过程&#x3D;&#x3D;运行过程&#x3D;&#x3D;  MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转">
+<meta property="og:description" content="MapReduce的基本原理和运行流程 MR的设计起源 Google最早用 Map Reducef做搜索中的倒排索引  数据集可以分解成许多小的数据集  每一个小数据集都可以完全并行地进行处理 MR的优点 批处理PB级别数据(比如排序)  线性扩展  运行稳定,容错性高  可编程 map的运行过程 运行过程 MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转换成K-">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yuumicat.com/images/map%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg">
 <meta property="og:image" content="http://yuumicat.com/images/Reduce%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg">
@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yuumicat.com/images/Yarn%E7%BB%93%E6%9E%84%E5%9B%BE.jpg">
 <meta property="og:image" content="http://yuumicat.com/images/MR_on_yarn.jpg">
 <meta property="article:published_time" content="2018-12-01T13:46:29.000Z">
-<meta property="article:modified_time" content="2020-02-12T12:12:12.352Z">
+<meta property="article:modified_time" content="2020-03-08T17:30:46.695Z">
 <meta property="article:author" content="YuumiCat">
 <meta property="article:tag" content="MapReduce">
 <meta name="twitter:card" content="summary">
@@ -251,8 +251,8 @@
 <li><p>运行稳定,容错性高</p>
 </li>
 <li><p>可编程</p>
-<h4 id="map的运行过程"><a href="#map的运行过程" class="headerlink" title="map的运行过程"></a>map的运行过程</h4><p><img src="/images/map%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" alt=""><br>==运行过程==</p>
-</li>
+<h4 id="map的运行过程"><a href="#map的运行过程" class="headerlink" title="map的运行过程"></a>map的运行过程</h4><p><img src="/images/map%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
+<h5 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h5></li>
 <li><p>MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转换成K-V形式，K默认为位置的偏移量，例如第一个字节偏移量是0，第三个字节的偏移量就是2，V则是读取的一行文本数据</p>
 </li>
 <li><p>转换成K-V形式数据后交由用户自定义的map函数处理，用户可以在map函数中编写业务逻辑</p>
@@ -260,8 +260,7 @@
 <li><p>map处理完成后数据后默认会对Key值进行hash，相同的Key会分到一个相同的Partition（分区），一类Partition对应一个Reduce</p>
 </li>
 </ul>
-<p>==补充说明==</p>
-<ul>
+<h5 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h5><ul>
 <li><p>Block是HDFS上的文件的存储单元，默认128M大小</p>
 </li>
 <li><p>MR框架中的Inputformat对象会通过Split函数对文件上的Block进行逻辑划分，也就是所谓的分片，其本身不包含数据，只包含指向这些数据的位置信息</p>
@@ -276,8 +275,8 @@
 <li><p>在Reduce中会将这些小的数据集合并成大的数据集并按照key值进行聚合，将value值作为迭代器交给用户使用</p>
 </li>
 <li><p>这些数据经过用户自定义的Reduce函数处理后会按照K-V的形式输出到指定的位置上</p>
-<h4 id="Shuffle过程"><a href="#Shuffle过程" class="headerlink" title="Shuffle过程"></a>Shuffle过程</h4><p>Shuffle过程处于map和reduce过程之间<br><img src="/images/Shuffle%E8%BF%87%E7%A8%8B.jpg" alt=""><br>==Map端:==</p>
-</li>
+<h4 id="Shuffle过程"><a href="#Shuffle过程" class="headerlink" title="Shuffle过程"></a>Shuffle过程</h4><p>Shuffle过程处于map和reduce过程之间<br><img src="/images/Shuffle%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
+<h5 id="Map端"><a href="#Map端" class="headerlink" title="Map端:"></a>Map端:</h5></li>
 <li><p>map函数处理完数据后会进入Collect阶段，此阶段将数据手机并放进环形绶冲区,缓冲区分为数据区和索引区，数据区包含具体的数据，索引区包含数据的位置。</p>
 </li>
 <li><p>在环形缓冲区中会进行Sort阶段，对在同一 Partition内的索引按照Key排序。当环形缓冲区中的数据达到一定比例时会进入Spill溢写阶段，根据排好序的索引将数据在各个分区内按顺序写到一个个小文件中</p>
@@ -285,8 +284,7 @@
 <li><p>溢写与排序完成后进入Merge合并阶段，此阶段会在后台启动一个线程将Spill生成的小文件分批合并排序成一个大文件。</p>
 </li>
 </ul>
-<p>==Reducel端==</p>
-<ul>
+<h5 id="Reducel端"><a href="#Reducel端" class="headerlink" title="Reducel端"></a>Reducel端</h5><ul>
 <li><p>map阶段处理完成后，Reduce会进入Copy阶段，将Map端的数据分批拷贝到 Reduce的Buffer缓冲区中。</p>
 </li>
 <li><p>Buffer缓冲区的数据达到一定比例后会进入Spil阶段，将内存缓冲区的数据按顺序写到小文件中。</p>
@@ -295,28 +293,23 @@
 <h4 id="Combine优化"><a href="#Combine优化" class="headerlink" title="Combine优化"></a>Combine优化</h4><p>Combine可以在Reduce聚合前提前对部分key的value值进行一次聚合，减少资源和网络带宽的开销</p>
 </li>
 </ul>
-<p>==Map端:==</p>
-<ul>
+<h5 id="Map端-1"><a href="#Map端-1" class="headerlink" title="Map端:"></a>Map端:</h5><ul>
 <li><p>在环形缓冲区中数据排序后,溢写到磁盘前,运行 Combiner，将部分相同key的value提前进行聚合</p>
 </li>
 <li><p>在合并溢出文件输出到磁盘之前,如果存在至少3个溢出文件,则运行 Combiner,可以通过min.num. spills.for. combine设置阈值</p>
 </li>
 </ul>
-<p>==Reducei端:==</p>
-<ul>
-<li>可以在合并溢出文件输出到磁盘之前,运行 combiner<h4 id="MR的整体运行过程图"><a href="#MR的整体运行过程图" class="headerlink" title="MR的整体运行过程图"></a>MR的整体运行过程图</h4><img src="/images/MR%E6%95%B4%E4%BD%93%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%BE.jpg" alt=""><h4 id="YARN组件介绍"><a href="#YARN组件介绍" class="headerlink" title="YARN组件介绍"></a>YARN组件介绍</h4><img src="/images/Yarn%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt=""><br>==Resource Manager==</li>
+<h5 id="Reducei端"><a href="#Reducei端" class="headerlink" title="Reducei端:"></a>Reducei端:</h5><ul>
+<li>可以在合并溢出文件输出到磁盘之前,运行 combiner<h4 id="MR的整体运行过程图"><a href="#MR的整体运行过程图" class="headerlink" title="MR的整体运行过程图"></a>MR的整体运行过程图</h4><img src="/images/MR%E6%95%B4%E4%BD%93%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%BE.jpg" alt=""><h4 id="YARN组件介绍"><a href="#YARN组件介绍" class="headerlink" title="YARN组件介绍"></a>YARN组件介绍</h4><img src="/images/Yarn%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt=""><h5 id="Resource-Manager"><a href="#Resource-Manager" class="headerlink" title="Resource Manager"></a>Resource Manager</h5></li>
 <li>主要职责是调度,对应用程序的整体进行资源分配。</li>
 </ul>
-<p>==Container==</p>
-<ul>
+<h5 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h5><ul>
 <li>单个节点上物理资源的集合,比如内存和CPU。</li>
 </ul>
-<p>==NodeManage==</p>
-<ul>
+<h5 id="NodeManage"><a href="#NodeManage" class="headerlink" title="NodeManage"></a>NodeManage</h5><ul>
 <li>管理 Container生命周期,资源使用情况,节点健康状况。</li>
 </ul>
-<p>==Application Master==</p>
-<ul>
+<h5 id="Application-Master"><a href="#Application-Master" class="headerlink" title="Application Master"></a>Application Master</h5><ul>
 <li><p>协调集群中的应用程序,与 ResourceManagert协商资源</p>
 <h4 id="MapReduce-on-Yarn"><a href="#MapReduce-on-Yarn" class="headerlink" title="MapReduce on Yarn"></a>MapReduce on Yarn</h4><p><img src="/images/MR_on_yarn.jpg" alt=""></p>
 </li>
@@ -633,6 +626,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
               </li>
              
@@ -641,7 +642,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
