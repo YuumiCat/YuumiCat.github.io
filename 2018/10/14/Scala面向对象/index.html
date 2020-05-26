@@ -6,22 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://YuumiCat.com">
-  <title>MapReduce编程实战（五） | 韩勃然的博客</title>
+  <title>Scala面向对象 | 韩勃然的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="blackdata,企业在职">
+  <meta name="description" content="Scala面向对象 一、Scala数据类型 1、基本数据类型    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型 2、字符串操作 Scala用底层的java.lang.String类来表示字符串。  通过StrigOps类给字符串追加了上百种操作。  Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用 3、数值">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapReduce编程实战（五）">
-<meta property="og:url" content="http://yuumicat.com/2018/12/09/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
+<meta property="og:title" content="Scala面向对象">
+<meta property="og:url" content="http://yuumicat.com/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="blackdata,企业在职">
+<meta property="og:description" content="Scala面向对象 一、Scala数据类型 1、基本数据类型    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型 2、字符串操作 Scala用底层的java.lang.String类来表示字符串。  通过StrigOps类给字符串追加了上百种操作。  Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用 3、数值">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-12-09T07:22:09.000Z">
-<meta property="article:modified_time" content="2020-02-12T12:22:16.033Z">
+<meta property="og:image" content="http://yuumicat.com/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg">
+<meta property="og:image" content="http://yuumicat.com/images/Scala%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B.jpg">
+<meta property="article:published_time" content="2018-10-14T10:32:38.000Z">
+<meta property="article:modified_time" content="2020-05-26T09:35:51.628Z">
 <meta property="article:author" content="YuumiCat">
-<meta property="article:tag" content="MapReduce">
+<meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yuumicat.com/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
   
@@ -176,14 +179,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MapReduce编程实战（五）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Scala面向对象" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      MapReduce编程实战（五）
+      Scala面向对象
     </h1>
   
 
@@ -195,8 +198,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2018/12/09/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%94%EF%BC%89/" class="archive-article-date">
-        <time datetime="2018-12-09T07:22:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-09</time>
+<a href="/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
+        <time datetime="2018-10-14T10:32:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-14</time>
 </a>
 
   
@@ -209,7 +212,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">0字</span>
+      <span class="post-count">2k字</span>
     </span>
   </span>
 
@@ -218,7 +221,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">1分</span>
+      <span class="post-count">8分</span>
     </span>
   </span>
 </div>
@@ -229,7 +232,137 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    
+    <h3 id="Scala面向对象"><a href="#Scala面向对象" class="headerlink" title="Scala面向对象"></a>Scala面向对象</h3><hr>
+<h4 id="一、Scala数据类型"><a href="#一、Scala数据类型" class="headerlink" title="一、Scala数据类型"></a>一、Scala数据类型</h4><p><img src="/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt="数据类型结构图"></p>
+<h5 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h5><p><img src="/images/Scala%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B.jpg" alt="常用数据类型"><br>    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型</p>
+<h5 id="2、字符串操作"><a href="#2、字符串操作" class="headerlink" title="2、字符串操作"></a>2、字符串操作</h5><ul>
+<li><p>Scala用底层的java.lang.String类来表示字符串。</p>
+</li>
+<li><p>通过StrigOps类给字符串追加了上百种操作。</p>
+</li>
+<li><p>Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用</p>
+<h5 id="3、数值类型相关操作"><a href="#3、数值类型相关操作" class="headerlink" title="3、数值类型相关操作"></a>3、数值类型相关操作</h5></li>
+<li><p>Scala提供了 RichInt、RichDouble、 Rich Char等。</p>
+</li>
+<li><p>Scala有 Bigint和 Bigdecimal类,用于任意大小(但有穷)的数字。可以用常规的数学操作符来操作它们。</p>
+<h4 id="二、Scala值与变量的声明"><a href="#二、Scala值与变量的声明" class="headerlink" title="二、Scala值与变量的声明"></a>二、Scala值与变量的声明</h4><h5 id="1、变量与常量"><a href="#1、变量与常量" class="headerlink" title="1、变量与常量"></a>1、变量与常量</h5></li>
+</ul>
+<p>使用val声明常量，使用var声明变量</p>
+<h5 id="2、基本语法"><a href="#2、基本语法" class="headerlink" title="2、基本语法"></a>2、基本语法</h5><ul>
+<li><p>val|var 变量名[:数据类型] = 初始值</p>
+</li>
+<li><p>Scala中声明值或者变量如果不做初始化会报错</p>
+</li>
+<li><p>Scala存在推断机制，可以根据初始值自动推断变量类型、但是递归调用无法推断，必须显式的写出数据类型</p>
+</li>
+<li><p>声明多个变量时可以采用 val|var 变量名1,变量名2 = 初始值 的写法，但是为了表达方便，一般每一行只声明一个变量</p>
+<h5 id="3、-声明变量过程中-的使用"><a href="#3、-声明变量过程中-的使用" class="headerlink" title="3、 声明变量过程中 _ 的使用"></a>3、 声明变量过程中 _ 的使用</h5></li>
+<li><p>在声明变量过程中 _  可以作为占位符进行使用，根据不同类型推导出不同类型默认值，此时必须声明类型，否则会由于无法推导报错</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var name:String &#x3D; _</span><br><span class="line">name: String &#x3D; null</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Int &#x3D; _</span><br><span class="line">num: Int &#x3D; 0</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Double &#x3D; _</span><br><span class="line">num: Double &#x3D; 0.0</span><br><span class="line"></span><br><span class="line">scala&gt; var boolean:Boolean &#x3D; _</span><br><span class="line">boolean: Boolean &#x3D; false</span><br></pre></td></tr></table></figure>
+<h4 id="三、函数与方法的定义和使用"><a href="#三、函数与方法的定义和使用" class="headerlink" title="三、函数与方法的定义和使用"></a>三、函数与方法的定义和使用</h4><h5 id="1、方法定义"><a href="#1、方法定义" class="headerlink" title="1、方法定义"></a>1、方法定义</h5><p>def 方法名 (参数列表):方法返回值类型={方法体}</p>
+<p>代码块最后一行的值就是方法体的返回值，可以省略return关键字，但是如果要在方法体中间便返回值则需要使用return关键字，例如在方法体中根据不同情况返回不同的值，此时则需要使用return关键字</p>
+<h5 id="2、方法的调用"><a href="#2、方法的调用" class="headerlink" title="2、方法的调用"></a>2、方法的调用</h5><p>不带参数的方法调用通常不使用（），例如StringOps类的 distinct方法便省略了（）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; &quot;hello&quot;.distinct</span><br><span class="line">res0: String &#x3D; helo</span><br></pre></td></tr></table></figure>
+<h5 id="3、静态方法"><a href="#3、静态方法" class="headerlink" title="3、静态方法"></a>3、静态方法</h5><p>Scala中是没有静态方法的，但是可以通过伴生对象的方式实现静态方法，如下所示，Object所修饰的类名与Class修饰的相同，Object Account则是Class Account的伴生对象，也就是说在scala中使用Object即可实现静态方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class Account&#123;</span><br><span class="line">	&#x2F;&#x2F;实例方法</span><br><span class="line">&#125;</span><br><span class="line">Object Account&#123;</span><br><span class="line">&#x2F;&#x2F;静态方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4、函数的定义"><a href="#4、函数的定义" class="headerlink" title="4、函数的定义"></a>4、函数的定义</h5><p>函数是一个对象，可以赋值给一个变量</p>
+<p>val 函数名=(参数列表)=&gt;{函数体}</p>
+<h5 id="5、方法转换函数"><a href="#5、方法转换函数" class="headerlink" title="5、方法转换函数"></a>5、方法转换函数</h5><p>方法可以转换成函数，通常有以下两种转换方式，但是函数不可以转换成方法</p>
+<ul>
+<li><p>val 函数名 = 方法名 _</p>
+</li>
+<li><p>在需要函数的地方提供一个方法，则此方法会自动转换成函数</p>
+<h5 id="6、方法与函数的区别"><a href="#6、方法与函数的区别" class="headerlink" title="6、方法与函数的区别"></a>6、方法与函数的区别</h5></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可以作为单独表达式单独存在</td>
+<td>只有参数为空的方法可以单独存在</td>
+</tr>
+<tr>
+<td>必须有参数列表</td>
+<td>可以没有参数列表</td>
+</tr>
+<tr>
+<td>函数名代表函数对象本身</td>
+<td>方法名代表方法调用</td>
+</tr>
+<tr>
+<td>函数不可转换成方法</td>
+<td>方法可以转换成函数</td>
+</tr>
+<tr>
+<td>函数可以作为参数传递</td>
+<td>方法在作为参数传递时会自动转换成函数</td>
+</tr>
+<tr>
+<td>#### 四、条件表达式</td>
+<td></td>
+</tr>
+<tr>
+<td>scala中的条件表达式与java中大致相同，均为if 和else表达式，不过scala也有自己的特性如下：</td>
+<td></td>
+</tr>
+<tr>
+<td>##### 1、条件表达式的值可以赋给变量</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (x&gt;0) s &#x3D; 1 else s &#x3D; -1</span><br><span class="line">&#x2F;&#x2F;也可以这样写</span><br><span class="line">val s &#x3D; if(x&gt;0) 1 else -1</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>##### 2、条件表达式返回的类型</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>如果分支的类型一致,则表达式的类型与分支类型一致</p>
+</li>
+<li><p>如果分支的类型不一致,则表达式的类型是分支类型的公共超类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val x &#x3D; 10</span><br><span class="line">x: Int &#x3D; 10</span><br><span class="line"></span><br><span class="line">scala&gt; val y &#x3D; if (x&gt;0) &quot;string&quot; else -1</span><br><span class="line">y: Any &#x3D; string</span><br></pre></td></tr></table></figure>
+<h5 id="3、else缺失的情况"><a href="#3、else缺失的情况" class="headerlink" title="3、else缺失的情况"></a>3、else缺失的情况</h5><p>if (x&gt;0) 1 等同于 if (x&gt;0) 1 else() 也就是说每个表达式都应该有值</p>
+<h4 id="五、循环表达式"><a href="#五、循环表达式" class="headerlink" title="五、循环表达式"></a>五、循环表达式</h4><h5 id="1、while循环表达式"><a href="#1、while循环表达式" class="headerlink" title="1、while循环表达式"></a>1、while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while (&#x2F;&#x2F;表达式)&#123;</span><br><span class="line">  &#x2F;&#x2F;循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、do-while循环表达式"><a href="#2、do-while循环表达式" class="headerlink" title="2、do while循环表达式"></a>2、do while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">&#x2F;&#x2F;循环体</span><br><span class="line">&#125; while (&#x2F;&#x2F;表达式)</span><br></pre></td></tr></table></figure>
+<h5 id="3、Range介绍与使用"><a href="#3、Range介绍与使用" class="headerlink" title="3、Range介绍与使用"></a>3、Range介绍与使用</h5></li>
+<li><p>Range类介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F;Range的三个参数为开始字段，结束字段和步长，步长省略情况下默认为1，但不能为0，否则报错</span><br><span class="line">class Range(val start : scala.Int, val end : scala.Int, val step : scala.Int)</span><br></pre></td></tr></table></figure></li>
+<li><p>Range用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这种用法得到的是Range，特点是左闭右开</span><br><span class="line">scala&gt; Range(1,10)</span><br><span class="line">res3: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;带步长的使用示例</span><br><span class="line">scala&gt; Range(1,10,2)</span><br><span class="line">res4: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为负数的使用示例</span><br><span class="line">scala&gt; Range(10,-1,-1)</span><br><span class="line">res6: scala.collection.immutable.Range &#x3D; Range(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)</span><br></pre></td></tr></table></figure></li>
+<li><p>until用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此种写法底层调用了Range,因此得到的依然是Range，特点是左闭右开</span><br><span class="line">scala&gt; 1 until 10</span><br><span class="line">res5: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br></pre></td></tr></table></figure></li>
+<li><p>to用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; 1 to 10</span><br><span class="line">res1: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;两种编写方法等价，表示1调用to方法并将10作为参数传入，得到的是一个Range.Inclusive，特点是左闭右闭</span><br><span class="line">scala&gt; 1.to(10)</span><br><span class="line">res2: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为2的写法，但是开发过程中慎用，只要遇到了能看懂即可</span><br><span class="line">scala&gt; 1 to 10 by 2</span><br><span class="line">res7: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br></pre></td></tr></table></figure>
+<h5 id="4、for循环表达式"><a href="#4、for循环表达式" class="headerlink" title="4、for循环表达式"></a>4、for循环表达式</h5></li>
+<li><p>循环语法</p>
+<p>  for (i&lt;-Range){<br>  循环体<br>}</p>
+</li>
+<li><p>嵌套循环</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   for (i &lt;- 1 to 3;j &lt;- 1 to 3)&#123;</span><br><span class="line">     println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的双重for循环</span><br><span class="line"></span><br><span class="line">   for(i &lt;- 1 to 3)&#123;</span><br><span class="line">     for (j &lt;- 1 to 3)&#123;</span><br><span class="line">       println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>循环守卫</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">     for (i &lt;- 1 to 3 if i !&#x3D; 2)&#123;</span><br><span class="line">       println(i + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">  </span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">     for (i&lt;- 1 to 3)&#123;</span><br><span class="line">       if (i !&#x3D; 2)&#123;println(i + &quot;&quot;)&#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入变量</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   for (i&lt;- 1 to 3;from &#x3D; 4 - i;j &lt;- from to 3 )&#123;</span><br><span class="line">     println((2 * i + j) + &quot;&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">   for (i &lt;- 1 to 3)&#123;</span><br><span class="line">     var from &#x3D; 4 - i</span><br><span class="line">     for (j &lt;- from to 3)&#123;</span><br><span class="line">       println((2 * i + j) + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>退出循环</p>
+<p>  使用 Boolean型的控制变量</p>
+<p> 使用嵌套函数一可以从函数中 return</p>
+<p> 使用 Breaks对象中的 break方法</p>
+<h4 id="六、scala中的参数"><a href="#六、scala中的参数" class="headerlink" title="六、scala中的参数"></a>六、scala中的参数</h4><h5 id="1、默认参数"><a href="#1、默认参数" class="headerlink" title="1、默认参数"></a>1、默认参数</h5><p>方法定义时指定默认参数值,调用时可以不传递参数</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法中指定了name默认为hello</span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   sayHello()</span><br><span class="line"> &#125;</span><br><span class="line"> def sayHello(name:String &#x3D; &quot;hello&quot;): Unit &#x3D;&#123;</span><br><span class="line">   println(name)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、可变参数"><a href="#2、可变参数" class="headerlink" title="2、可变参数"></a>2、可变参数</h5><p>定义方法时允许指定最后一个参数可以重复(变长参数)</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法定义了一个求和方法，利用可变长参数实现不论传入多少个参数都可以将参数相加</span><br><span class="line"></span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   println(sum(1,2))</span><br><span class="line">   println(sum(1,2,3))</span><br><span class="line">   println(sum(1,2,3,4))</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这个是特殊语法，如果直接写1 to 10 则会因为其是一个Rang类型出现与需要传入的类型不匹配的错误，使用 : _* 可以解决这个问题，暂时理解为类型自动转换</span><br><span class="line"> println(sum(1 to 10: _*))</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> def sum(nums:Int*) &#x3D;&#123;</span><br><span class="line">   var result &#x3D; 0</span><br><span class="line">   for (num &lt;- nums)&#123;</span><br><span class="line">     result +&#x3D; num</span><br><span class="line">   &#125;</span><br><span class="line">   result</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
     
 
     
@@ -265,7 +398,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://YuumiCat.com/2018/12/09/MapReduce编程实战（五）/" title="MapReduce编程实战（五）" target="_blank">http://YuumiCat.com/2018/12/09/MapReduce编程实战（五）/</a>
+          <a href="http://YuumiCat.com/2018/10/14/Scala面向对象/" title="Scala面向对象" target="_blank">http://YuumiCat.com/2018/10/14/Scala面向对象/</a>
         </li>
         
         <li>
@@ -287,7 +420,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MapReduce</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
         		</li>
       		
 		</ul>
@@ -343,7 +476,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2018/12/09/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%94%EF%BC%89/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -358,18 +491,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2018/12/12/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AD%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/10/14/Scala%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          MapReduce编程实战（六）
+          Scala中的集合
         
       </div>
     </a>
   
   
-    <a href="/2018/12/08/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%9B%9B%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MapReduce编程实战（四）</div>
+    <a href="/2018/10/11/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Scala入门与实战</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -535,11 +668,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,7 +680,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -180,7 +180,7 @@
             
 
   
-    <article id="post-MapReduce编程实战（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Scala中的集合" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -188,7 +188,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2018/12/04/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank">MapReduce编程实战（一）</a>
+	  <a class="article-title" href="/2018/10/14/Scala%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88/" target="_blank">Scala中的集合</a>
   
     </h1>
   
@@ -196,8 +196,8 @@
 
   
   
-<a href="/2018/12/04/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-        <time datetime="2018-12-04T13:30:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
+<a href="/2018/10/14/Scala%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88/" class="archive-article-date">
+        <time datetime="2018-10-14T13:06:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-14</time>
 </a>
 
   
@@ -209,42 +209,50 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="编写一个MR程序"><a href="#编写一个MR程序" class="headerlink" title="编写一个MR程序"></a>编写一个MR程序</h3><hr>
-<h4 id="MapReduce相关文章链接"><a href="#MapReduce相关文章链接" class="headerlink" title="MapReduce相关文章链接"></a>MapReduce相关文章链接</h4><p><a href="https://yuumicat.github.io/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">MapReduce的基本原理和运行流程</a><br><a href="https://yuumicat.github.io/2018/12/04/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（一）</a><br><a href="https://yuumicat.github.io/2018/12/05/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%8C%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（二）</a><br><a href="https://yuumicat.github.io/2018/12/07/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%89%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（三）</a><br><a href="https://yuumicat.github.io/2018/12/08/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%9B%9B%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（四）</a><br><a href="https://yuumicat.github.io/2018/12/09/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%BA%94%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（五）</a><br><a href="https://yuumicat.github.io/2018/12/12/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AD%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（六）</a><br><a href="https://yuumicat.github.io/2018/12/16/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%83%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（七）</a><br><a href="https://yuumicat.github.io/2018/12/19/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E5%85%AB%EF%BC%89/" target="_blank" rel="noopener">MapReduce编程实战（八）</a></p>
-<h4 id="数据需求"><a href="#数据需求" class="headerlink" title="数据需求"></a>数据需求</h4><p>用户每天在网站上产生的各种行为，比如浏览，下单，支付等，这些行为都会被网站记录下来，形成用户行为日志，并存储在HDFS上，日志格式如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2018</span>-<span class="number">06</span>-<span class="number">07</span> <span class="number">12</span>:<span class="number">27</span>:<span class="number">29.856</span>ΠpageviewΠ&#123;<span class="string">"device_id"</span>:<span class="string">"abnbeed"</span>, <span class="string">"user_id"</span>:<span class="string">"76415"</span>,<span class="string">"ip"</span>:<span class="string">"112.10.180.209"</span>,<span class="string">"session_id"</span>:<span class="string">"3393051"</span>,<span class="string">"req_url"</span>:<span class="string">"http://www.bigdataclass.com/category"</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>拿到这些日志后，需要将这些字段解析出可以被数据仓库读取的序列化格式。最简单的，存成JSON格式，大数据中JSON格式不是最常用的数据格式，这里以JSON格式为例是因为它比较简单，易于处理。</p>
-<h4 id="开发环境准备"><a href="#开发环境准备" class="headerlink" title="开发环境准备"></a>开发环境准备</h4><ul>
-<li><p>java1.8环境</p>
+    <h4 id="scala的集合"><a href="#scala的集合" class="headerlink" title="scala的集合"></a>scala的集合</h4><hr>
+<h4 id="scala的集合体系"><a href="#scala的集合体系" class="headerlink" title="scala的集合体系"></a>scala的集合体系</h4><p><img src="/images/Scala%E9%9B%86%E5%90%88%E4%BD%93%E7%B3%BB.jpg" alt=""><br>集合主要分两大类：不可变/immutable   可变/mutable，可以在scalaSDK的集合包下面查看</p>
+<h4 id="scala的操作符"><a href="#scala的操作符" class="headerlink" title="scala的操作符"></a>scala的操作符</h4><p><img src="/images/Scala%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88%E6%93%8D%E4%BD%9C%E7%AC%A6.jpg" alt=""></p>
+<h4 id="scala中的集合详解"><a href="#scala中的集合详解" class="headerlink" title="scala中的集合详解"></a>scala中的集合详解</h4><h5 id="Array类型集合（immutable）"><a href="#Array类型集合（immutable）" class="headerlink" title="Array类型集合（immutable）"></a>Array类型集合（immutable）</h5><ul>
+<li>类型定义<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这段源码代表使用Array可以用new来创建对象并可以规定好存放数据的类型和长度</span><br><span class="line">final class Array[T](_length : scala.Int) </span><br><span class="line">&#x2F;&#x2F;创建Array集合对象并规定数据类型为String，长度为4，数据默认值为null</span><br><span class="line">scala&gt; var a &#x3D; new Array[String](4)</span><br><span class="line">a: Array[String] &#x3D; Array(null, null, null, null)</span><br></pre></td></tr></table></figure></li>
+<li>给集合赋值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; a(0) &#x3D; &quot;han&quot;</span><br><span class="line">scala&gt; a(1) &#x3D; &quot;black&quot;</span><br><span class="line">scala&gt; a</span><br><span class="line">res6: Array[String] &#x3D; Array(han, black, null, null)</span><br><span class="line">&#x2F;&#x2F;如果不设置集合元素的具体类型默认为Nothing</span><br><span class="line">scala&gt; var b &#x3D; new Array(3)</span><br><span class="line">b: Array[Nothing] &#x3D; Array(null, null, null)</span><br></pre></td></tr></table></figure></li>
+<li>Array中的Apply方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;因为Array源码中存在Apply方法，因此可以通过 Array(参数)的方式调用其伴生对象的Apply方法来创建对象，并且会根据传入的参数自动判断数据类型</span><br><span class="line">scala&gt; var c &#x3D; Array(&quot;han&quot;,&quot;black&quot;)</span><br><span class="line">c: Array[String] &#x3D; Array(han, black)</span><br></pre></td></tr></table></figure></li>
+<li>迭代集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;foreach进行迭代</span><br><span class="line">scala&gt; c.foreach(x &#x3D;&gt; println(x))</span><br><span class="line">han</span><br><span class="line">black</span><br><span class="line">&#x2F;&#x2F;for循环进行迭代</span><br><span class="line">scala&gt; for(ele &lt;- c) println(ele)</span><br><span class="line">han</span><br><span class="line">black</span><br><span class="line">&#x2F;&#x2F;for循环进行倒叙迭代</span><br><span class="line">scala&gt; for(ele &lt;- c.reverse) println(ele)</span><br><span class="line">black</span><br><span class="line">han</span><br></pre></td></tr></table></figure></li>
+<li>两个Array集合相加<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var a1 &#x3D; Array(1,2)</span><br><span class="line">a1: Array[Int] &#x3D; Array(1, 2)</span><br><span class="line"></span><br><span class="line">scala&gt; var a2 &#x3D; Array(3,4)</span><br><span class="line">a2: Array[Int] &#x3D; Array(3, 4)</span><br><span class="line"></span><br><span class="line">scala&gt; a1 ++ a2</span><br><span class="line">res8: Array[Int] &#x3D; Array(1, 2, 3, 4)</span><br></pre></td></tr></table></figure></li>
+<li>Array中的常用操作方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var num &#x3D; Array(1,2,3,4)</span><br><span class="line">num: Array[Int] &#x3D; Array(1, 2, 3, 4)</span><br><span class="line">&#x2F;&#x2F;求长度</span><br><span class="line">scala&gt; num.length</span><br><span class="line">res15: Int &#x3D; 4</span><br><span class="line">&#x2F;&#x2F;集合内元素求和</span><br><span class="line">scala&gt; num.sum</span><br><span class="line">res16: Int &#x3D; 10</span><br><span class="line">&#x2F;&#x2F;求最大值</span><br><span class="line">scala&gt; num.max</span><br><span class="line">res17: Int &#x3D; 4</span><br><span class="line">&#x2F;&#x2F;求最小值</span><br><span class="line">scala&gt; num.min</span><br><span class="line">res18: Int &#x3D; 1</span><br><span class="line">&#x2F;&#x2F;转换成字符串</span><br><span class="line">scala&gt; num.mkString</span><br><span class="line">res19: String &#x3D; 1234</span><br><span class="line">&#x2F;根据参入的参数加入分隔符的字符串</span><br><span class="line">scala&gt; num.mkString(&quot;,&quot;)</span><br><span class="line">res20: String &#x3D; 1,2,3,4</span><br><span class="line">&#x2F;&#x2F;第一参数是开始位置，第二个参数是分隔符，第三个参数是结束位置</span><br><span class="line">scala&gt; num.mkString(&quot;&lt;&quot;,&quot;,&quot;,&quot;&gt;&quot;)</span><br><span class="line">res21: String &#x3D; &lt;1,2,3,4&gt;</span><br><span class="line">&#96;&#96;&#96; </span><br><span class="line">##### ArrayBuffer类型集合（mutable）</span><br><span class="line">默认长度为16</span><br><span class="line"> - ArrayBuffer类型定义</span><br><span class="line">&#96;&#96;&#96;scala?linenums</span><br><span class="line">class ArrayBuffer[A](protected override val initialSize : scala.Int)</span><br></pre></td></tr></table></figure></li>
+<li>ArrayBuffer常用操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;要使用ArrayBuffer需要先导入包</span><br><span class="line">scala&gt; import scala.collection.mutable.ArrayBuffer</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;创建ArrayBuffer</span><br><span class="line">scala&gt; val ab &#x3D; ArrayBuffer[Int]()</span><br><span class="line">ab: scala.collection.mutable.ArrayBuffer[Int] &#x3D; ArrayBuffer()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;ArrayBuffer添加单个元素操作</span><br><span class="line">scala&gt; ab +&#x3D; 1</span><br><span class="line">res0: ab.type &#x3D; ArrayBuffer(1)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;ArrayBuffer添加Tuple类型元素操作</span><br><span class="line">scala&gt; ab +&#x3D; (3,4,5)</span><br><span class="line">res1: ab.type &#x3D; ArrayBuffer(1, 3, 4, 5)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;ArrayBuffer添加Array类型元素操作</span><br><span class="line">scala&gt; ab ++&#x3D; Array(6,7)</span><br><span class="line">res2: ab.type &#x3D; ArrayBuffer(1, 3, 4, 5, 6, 7)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;指定位置添加元素操作，下标1的位置添加元素2</span><br><span class="line">scala&gt; ab.insert(1,2)</span><br><span class="line">scala&gt; ab</span><br><span class="line">res4: scala.collection.mutable.ArrayBuffer[Int] &#x3D; ArrayBuffer(1, 2, 3, 4, 5, 6, 7)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;指定位置移除元素，下标为1的元素移除</span><br><span class="line">scala&gt; ab.remove(1)</span><br><span class="line">res6: Int &#x3D; 2</span><br><span class="line">scala&gt; ab</span><br><span class="line">res7: scala.collection.mutable.ArrayBuffer[Int] &#x3D; ArrayBuffer(1, 3, 4, 5, 6, 7)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;移除下标0-3位置的元素，不包含3</span><br><span class="line">scala&gt; ab.remove(0,3)</span><br><span class="line">scala&gt; ab</span><br><span class="line">res9: scala.collection.mutable.ArrayBuffer[Int] &#x3D; ArrayBuffer(5, 6, 7)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;从集合尾部移除2个元素</span><br><span class="line">scala&gt; ab.trimEnd(2)</span><br><span class="line">scala&gt; ab</span><br><span class="line">res11: scala.collection.mutable.ArrayBuffer[Int] &#x3D; ArrayBuffer(5)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;转换成Array定长集合</span><br><span class="line">scala&gt; ab.toArray</span><br><span class="line">res12: Array[Int] &#x3D; Array(5)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Array转换成ArrayBuffer变长集合</span><br><span class="line">scala&gt; ab.toBuffer</span><br><span class="line">res13: scala.collection.mutable.Buffer[Int] &#x3D; ArrayBuffer(5)</span><br></pre></td></tr></table></figure>
+<h4 id="List集合（immutable）"><a href="#List集合（immutable）" class="headerlink" title="List集合（immutable）"></a>List集合（immutable）</h4></li>
+<li>List类型定义<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;源码中的类型定义</span><br><span class="line">sealed abstract class List[+A]()</span><br><span class="line">&#x2F;&#x2F;面试题：Nil是什么？答：是一个case object,返回一个不可变的List()集合</span><br><span class="line">scala&gt; Nil</span><br><span class="line">res15: scala.collection.immutable.Nil.type &#x3D; List()</span><br></pre></td></tr></table></figure></li>
+<li>List中的head与tail<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val l &#x3D; List(1,2,3,4,5,6)</span><br><span class="line">l: List[Int] &#x3D; List(1, 2, 3, 4, 5, 6)</span><br><span class="line">&#x2F;&#x2F;获取集合中第一个元素</span><br><span class="line">scala&gt; l.head</span><br><span class="line">res16: Int &#x3D; 1</span><br><span class="line">&#x2F;&#x2F;获取集合中第一个元素之外的元素</span><br><span class="line">scala&gt; l.tail</span><br><span class="line">res17: List[Int] &#x3D; List(2, 3, 4, 5, 6)</span><br><span class="line">scala&gt; l.tail.tail</span><br><span class="line">res18: List[Int] &#x3D; List(3, 4, 5, 6)</span><br></pre></td></tr></table></figure></li>
+<li>List中增加元素<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将新的元素增加到集合的最后，需要注意的是原集合的值是不变的，仅仅是生成了一个新的集合</span><br><span class="line">scala&gt; val l2 &#x3D; l :+ 8</span><br><span class="line">l2: List[Int] &#x3D; List(1, 2, 3, 4, 5, 6, 8)</span><br><span class="line">&#x2F;&#x2F;在元素的最前面追加元素</span><br><span class="line">scala&gt; val l1 &#x3D; 1 :: Nil</span><br><span class="line">l1: List[Int] &#x3D; List(1)</span><br><span class="line"></span><br><span class="line">scala&gt; val l2 &#x3D; 2 :: l1</span><br><span class="line">l2: List[Int] &#x3D; List(2, 1)</span><br><span class="line"></span><br><span class="line">scala&gt; val l3 &#x3D; 1 :: 2 :: 3 :: Nil</span><br><span class="line">l3: List[Int] &#x3D; List(1, 2, 3)</span><br></pre></td></tr></table></figure>
+<h4 id="ListBuffer（mutable）"><a href="#ListBuffer（mutable）" class="headerlink" title="ListBuffer（mutable）"></a>ListBuffer（mutable）</h4></li>
+<li>ListBuffer常用操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;首先需要导包</span><br><span class="line">scala&gt; import scala.collection.mutable.ListBuffer</span><br><span class="line">import scala.collection.mutable.ListBuffer</span><br><span class="line">&#x2F;&#x2F;创建集合</span><br><span class="line">scala&gt; val lb &#x3D; ListBuffer(1,2,3,4,5,6,7)</span><br><span class="line">lb: scala.collection.mutable.ListBuffer[Int] &#x3D; ListBuffer(1, 2, 3, 4, 5, 6, 7)</span><br><span class="line">&#x2F;&#x2F;在后面追加tuple类型的元素</span><br><span class="line">scala&gt; lb +&#x3D; (8,9,10)</span><br><span class="line">res19: lb.type &#x3D; ListBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line">&#x2F;&#x2F;在后面追加List类型的元素</span><br><span class="line">scala&gt; lb ++&#x3D; List(12,13,14)</span><br><span class="line">res20: lb.type &#x3D; ListBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14)</span><br><span class="line">&#x2F;&#x2F;去掉Tuple类型的元素，需要注意的是并非是按照下标来去掉元素</span><br><span class="line">scala&gt; lb -&#x3D; (12,14)</span><br><span class="line">res21: lb.type &#x3D; ListBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13)</span><br><span class="line">&#x2F;&#x2F;去掉List类型的元素</span><br><span class="line">scala&gt; lb --&#x3D; List(10,13)</span><br><span class="line">res22: lb.type &#x3D; ListBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br><span class="line">&#x2F;&#x2F;转换成List类型</span><br><span class="line">scala&gt; lb.toList</span><br><span class="line">res23: List[Int] &#x3D; List(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br><span class="line">&#x2F;&#x2F;转换回Buffer类型</span><br><span class="line">scala&gt; lb.toBuffer</span><br><span class="line">res24: scala.collection.mutable.Buffer[Int] &#x3D; ArrayBuffer(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br></pre></td></tr></table></figure>
+<h5 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h5></li>
+<li>类型定义<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Queue[+A]</span><br></pre></td></tr></table></figure></li>
+<li>常见操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;导包，本次使用可变的队列示范，实际上还有不可变的队列</span><br><span class="line">scala&gt; import scala.collection.mutable.Queue</span><br><span class="line">&#x2F;&#x2F;创建一个队列并指定类型</span><br><span class="line">scala&gt; var q1 &#x3D; new Queue[Int]</span><br><span class="line">q1: scala.collection.mutable.Queue[Int] &#x3D; Queue()</span><br><span class="line">&#x2F;&#x2F;添加一个元素</span><br><span class="line">scala&gt; q1 +&#x3D; 10</span><br><span class="line">res0: scala.collection.mutable.Queue[Int] &#x3D; Queue(10)</span><br><span class="line">&#x2F;&#x2F;添加一个集合做为元素，按照先后添加的顺序排在第一个元素后面</span><br><span class="line">scala&gt; q1 ++&#x3D; List(2,3,4,5)</span><br><span class="line">res1: scala.collection.mutable.Queue[Int] &#x3D; Queue(10, 2, 3, 4, 5)</span><br><span class="line">&#x2F;&#x2F;这个方法为添加元素，可以一个也可以多个</span><br><span class="line">scala&gt; q1 enqueue(2,6)</span><br><span class="line">&#x2F;&#x2F;查看头部的元素，并不会将元素删除</span><br><span class="line">scala&gt; q1.head</span><br><span class="line">res3: Int &#x3D; 10</span><br><span class="line">&#x2F;查看头部之外的元素，并不会将元素删除</span><br><span class="line">scala&gt; q1.tail</span><br><span class="line">res4: scala.collection.mutable.Queue[Int] &#x3D; Queue(2, 3, 4, 5, 2, 6)</span><br><span class="line">&#x2F;查看尾部的元素，并不会将元素删除</span><br><span class="line">scala&gt; q1.last</span><br><span class="line">res6: Int &#x3D; 6</span><br><span class="line">&#x2F;&#x2F;取出第一个元素同时将队列中的此元素删除</span><br><span class="line">scala&gt; q1 dequeue</span><br><span class="line">warning: there was one feature warning; re-run with -feature for details</span><br><span class="line">res8: Int &#x3D; 10</span><br><span class="line">scala&gt; q1</span><br><span class="line">res9: scala.collection.mutable.Queue[Int] &#x3D; Queue(2, 3, 4, 5, 2, 6)</span><br></pre></td></tr></table></figure>
+<h5 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h5></li>
+<li>Set存储的是无序不重复的元素，因此可以用来去重操作</li>
+<li>Set默认为不可变的，导入可变的包后创建的Set则默认为可变的</li>
+<li>可变的Set可以使用+=、++= 等符号以及add、remove等API进行操作，不可变Set则没有add、remove等API</li>
+<li>常见操作示例如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var s1 &#x3D; Set(1,1,2,3,4)</span><br><span class="line">s1: scala.collection.immutable.Set[Int] &#x3D; Set(1, 2, 3, 4)</span><br><span class="line">scala&gt; s1 +&#x3D; 12</span><br><span class="line">scala&gt; s1 ++&#x3D; List(3,9,2,5)</span><br><span class="line">scala&gt; s1</span><br><span class="line">res7: scala.collection.immutable.Set[Int] &#x3D; Set(5, 1, 9, 2, 12, 3, 4)</span><br><span class="line">&#x2F;&#x2F;因为是不可变的Set因此无法使用add</span><br><span class="line">scala&gt; s1.add(11)</span><br><span class="line">&lt;console&gt;:13: error: value add is not a member of scala.collection.immutable.Set[Int]</span><br><span class="line">       s1.add(11)</span><br><span class="line">          ^</span><br><span class="line">scala&gt; import  scala.collection.mutable.Set</span><br><span class="line">import scala.collection.mutable.Set</span><br><span class="line">scala&gt; var s2 &#x3D; Set(3,5,9,8,8)</span><br><span class="line">s2: scala.collection.mutable.Set[Int] &#x3D; Set(9, 5, 3, 8)</span><br><span class="line">scala&gt; s2.add(11)</span><br><span class="line">res12: Boolean &#x3D; true</span><br><span class="line">scala&gt; s2.remove(5)</span><br><span class="line">res15: Boolean &#x3D; true</span><br></pre></td></tr></table></figure>
+<h5 id="Tuple"><a href="#Tuple" class="headerlink" title="Tuple"></a>Tuple</h5></li>
+<li>能存储多种类型的数据</li>
+<li>默认情况下最多可以存储22个元素</li>
+<li>Tuple的创建与操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;最长用的Tuple创建方式</span><br><span class="line">scala&gt; var t1 &#x3D; (1,5,6,&quot;yummi&quot;)</span><br><span class="line">t1: (Int, Int, Int, String) &#x3D; (1,5,6,yummi)</span><br><span class="line">&#x2F;&#x2F;创建固定元素个数的Tuple，元素个数不能超过Tuple3里面的3个</span><br><span class="line">scala&gt; var t2 &#x3D; new Tuple3(1,2,&quot;h&quot;)</span><br><span class="line">t2: (Int, Int, String) &#x3D; (1,2,h)</span><br><span class="line">&#x2F;&#x2F;特殊的创建方式，会读即可</span><br><span class="line">scala&gt; val t3 &#x3D; 1 -&gt; &quot;yummi&quot;</span><br><span class="line">t3: (Int, String) &#x3D; (1,yummi)</span><br><span class="line">scala&gt; val t4 &#x3D; 1-&gt; 2 -&gt; &quot;yummi&quot;</span><br><span class="line">t4: ((Int, Int), String) &#x3D; ((1,2),yummi)</span><br><span class="line">&#x2F;&#x2F;取出Tuple中的元素，使用_下标的方式，下标从1开始</span><br><span class="line">scala&gt; t1._4</span><br><span class="line">res17: String &#x3D; yummi</span><br><span class="line">&#x2F;&#x2F;Tuple的遍历操作</span><br><span class="line">    val t5 &#x3D; (&quot;h&quot;,1,&quot;9&quot;,48)</span><br><span class="line">    for(i&lt;- 0 until t5.productArity)&#123;</span><br><span class="line">      println(t5.productElement(i))</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h5><ul>
+<li>Map也是默认不可变集合，如需要是用可变集合需要导入包</li>
+<li>Map的常见操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">  val m1 &#x3D; Map(&quot;1&quot;-&gt;&quot;han&quot;,&quot;2&quot;-&gt;&quot;bo&quot;)</span><br><span class="line">  &#x2F;&#x2F;增加元素</span><br><span class="line">  m1 +&#x3D; (&quot;3&quot;-&gt;&quot;ran&quot;)</span><br><span class="line">  &#x2F;&#x2F;查看是否存在2这个key，返回的是布尔值</span><br><span class="line">  val boon &#x3D; m1.contains(&quot;2&quot;)</span><br><span class="line">  &#x2F;&#x2F;获取key为9对应的value，如果没有这个key则返回 _ </span><br><span class="line">  println(m1.getOrElse(&quot;9&quot;,&quot;_&quot;))</span><br><span class="line">  &#x2F;&#x2F;将Map集合遍历成Tuple</span><br><span class="line">  for ((k,y)&lt;-m1)&#123;</span><br><span class="line">    println(k +&quot;-&gt;&quot; + y)</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;将Map通过key遍历获取value的方式，返回的是Some(value)</span><br><span class="line">  for(k &lt;- m1.keySet)&#123;</span><br><span class="line">    println(k + &quot;-&gt;&quot; + m1.get(k))</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;直接遍历value</span><br><span class="line">  for (v &lt;- m1.values)&#123;</span><br><span class="line">    println(v)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Option"><a href="#Option" class="headerlink" title="Option"></a>Option</h5><ul>
+<li><p>三个方法</p>
+<p> isEmpty()  判断值是否为空</p>
+<p> get()/getOrElse() 获取值</p>
 </li>
-<li><p>Hadoop环境</p>
-</li>
-<li><p>windows下hadoop本地开发环境（参考我另一篇博客）</p>
-</li>
-<li><p>IDEA开发工具</p>
-</li>
-<li><p>Maven项目管理工具</p>
-</li>
-<li><p>windows下ssh连接工具</p>
-<h4 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h4><p><a href="https://gitlab.com/yktceshi/testdata" target="_blank" rel="noopener">测试数据</a></p>
-<h4 id="pom-xml文件"><a href="#pom-xml文件" class="headerlink" title="pom.xml文件"></a>pom.xml文件</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sourceDirectory</span>&gt;</span>src/main<span class="tag">&lt;/<span class="name">sourceDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">descriptorRef</span>&gt;</span>jar-with-dependencies<span class="tag">&lt;/<span class="name">descriptorRef</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">descriptorRefs</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>make-assembly<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>scope参数表示编译时需要这个jar包但是最终打包时不将这个jar包打包进去。 这样可以使我们的程序打包出来的jar包比较小。</p>
-</li>
-<li><p>org.apache.maven.plugins的maven-assembly-plugin可以将java程序打包成可执行的jar包。</p>
-</li>
-<li><p>descriptorRef用于设置打包出来的jar包的后缀名。</p>
-</li>
-<li><p>execution用于配置运行时的一些参数。</p>
-<h4 id="编写MR程序"><a href="#编写MR程序" class="headerlink" title="编写MR程序"></a>编写MR程序</h4><p>配置完pom文件并导入依赖后在src/main/java目录下建立com.bigdata.etl.job包，并在该包内创建<a href="\code\hadoop\MapReduce\编写一个MR程序\ParseLogJob.java">ParseLogJob.java</a>类,具体操作在代码文件中</p>
-<h4 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h4><h5 id="windows本地测试"><a href="#windows本地测试" class="headerlink" title="windows本地测试"></a>windows本地测试</h5><p>在代码中将输入和输出路径写死后点击运行即可</p>
-<h5 id="集群运行测试"><a href="#集群运行测试" class="headerlink" title="集群运行测试"></a>集群运行测试</h5></li>
-<li><p>使用maven工具进行打包</p>
-<p> mvn clean package命令或者idea插件自带的package工具都可以</p>
-</li>
-<li><p>将jar包上传至hadoop集群<br>  xftp、FileZilla等工具都可以</p>
-</li>
-<li><p>运行jar包执行任务<br> hadoop jar 【jar包目录】 com.bigdata.etl.job.ParseLogJob 【数据输入路径】 【数据输出路径】</p>
+<li><p>两个实现类<br>Some 根据key获取value时值存在则返回Some</p>
+<p>None 根据key获取value时值不存在则返回Some</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; import scala.collection.mutable.Map</span><br><span class="line">import scala.collection.mutable.Map</span><br><span class="line"></span><br><span class="line">scala&gt; val m &#x3D; Map(&quot;1&quot; -&gt; &quot;han&quot;)</span><br><span class="line">m: scala.collection.mutable.Map[String,String] &#x3D; Map(1 -&gt; han)</span><br><span class="line">&#x2F;&#x2F;使用get获取1对应的value，因为存在返回Some(han)</span><br><span class="line">scala&gt; m.get(&quot;1&quot;)</span><br><span class="line">res19: Option[String] &#x3D; Some(han)</span><br><span class="line">&#x2F;&#x2F;使用使用get获取2对应的value，因为不存在返回None</span><br><span class="line">scala&gt; m.get(&quot;2&quot;)</span><br><span class="line">res20: Option[String] &#x3D; None</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -263,7 +271,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MapReduce</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
         		</li>
       		
 		</ul>
@@ -273,7 +281,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2018/12/04/MapReduce%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89/">展开全文 >></a>
+      <a class="article-more-a" href="/2018/10/14/Scala%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88/">展开全文 >></a>
     </p>
     
 
@@ -303,7 +311,7 @@
 
 
   
-    <article id="post-windows下搭建hadoop开发环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Scala面向对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -311,7 +319,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2018/12/02/windows%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" target="_blank">windows下搭建hadoop开发环境</a>
+	  <a class="article-title" href="/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" target="_blank">Scala面向对象</a>
   
     </h1>
   
@@ -319,8 +327,8 @@
 
   
   
-<a href="/2018/12/02/windows%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="archive-article-date">
-        <time datetime="2018-12-01T20:30:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
+<a href="/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
+        <time datetime="2018-10-14T10:32:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-14</time>
 </a>
 
   
@@ -332,184 +340,134 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Windows搭建hadoop本地开发环境"><a href="#Windows搭建hadoop本地开发环境" class="headerlink" title="Windows搭建hadoop本地开发环境"></a>Windows搭建hadoop本地开发环境</h3><hr>
-<h4 id="前置环境需求"><a href="#前置环境需求" class="headerlink" title="前置环境需求"></a>前置环境需求</h4><p>电脑上已安装jdk1.8并配置好环境变量<br>电脑上已安装idea<br>已安装maven3.6.3并配置好环境变量（之所以用3.6.3版本是因为考虑到spark3.0对maven的要求为此版本）</p>
-<h4 id="安装包下载"><a href="#安装包下载" class="headerlink" title="安装包下载"></a>安装包下载</h4><p><a href="http://archive.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz" target="_blank" rel="noopener">hadoop2.7.6安装包</a><br><a href="https://github.com/xltuo/hadoop-2.7.6-windows-bin" target="_blank" rel="noopener">hadoop-2.7.6-windows-bin</a></p>
-<h4 id="环境搭建与配置"><a href="#环境搭建与配置" class="headerlink" title="环境搭建与配置"></a>环境搭建与配置</h4><p>解压hadoop2.7.6安装包至安装目录（自己定，安装在哪都行）</p>
-<p>解压hadoop-2.7.6-windows-bin压缩包<br><img src="/images/hadoop_windows_bin.jpg" alt="enter description here"></p>
-<p>将hadoop-2.7.6的bin目录下文件替换成hadoop-2.7.6-windows-bin目录下的文件<br><img src="/images/hadoop_bin.jpg" alt=""></p>
-<p>将hadoop-2.7.6的bin目录下hadoop.dll文件复制到C:\Windows\System32目录下一份<br><img src="/images/hadoop.dll.jpg" alt="enter description here"></p>
-<p>hadoop环境变量配置(参考java环境变量配置方法即可)</p>
-<p>运行mr程序成功结果如下：<br><img src="/images/wc%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt="enter description here"></p>
-<h4 id="常见报错与解决办法"><a href="#常见报错与解决办法" class="headerlink" title="常见报错与解决办法"></a>常见报错与解决办法</h4><p>常见两种报错<br>java.io.IOException: Could not locate executable null\bin\winutils.exe in the Hadoop binaries<br>java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z</p>
-<p>解决办法<br>下载winutils.exe和hadoop.dll将两个文件放入hadoop的bin目录下<br>hadoop.dll同时放在C:\Windows\System32目录下<br>注：我已经在hadoop-2.7.6-windows-bin目录下提供了，因此不需要额外下载，按照上面的操作一般不会产生报错</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2018/12/02/windows%E4%B8%8B%E6%90%AD%E5%BB%BAhadoop%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MapReduce的基本原理和运行流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank">MapReduce的基本原理和运行流程</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="archive-article-date">
-        <time datetime="2018-12-01T13:46:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-01</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="MapReduce的基本原理和运行流程"><a href="#MapReduce的基本原理和运行流程" class="headerlink" title="MapReduce的基本原理和运行流程"></a>MapReduce的基本原理和运行流程</h3><hr>
-<h4 id="MR的设计起源"><a href="#MR的设计起源" class="headerlink" title="MR的设计起源"></a>MR的设计起源</h4><ul>
-<li><p>Google最早用 Map Reducef做搜索中的倒排索引</p>
+    <h3 id="Scala面向对象"><a href="#Scala面向对象" class="headerlink" title="Scala面向对象"></a>Scala面向对象</h3><hr>
+<h4 id="一、Scala数据类型"><a href="#一、Scala数据类型" class="headerlink" title="一、Scala数据类型"></a>一、Scala数据类型</h4><p><img src="/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt="数据类型结构图"></p>
+<h5 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h5><p><img src="/images/Scala%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B.jpg" alt="常用数据类型"><br>    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型</p>
+<h5 id="2、字符串操作"><a href="#2、字符串操作" class="headerlink" title="2、字符串操作"></a>2、字符串操作</h5><ul>
+<li><p>Scala用底层的java.lang.String类来表示字符串。</p>
 </li>
-<li><p>数据集可以分解成许多小的数据集</p>
+<li><p>通过StrigOps类给字符串追加了上百种操作。</p>
 </li>
-<li><p>每一个小数据集都可以完全并行地进行处理</p>
-<h4 id="MR的优点"><a href="#MR的优点" class="headerlink" title="MR的优点"></a>MR的优点</h4></li>
-<li><p>批处理PB级别数据(比如排序)</p>
+<li><p>Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用</p>
+<h5 id="3、数值类型相关操作"><a href="#3、数值类型相关操作" class="headerlink" title="3、数值类型相关操作"></a>3、数值类型相关操作</h5></li>
+<li><p>Scala提供了 RichInt、RichDouble、 Rich Char等。</p>
 </li>
-<li><p>线性扩展</p>
+<li><p>Scala有 Bigint和 Bigdecimal类,用于任意大小(但有穷)的数字。可以用常规的数学操作符来操作它们。</p>
+<h4 id="二、Scala值与变量的声明"><a href="#二、Scala值与变量的声明" class="headerlink" title="二、Scala值与变量的声明"></a>二、Scala值与变量的声明</h4><h5 id="1、变量与常量"><a href="#1、变量与常量" class="headerlink" title="1、变量与常量"></a>1、变量与常量</h5></li>
+</ul>
+<p>使用val声明常量，使用var声明变量</p>
+<h5 id="2、基本语法"><a href="#2、基本语法" class="headerlink" title="2、基本语法"></a>2、基本语法</h5><ul>
+<li><p>val|var 变量名[:数据类型] = 初始值</p>
 </li>
-<li><p>运行稳定,容错性高</p>
+<li><p>Scala中声明值或者变量如果不做初始化会报错</p>
 </li>
-<li><p>可编程</p>
-<h4 id="map的运行过程"><a href="#map的运行过程" class="headerlink" title="map的运行过程"></a>map的运行过程</h4><p><img src="/images/map%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
-<h5 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h5></li>
-<li><p>MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转换成K-V形式，K默认为位置的偏移量，例如第一个字节偏移量是0，第三个字节的偏移量就是2，V则是读取的一行文本数据</p>
+<li><p>Scala存在推断机制，可以根据初始值自动推断变量类型、但是递归调用无法推断，必须显式的写出数据类型</p>
 </li>
-<li><p>转换成K-V形式数据后交由用户自定义的map函数处理，用户可以在map函数中编写业务逻辑</p>
-</li>
-<li><p>map处理完成后数据后默认会对Key值进行hash，相同的Key会分到一个相同的Partition（分区），一类Partition对应一个Reduce</p>
+<li><p>声明多个变量时可以采用 val|var 变量名1,变量名2 = 初始值 的写法，但是为了表达方便，一般每一行只声明一个变量</p>
+<h5 id="3、-声明变量过程中-的使用"><a href="#3、-声明变量过程中-的使用" class="headerlink" title="3、 声明变量过程中 _ 的使用"></a>3、 声明变量过程中 _ 的使用</h5></li>
+<li><p>在声明变量过程中 _  可以作为占位符进行使用，根据不同类型推导出不同类型默认值，此时必须声明类型，否则会由于无法推导报错</p>
 </li>
 </ul>
-<h5 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h5><ul>
-<li><p>Block是HDFS上的文件的存储单元，默认128M大小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var name:String &#x3D; _</span><br><span class="line">name: String &#x3D; null</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Int &#x3D; _</span><br><span class="line">num: Int &#x3D; 0</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Double &#x3D; _</span><br><span class="line">num: Double &#x3D; 0.0</span><br><span class="line"></span><br><span class="line">scala&gt; var boolean:Boolean &#x3D; _</span><br><span class="line">boolean: Boolean &#x3D; false</span><br></pre></td></tr></table></figure>
+<h4 id="三、函数与方法的定义和使用"><a href="#三、函数与方法的定义和使用" class="headerlink" title="三、函数与方法的定义和使用"></a>三、函数与方法的定义和使用</h4><h5 id="1、方法定义"><a href="#1、方法定义" class="headerlink" title="1、方法定义"></a>1、方法定义</h5><p>def 方法名 (参数列表):方法返回值类型={方法体}</p>
+<p>代码块最后一行的值就是方法体的返回值，可以省略return关键字，但是如果要在方法体中间便返回值则需要使用return关键字，例如在方法体中根据不同情况返回不同的值，此时则需要使用return关键字</p>
+<h5 id="2、方法的调用"><a href="#2、方法的调用" class="headerlink" title="2、方法的调用"></a>2、方法的调用</h5><p>不带参数的方法调用通常不使用（），例如StringOps类的 distinct方法便省略了（）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; &quot;hello&quot;.distinct</span><br><span class="line">res0: String &#x3D; helo</span><br></pre></td></tr></table></figure>
+<h5 id="3、静态方法"><a href="#3、静态方法" class="headerlink" title="3、静态方法"></a>3、静态方法</h5><p>Scala中是没有静态方法的，但是可以通过伴生对象的方式实现静态方法，如下所示，Object所修饰的类名与Class修饰的相同，Object Account则是Class Account的伴生对象，也就是说在scala中使用Object即可实现静态方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class Account&#123;</span><br><span class="line">	&#x2F;&#x2F;实例方法</span><br><span class="line">&#125;</span><br><span class="line">Object Account&#123;</span><br><span class="line">&#x2F;&#x2F;静态方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4、函数的定义"><a href="#4、函数的定义" class="headerlink" title="4、函数的定义"></a>4、函数的定义</h5><p>函数是一个对象，可以赋值给一个变量</p>
+<p>val 函数名=(参数列表)=&gt;{函数体}</p>
+<h5 id="5、方法转换函数"><a href="#5、方法转换函数" class="headerlink" title="5、方法转换函数"></a>5、方法转换函数</h5><p>方法可以转换成函数，通常有以下两种转换方式，但是函数不可以转换成方法</p>
+<ul>
+<li><p>val 函数名 = 方法名 _</p>
 </li>
-<li><p>MR框架中的Inputformat对象会通过Split函数对文件上的Block进行逻辑划分，也就是所谓的分片，其本身不包含数据，只包含指向这些数据的位置信息</p>
-</li>
-<li><p>分片规则在默认情况下, split size= block size,在 hadoop2.x中为128M。需要注意的是 bytesremaining/ splitsize&gt;1.1不满足的话,那么最后所有剩余数据的会作为一个切片。从而不会形成例如129M文件规划成两个切片的局面。</p>
-</li>
-<li><p>一个 Split不会包含两个File的 Block,不会跨越File边界，一个Map处理一个 Split</p>
-<h4 id="Reduce的运行过程"><a href="#Reduce的运行过程" class="headerlink" title="Reduce的运行过程"></a>Reduce的运行过程</h4><p><img src="/images/Reduce%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
-</li>
-<li><p>Reduce会将各个map节点上将数据自己分区的数据copy到自己的内存缓冲区中</p>
-</li>
-<li><p>在Reduce中会将这些小的数据集合并成大的数据集并按照key值进行聚合，将value值作为迭代器交给用户使用</p>
-</li>
-<li><p>这些数据经过用户自定义的Reduce函数处理后会按照K-V的形式输出到指定的位置上</p>
-<h4 id="Shuffle过程"><a href="#Shuffle过程" class="headerlink" title="Shuffle过程"></a>Shuffle过程</h4><p>Shuffle过程处于map和reduce过程之间<br><img src="/images/Shuffle%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
-<h5 id="Map端"><a href="#Map端" class="headerlink" title="Map端:"></a>Map端:</h5></li>
-<li><p>map函数处理完数据后会进入Collect阶段，此阶段将数据手机并放进环形绶冲区,缓冲区分为数据区和索引区，数据区包含具体的数据，索引区包含数据的位置。</p>
-</li>
-<li><p>在环形缓冲区中会进行Sort阶段，对在同一 Partition内的索引按照Key排序。当环形缓冲区中的数据达到一定比例时会进入Spill溢写阶段，根据排好序的索引将数据在各个分区内按顺序写到一个个小文件中</p>
-</li>
-<li><p>溢写与排序完成后进入Merge合并阶段，此阶段会在后台启动一个线程将Spill生成的小文件分批合并排序成一个大文件。</p>
-</li>
+<li><p>在需要函数的地方提供一个方法，则此方法会自动转换成函数</p>
+<h5 id="6、方法与函数的区别"><a href="#6、方法与函数的区别" class="headerlink" title="6、方法与函数的区别"></a>6、方法与函数的区别</h5></li>
 </ul>
-<h5 id="Reducel端"><a href="#Reducel端" class="headerlink" title="Reducel端"></a>Reducel端</h5><ul>
-<li><p>map阶段处理完成后，Reduce会进入Copy阶段，将Map端的数据分批拷贝到 Reduce的Buffer缓冲区中。</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可以作为单独表达式单独存在</td>
+<td>只有参数为空的方法可以单独存在</td>
+</tr>
+<tr>
+<td>必须有参数列表</td>
+<td>可以没有参数列表</td>
+</tr>
+<tr>
+<td>函数名代表函数对象本身</td>
+<td>方法名代表方法调用</td>
+</tr>
+<tr>
+<td>函数不可转换成方法</td>
+<td>方法可以转换成函数</td>
+</tr>
+<tr>
+<td>函数可以作为参数传递</td>
+<td>方法在作为参数传递时会自动转换成函数</td>
+</tr>
+<tr>
+<td>#### 四、条件表达式</td>
+<td></td>
+</tr>
+<tr>
+<td>scala中的条件表达式与java中大致相同，均为if 和else表达式，不过scala也有自己的特性如下：</td>
+<td></td>
+</tr>
+<tr>
+<td>##### 1、条件表达式的值可以赋给变量</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (x&gt;0) s &#x3D; 1 else s &#x3D; -1</span><br><span class="line">&#x2F;&#x2F;也可以这样写</span><br><span class="line">val s &#x3D; if(x&gt;0) 1 else -1</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>##### 2、条件表达式返回的类型</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>如果分支的类型一致,则表达式的类型与分支类型一致</p>
 </li>
-<li><p>Buffer缓冲区的数据达到一定比例后会进入Spil阶段，将内存缓冲区的数据按顺序写到小文件中。</p>
+<li><p>如果分支的类型不一致,则表达式的类型是分支类型的公共超类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val x &#x3D; 10</span><br><span class="line">x: Int &#x3D; 10</span><br><span class="line"></span><br><span class="line">scala&gt; val y &#x3D; if (x&gt;0) &quot;string&quot; else -1</span><br><span class="line">y: Any &#x3D; string</span><br></pre></td></tr></table></figure>
+<h5 id="3、else缺失的情况"><a href="#3、else缺失的情况" class="headerlink" title="3、else缺失的情况"></a>3、else缺失的情况</h5><p>if (x&gt;0) 1 等同于 if (x&gt;0) 1 else() 也就是说每个表达式都应该有值</p>
+<h4 id="五、循环表达式"><a href="#五、循环表达式" class="headerlink" title="五、循环表达式"></a>五、循环表达式</h4><h5 id="1、while循环表达式"><a href="#1、while循环表达式" class="headerlink" title="1、while循环表达式"></a>1、while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while (&#x2F;&#x2F;表达式)&#123;</span><br><span class="line">  &#x2F;&#x2F;循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、do-while循环表达式"><a href="#2、do-while循环表达式" class="headerlink" title="2、do while循环表达式"></a>2、do while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">&#x2F;&#x2F;循环体</span><br><span class="line">&#125; while (&#x2F;&#x2F;表达式)</span><br></pre></td></tr></table></figure>
+<h5 id="3、Range介绍与使用"><a href="#3、Range介绍与使用" class="headerlink" title="3、Range介绍与使用"></a>3、Range介绍与使用</h5></li>
+<li><p>Range类介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F;Range的三个参数为开始字段，结束字段和步长，步长省略情况下默认为1，但不能为0，否则报错</span><br><span class="line">class Range(val start : scala.Int, val end : scala.Int, val step : scala.Int)</span><br></pre></td></tr></table></figure></li>
+<li><p>Range用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这种用法得到的是Range，特点是左闭右开</span><br><span class="line">scala&gt; Range(1,10)</span><br><span class="line">res3: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;带步长的使用示例</span><br><span class="line">scala&gt; Range(1,10,2)</span><br><span class="line">res4: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为负数的使用示例</span><br><span class="line">scala&gt; Range(10,-1,-1)</span><br><span class="line">res6: scala.collection.immutable.Range &#x3D; Range(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)</span><br></pre></td></tr></table></figure></li>
+<li><p>until用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此种写法底层调用了Range,因此得到的依然是Range，特点是左闭右开</span><br><span class="line">scala&gt; 1 until 10</span><br><span class="line">res5: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br></pre></td></tr></table></figure></li>
+<li><p>to用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; 1 to 10</span><br><span class="line">res1: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;两种编写方法等价，表示1调用to方法并将10作为参数传入，得到的是一个Range.Inclusive，特点是左闭右闭</span><br><span class="line">scala&gt; 1.to(10)</span><br><span class="line">res2: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为2的写法，但是开发过程中慎用，只要遇到了能看懂即可</span><br><span class="line">scala&gt; 1 to 10 by 2</span><br><span class="line">res7: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br></pre></td></tr></table></figure>
+<h5 id="4、for循环表达式"><a href="#4、for循环表达式" class="headerlink" title="4、for循环表达式"></a>4、for循环表达式</h5></li>
+<li><p>循环语法</p>
+<p>  for (i&lt;-Range){<br>  循环体<br>}</p>
 </li>
-<li><p>Merge阶段将溢出的文件合并成一个经过排序的数据集，然后交由用户自定义的Reduce函数处理。</p>
-<h4 id="Combine优化"><a href="#Combine优化" class="headerlink" title="Combine优化"></a>Combine优化</h4><p>Combine可以在Reduce聚合前提前对部分key的value值进行一次聚合，减少资源和网络带宽的开销</p>
+<li><p>嵌套循环</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   for (i &lt;- 1 to 3;j &lt;- 1 to 3)&#123;</span><br><span class="line">     println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的双重for循环</span><br><span class="line"></span><br><span class="line">   for(i &lt;- 1 to 3)&#123;</span><br><span class="line">     for (j &lt;- 1 to 3)&#123;</span><br><span class="line">       println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>循环守卫</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">     for (i &lt;- 1 to 3 if i !&#x3D; 2)&#123;</span><br><span class="line">       println(i + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">  </span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">     for (i&lt;- 1 to 3)&#123;</span><br><span class="line">       if (i !&#x3D; 2)&#123;println(i + &quot;&quot;)&#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<h5 id="Map端-1"><a href="#Map端-1" class="headerlink" title="Map端:"></a>Map端:</h5><ul>
-<li><p>在环形缓冲区中数据排序后,溢写到磁盘前,运行 Combiner，将部分相同key的value提前进行聚合</p>
-</li>
-<li><p>在合并溢出文件输出到磁盘之前,如果存在至少3个溢出文件,则运行 Combiner,可以通过min.num. spills.for. combine设置阈值</p>
-</li>
-</ul>
-<h5 id="Reducei端"><a href="#Reducei端" class="headerlink" title="Reducei端:"></a>Reducei端:</h5><ul>
-<li>可以在合并溢出文件输出到磁盘之前,运行 combiner<h4 id="MR的整体运行过程图"><a href="#MR的整体运行过程图" class="headerlink" title="MR的整体运行过程图"></a>MR的整体运行过程图</h4><img src="/images/MR%E6%95%B4%E4%BD%93%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%BE.jpg" alt=""><h4 id="YARN组件介绍"><a href="#YARN组件介绍" class="headerlink" title="YARN组件介绍"></a>YARN组件介绍</h4><img src="/images/Yarn%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt=""><h5 id="Resource-Manager"><a href="#Resource-Manager" class="headerlink" title="Resource Manager"></a>Resource Manager</h5></li>
-<li>主要职责是调度,对应用程序的整体进行资源分配。</li>
-</ul>
-<h5 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h5><ul>
-<li>单个节点上物理资源的集合,比如内存和CPU。</li>
-</ul>
-<h5 id="NodeManage"><a href="#NodeManage" class="headerlink" title="NodeManage"></a>NodeManage</h5><ul>
-<li>管理 Container生命周期,资源使用情况,节点健康状况。</li>
-</ul>
-<h5 id="Application-Master"><a href="#Application-Master" class="headerlink" title="Application Master"></a>Application Master</h5><ul>
-<li><p>协调集群中的应用程序,与 ResourceManagert协商资源</p>
-<h4 id="MapReduce-on-Yarn"><a href="#MapReduce-on-Yarn" class="headerlink" title="MapReduce on Yarn"></a>MapReduce on Yarn</h4><p><img src="/images/MR_on_yarn.jpg" alt=""></p>
-</li>
-<li><p>客户端提交MR程序,向RM请求资源,并将程序依赖的资源上传到HDFS。</p>
-</li>
-<li><p>RM分配一个 Container0,NM启动AM,用来管理这个MR程序,AM计算好所需资源后向RM请求资源。</p>
-</li>
-<li><p>NM在各个节点上启动 Maptaski和 Reducetask。</p>
+<li><p>引入变量</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   for (i&lt;- 1 to 3;from &#x3D; 4 - i;j &lt;- from to 3 )&#123;</span><br><span class="line">     println((2 * i + j) + &quot;&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">   for (i &lt;- 1 to 3)&#123;</span><br><span class="line">     var from &#x3D; 4 - i</span><br><span class="line">     for (j &lt;- from to 3)&#123;</span><br><span class="line">       println((2 * i + j) + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>退出循环</p>
+<p>  使用 Boolean型的控制变量</p>
+<p> 使用嵌套函数一可以从函数中 return</p>
+<p> 使用 Breaks对象中的 break方法</p>
+<h4 id="六、scala中的参数"><a href="#六、scala中的参数" class="headerlink" title="六、scala中的参数"></a>六、scala中的参数</h4><h5 id="1、默认参数"><a href="#1、默认参数" class="headerlink" title="1、默认参数"></a>1、默认参数</h5><p>方法定义时指定默认参数值,调用时可以不传递参数</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法中指定了name默认为hello</span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   sayHello()</span><br><span class="line"> &#125;</span><br><span class="line"> def sayHello(name:String &#x3D; &quot;hello&quot;): Unit &#x3D;&#123;</span><br><span class="line">   println(name)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、可变参数"><a href="#2、可变参数" class="headerlink" title="2、可变参数"></a>2、可变参数</h5><p>定义方法时允许指定最后一个参数可以重复(变长参数)</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法定义了一个求和方法，利用可变长参数实现不论传入多少个参数都可以将参数相加</span><br><span class="line"></span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   println(sum(1,2))</span><br><span class="line">   println(sum(1,2,3))</span><br><span class="line">   println(sum(1,2,3,4))</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这个是特殊语法，如果直接写1 to 10 则会因为其是一个Rang类型出现与需要传入的类型不匹配的错误，使用 : _* 可以解决这个问题，暂时理解为类型自动转换</span><br><span class="line"> println(sum(1 to 10: _*))</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> def sum(nums:Int*) &#x3D;&#123;</span><br><span class="line">   var result &#x3D; 0</span><br><span class="line">   for (num &lt;- nums)&#123;</span><br><span class="line">     result +&#x3D; num</span><br><span class="line">   &#125;</span><br><span class="line">   result</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -528,7 +486,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MapReduce</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
         		</li>
       		
 		</ul>
@@ -538,111 +496,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HDFS编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2018/11/18/HDFS%E7%BC%96%E7%A8%8B/" target="_blank">HDFS编程</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2018/11/18/HDFS%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-        <time datetime="2018-11-18T02:26:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="HDFS编程"><a href="#HDFS编程" class="headerlink" title="HDFS编程"></a>HDFS编程</h3><hr>
-<h4 id="HDFS编程简介"><a href="#HDFS编程简介" class="headerlink" title="HDFS编程简介"></a>HDFS编程简介</h4><pre><code>FileSystem：文件系统编程的入口点
-本地开发和服务器端的版本“不一定”需要相同，最好是相同
-打包到服务器运行，我们是不打hadoop的依赖进去的 这叫所谓的瘦包
-瘦包：仅仅包含源码  很小的
-胖包：所有的东西都打进去，一般公司不建议使用</code></pre><h4 id="POM文件配置"><a href="#POM文件配置" class="headerlink" title="POM文件配置"></a>POM文件配置</h4><p>Maven依赖查询：<a href="https://mvnrepository.com/" target="_blank" rel="noopener">https://mvnrepository.com/</a></p>
-<h5 id="配置hadoop依赖"><a href="#配置hadoop依赖" class="headerlink" title="配置hadoop依赖"></a>配置hadoop依赖</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">hadoop.version</span>&gt;</span>2.6.0-cdh5.16.2<span class="tag">&lt;/<span class="name">hadoop.version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoop.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="配置cdh仓库地址"><a href="#配置cdh仓库地址" class="headerlink" title="配置cdh仓库地址"></a>配置cdh仓库地址</h5><p>因为下载的是cdh版本，所以必须配置cdh仓库地址</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="HDFS编程方法示例"><a href="#HDFS编程方法示例" class="headerlink" title="HDFS编程方法示例"></a>HDFS编程方法示例</h4><h5 id="获取文件操作对象"><a href="#获取文件操作对象" class="headerlink" title="获取文件操作对象"></a>获取文件操作对象</h5><p>get()方法的第三个参数是指定操作用户名，如不指定则会使用当前本机的用户名，可能会有权限问题</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://39.107.23.136:9000"</span>);</span><br><span class="line">      FileSystem fileSystem = FileSystem.get(uri, <span class="keyword">new</span> Configuration(), <span class="string">"black"</span>);</span><br></pre></td></tr></table></figure>
-<h5 id="关闭资源"><a href="#关闭资源" class="headerlink" title="关闭资源"></a>关闭资源</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileSystem.close();</span><br></pre></td></tr></table></figure>
-<h5 id="创建目录方法"><a href="#创建目录方法" class="headerlink" title="创建目录方法"></a>创建目录方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void mkdir()throws Exception&#123;</span><br><span class="line">    fileSystem.mkdirs(new Path(&quot;&#x2F;hdfs1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="将本地文件上传至hdfs"><a href="#将本地文件上传至hdfs" class="headerlink" title="将本地文件上传至hdfs"></a>将本地文件上传至hdfs</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  @Test</span><br><span class="line">public void copyFromLocalFile ()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;input&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;&#x2F;hdfs&quot;);</span><br><span class="line">    fileSystem.copyFromLocalFile(src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="将hdfs文件拉取至本地"><a href="#将hdfs文件拉取至本地" class="headerlink" title="将hdfs文件拉取至本地"></a>将hdfs文件拉取至本地</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将hdfs上文件的内容复制到本地所指定的文件中，必须指定本地路径和存储数据的文件名，delsrc参数是个boolean值，表示是否删除源数据</span><br><span class="line">@Test</span><br><span class="line">public void copyToLocalFile()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;&#x2F;hdfs&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;output&#x2F;black.txt&quot;);</span><br><span class="line">    fileSystem.copyToLocalFile(true,src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="将hdfs上文件剪切至目标位置并重命名"><a href="#将hdfs上文件剪切至目标位置并重命名" class="headerlink" title="将hdfs上文件剪切至目标位置并重命名"></a>将hdfs上文件剪切至目标位置并重命名</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void rename()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;&#x2F;hdfs&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;&#x2F;hdfs1&#x2F;blackrename&quot;);</span><br><span class="line">    fileSystem.rename(src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="删除hdfs上目标位置文件"><a href="#删除hdfs上目标位置文件" class="headerlink" title="删除hdfs上目标位置文件"></a>删除hdfs上目标位置文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void delete()throws Exception&#123;</span><br><span class="line">    fileSystem.delete(new Path(&quot;&#x2F;hdfs1&#x2F;black&quot;),true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="获取文件下的目录信息"><a href="#获取文件下的目录信息" class="headerlink" title="获取文件下的目录信息"></a>获取文件下的目录信息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void listFiles()throws Exception&#123;</span><br><span class="line">    &#x2F;&#x2F;获取文件状态，因为文件可能多个，所以返回迭代器</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; files &#x3D; fileSystem.listFiles(new Path(&quot;&#x2F;hdfs1&#x2F;&quot;), true);</span><br><span class="line">    while (files.hasNext())&#123;</span><br><span class="line">        &#x2F;&#x2F;获取其中一个文件的状态信息</span><br><span class="line">        LocatedFileStatus fileStatus &#x3D; files.next();</span><br><span class="line">        short replication &#x3D; fileStatus.getReplication();</span><br><span class="line">        long accessTime &#x3D; fileStatus.getAccessTime();</span><br><span class="line">        FsPermission permission &#x3D; fileStatus.getPermission();</span><br><span class="line">        long len &#x3D; fileStatus.getLen();</span><br><span class="line">        Path path &#x3D; fileStatus.getPath();</span><br><span class="line">        boolean directory &#x3D; fileStatus.isDirectory();</span><br><span class="line">        System.out.println(replication + &quot;---&quot; + permission + &quot;---&quot; + len + &quot;---&quot; + path);</span><br><span class="line">        &#x2F;&#x2F;获取文件的块信息，因为一个文件可能不止一个块存储，因此返回的是数组</span><br><span class="line">        BlockLocation[] blockLocations &#x3D; fileStatus.getBlockLocations();</span><br><span class="line">        &#x2F;&#x2F;遍历数组</span><br><span class="line">        for (BlockLocation location:blockLocations)&#123;</span><br><span class="line">            &#x2F;&#x2F;获取块所在主机信息，之所以是数组，是因为块可能存在副本</span><br><span class="line">            String[] hosts &#x3D; location.getHosts();</span><br><span class="line">            for (String host:hosts)&#123;</span><br><span class="line">                System.out.println(host);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="/code/hadoop/hdfs/HdfsApiTest.java">hdfs编程测试代码</a></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2018/11/18/HDFS%E7%BC%96%E7%A8%8B/">展开全文 >></a>
+      <a class="article-more-a" href="/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">展开全文 >></a>
     </p>
     
 
@@ -680,7 +534,7 @@
   
     <h1 itemprop="name">
 	
-	  <a class="article-title" href="/2018/10/09/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" target="_blank">Scala入门与实战</a>
+	  <a class="article-title" href="/2018/10/11/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" target="_blank">Scala入门与实战</a>
   
     </h1>
   
@@ -688,8 +542,8 @@
 
   
   
-<a href="/2018/10/09/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" class="archive-article-date">
-        <time datetime="2018-10-09T11:19:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-09</time>
+<a href="/2018/10/11/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/" class="archive-article-date">
+        <time datetime="2018-10-11T13:10:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-11</time>
 </a>
 
   
@@ -701,26 +555,135 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h3 id="Scala简介与安装"><a href="#Scala简介与安装" class="headerlink" title="Scala简介与安装"></a>Scala简介与安装</h3><hr>
-<h4 id="什么是Scala"><a href="#什么是Scala" class="headerlink" title="什么是Scala"></a>什么是Scala</h4><ul>
-<li><p>Scala是Scalable Language的简写,运行在JVM上的,兼容Java程序,一般在生产过程中java的工具类如果是jar包形式,那么建议使用Scala直接调用，如果是代码形式，则建议此工具类使用scala重新写</p>
+    <h3 id="Scala入门与实战"><a href="#Scala入门与实战" class="headerlink" title="Scala入门与实战"></a>Scala入门与实战</h3><hr>
+<h4 id="一、Scala数据类型"><a href="#一、Scala数据类型" class="headerlink" title="一、Scala数据类型"></a>一、Scala数据类型</h4><p><img src="/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt="数据类型结构图"></p>
+<h5 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h5><p><img src="/images/Scala%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B.jpg" alt="常用数据类型"><br>    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型</p>
+<h5 id="2、字符串操作"><a href="#2、字符串操作" class="headerlink" title="2、字符串操作"></a>2、字符串操作</h5><ul>
+<li><p>Scala用底层的java.lang.String类来表示字符串。</p>
 </li>
-<li><p>Scala语言是一种面向对象与函数式编程结合起来的静态语言</p>
+<li><p>通过StrigOps类给字符串追加了上百种操作。</p>
+</li>
+<li><p>Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用</p>
+<h5 id="3、数值类型相关操作"><a href="#3、数值类型相关操作" class="headerlink" title="3、数值类型相关操作"></a>3、数值类型相关操作</h5></li>
+<li><p>Scala提供了 RichInt、RichDouble、 Rich Char等。</p>
+</li>
+<li><p>Scala有 Bigint和 Bigdecimal类,用于任意大小(但有穷)的数字。可以用常规的数学操作符来操作它们。</p>
+<h4 id="二、Scala值与变量的声明"><a href="#二、Scala值与变量的声明" class="headerlink" title="二、Scala值与变量的声明"></a>二、Scala值与变量的声明</h4><h5 id="1、变量与常量"><a href="#1、变量与常量" class="headerlink" title="1、变量与常量"></a>1、变量与常量</h5></li>
+</ul>
+<p>使用val声明常量，使用var声明变量</p>
+<h5 id="2、基本语法"><a href="#2、基本语法" class="headerlink" title="2、基本语法"></a>2、基本语法</h5><ul>
+<li><p>val|var 变量名[:数据类型] = 初始值</p>
+</li>
+<li><p>Scala中声明值或者变量如果不做初始化会报错</p>
+</li>
+<li><p>Scala存在推断机制，可以根据初始值自动推断变量类型、但是递归调用无法推断，必须显式的写出数据类型</p>
+</li>
+<li><p>声明多个变量时可以采用 val|var 变量名1,变量名2 = 初始值 的写法，但是为了表达方便，一般每一行只声明一个变量</p>
+<h5 id="3、-声明变量过程中-的使用"><a href="#3、-声明变量过程中-的使用" class="headerlink" title="3、 声明变量过程中 _ 的使用"></a>3、 声明变量过程中 _ 的使用</h5></li>
+<li><p>在声明变量过程中 _  可以作为占位符进行使用，根据不同类型推导出不同类型默认值，此时必须声明类型，否则会由于无法推导报错</p>
 </li>
 </ul>
-<h4 id="Scala下载与安装"><a href="#Scala下载与安装" class="headerlink" title="Scala下载与安装"></a>Scala下载与安装</h4><p><a href="https://www.scala-lang.org/" target="_blank" rel="noopener">Scala官网</a><br><a href="https://downloads.lightbend.com/scala/2.11.8/scala-2.11.8.tgz" target="_blank" rel="noopener">scala2.11.8</a><br>将安装包下载后上传至software目录下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[black@black software]$ ls</span><br><span class="line"> scala-2.11.8.tgz</span><br></pre></td></tr></table></figure>
-<p>文件解压至app目录下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[black@black software]$ tar -zxvf scala-2.11.8.tgz ../app/</span><br></pre></td></tr></table></figure>
-<p>环境变量配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入环境变量配置文件</span></span><br><span class="line">[black@black ~]$ vim .bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash">配置环境变量地址</span></span><br><span class="line">export SCALA_HOME=/home/black/app/scala</span><br><span class="line">export PATH=$&#123;SCALA_HOME&#125;/bin:$PATH</span><br><span class="line"><span class="meta">#</span><span class="bash">更新环境变量配置文件</span></span><br><span class="line">[black@black ~]$ source .bashrc</span><br></pre></td></tr></table></figure>
-<p>删除bin目录下的.bat文件(.bat文件是在windows下运行的)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[black@black bin]$ rm -rf *.bat</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<p>进入交互式命令行(REPL：Read-Eval-Print-Loop)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[black@black ~]$ scala</span><br><span class="line"><span class="meta">scala&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="IDEA中运行Scala"><a href="#IDEA中运行Scala" class="headerlink" title="IDEA中运行Scala"></a>IDEA中运行Scala</h4><h5 id="IDEA中安装Scala插件"><a href="#IDEA中安装Scala插件" class="headerlink" title="IDEA中安装Scala插件"></a>IDEA中安装Scala插件</h5><ul>
-<li>在线安装：<br> File -Settings-Plugins-Scala-Install</li>
-<li>离线安装：<br> 在homepage链接页面下载插件<br> 在设置中选择从磁盘安装<br><img src="/images/IEDA%E5%AE%89%E8%A3%85Scala%E6%8F%92%E4%BB%B6.jpg" alt=""></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var name:String &#x3D; _</span><br><span class="line">name: String &#x3D; null</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Int &#x3D; _</span><br><span class="line">num: Int &#x3D; 0</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Double &#x3D; _</span><br><span class="line">num: Double &#x3D; 0.0</span><br><span class="line"></span><br><span class="line">scala&gt; var boolean:Boolean &#x3D; _</span><br><span class="line">boolean: Boolean &#x3D; false</span><br></pre></td></tr></table></figure>
+<h4 id="三、函数与方法的定义和使用"><a href="#三、函数与方法的定义和使用" class="headerlink" title="三、函数与方法的定义和使用"></a>三、函数与方法的定义和使用</h4><h5 id="1、方法定义"><a href="#1、方法定义" class="headerlink" title="1、方法定义"></a>1、方法定义</h5><p>def 方法名 (参数列表):方法返回值类型={方法体}</p>
+<p>代码块最后一行的值就是方法体的返回值，可以省略return关键字，但是如果要在方法体中间便返回值则需要使用return关键字，例如在方法体中根据不同情况返回不同的值，此时则需要使用return关键字</p>
+<h5 id="2、方法的调用"><a href="#2、方法的调用" class="headerlink" title="2、方法的调用"></a>2、方法的调用</h5><p>不带参数的方法调用通常不使用（），例如StringOps类的 distinct方法便省略了（）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; &quot;hello&quot;.distinct</span><br><span class="line">res0: String &#x3D; helo</span><br></pre></td></tr></table></figure>
+<h5 id="3、静态方法"><a href="#3、静态方法" class="headerlink" title="3、静态方法"></a>3、静态方法</h5><p>Scala中是没有静态方法的，但是可以通过伴生对象的方式实现静态方法，如下所示，Object所修饰的类名与Class修饰的相同，Object Account则是Class Account的伴生对象，也就是说在scala中使用Object即可实现静态方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class Account&#123;</span><br><span class="line">	&#x2F;&#x2F;实例方法</span><br><span class="line">&#125;</span><br><span class="line">Object Account&#123;</span><br><span class="line">&#x2F;&#x2F;静态方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4、函数的定义"><a href="#4、函数的定义" class="headerlink" title="4、函数的定义"></a>4、函数的定义</h5><p>函数是一个对象，可以赋值给一个变量</p>
+<p>val 函数名=(参数列表)=&gt;{函数体}</p>
+<h5 id="5、方法转换函数"><a href="#5、方法转换函数" class="headerlink" title="5、方法转换函数"></a>5、方法转换函数</h5><p>方法可以转换成函数，通常有以下两种转换方式，但是函数不可以转换成方法</p>
+<ul>
+<li><p>val 函数名 = 方法名 _</p>
+</li>
+<li><p>在需要函数的地方提供一个方法，则此方法会自动转换成函数</p>
+<h5 id="6、方法与函数的区别"><a href="#6、方法与函数的区别" class="headerlink" title="6、方法与函数的区别"></a>6、方法与函数的区别</h5></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可以作为单独表达式单独存在</td>
+<td>只有参数为空的方法可以单独存在</td>
+</tr>
+<tr>
+<td>必须有参数列表</td>
+<td>可以没有参数列表</td>
+</tr>
+<tr>
+<td>函数名代表函数对象本身</td>
+<td>方法名代表方法调用</td>
+</tr>
+<tr>
+<td>函数不可转换成方法</td>
+<td>方法可以转换成函数</td>
+</tr>
+<tr>
+<td>函数可以作为参数传递</td>
+<td>方法在作为参数传递时会自动转换成函数</td>
+</tr>
+<tr>
+<td>#### 四、条件表达式</td>
+<td></td>
+</tr>
+<tr>
+<td>scala中的条件表达式与java中大致相同，均为if 和else表达式，不过scala也有自己的特性如下：</td>
+<td></td>
+</tr>
+<tr>
+<td>##### 1、条件表达式的值可以赋给变量</td>
+<td></td>
+</tr>
+<tr>
+<td><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (x&gt;0) s &#x3D; 1 else s &#x3D; -1</span><br><span class="line">&#x2F;&#x2F;也可以这样写</span><br><span class="line">val s &#x3D; if(x&gt;0) 1 else -1</span><br></pre></td></tr></table></figure></td>
+<td></td>
+</tr>
+<tr>
+<td>##### 2、条件表达式返回的类型</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>如果分支的类型一致,则表达式的类型与分支类型一致</p>
+</li>
+<li><p>如果分支的类型不一致,则表达式的类型是分支类型的公共超类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val x &#x3D; 10</span><br><span class="line">x: Int &#x3D; 10</span><br><span class="line"></span><br><span class="line">scala&gt; val y &#x3D; if (x&gt;0) &quot;string&quot; else -1</span><br><span class="line">y: Any &#x3D; string</span><br></pre></td></tr></table></figure>
+<h5 id="3、else缺失的情况"><a href="#3、else缺失的情况" class="headerlink" title="3、else缺失的情况"></a>3、else缺失的情况</h5><p>if (x&gt;0) 1 等同于 if (x&gt;0) 1 else() 也就是说每个表达式都应该有值</p>
+<h4 id="五、循环表达式"><a href="#五、循环表达式" class="headerlink" title="五、循环表达式"></a>五、循环表达式</h4><h5 id="1、while循环表达式"><a href="#1、while循环表达式" class="headerlink" title="1、while循环表达式"></a>1、while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while (&#x2F;&#x2F;表达式)&#123;</span><br><span class="line">  &#x2F;&#x2F;循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、do-while循环表达式"><a href="#2、do-while循环表达式" class="headerlink" title="2、do while循环表达式"></a>2、do while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">&#x2F;&#x2F;循环体</span><br><span class="line">&#125; while (&#x2F;&#x2F;表达式)</span><br></pre></td></tr></table></figure>
+<h5 id="3、Range介绍与使用"><a href="#3、Range介绍与使用" class="headerlink" title="3、Range介绍与使用"></a>3、Range介绍与使用</h5></li>
+<li><p>Range类介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F;Range的三个参数为开始字段，结束字段和步长，步长省略情况下默认为1，但不能为0，否则报错</span><br><span class="line">class Range(val start : scala.Int, val end : scala.Int, val step : scala.Int)</span><br></pre></td></tr></table></figure></li>
+<li><p>Range用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这种用法得到的是Range，特点是左闭右开</span><br><span class="line">scala&gt; Range(1,10)</span><br><span class="line">res3: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;带步长的使用示例</span><br><span class="line">scala&gt; Range(1,10,2)</span><br><span class="line">res4: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为负数的使用示例</span><br><span class="line">scala&gt; Range(10,-1,-1)</span><br><span class="line">res6: scala.collection.immutable.Range &#x3D; Range(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)</span><br></pre></td></tr></table></figure></li>
+<li><p>until用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此种写法底层调用了Range,因此得到的依然是Range，特点是左闭右开</span><br><span class="line">scala&gt; 1 until 10</span><br><span class="line">res5: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br></pre></td></tr></table></figure></li>
+<li><p>to用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; 1 to 10</span><br><span class="line">res1: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;两种编写方法等价，表示1调用to方法并将10作为参数传入，得到的是一个Range.Inclusive，特点是左闭右闭</span><br><span class="line">scala&gt; 1.to(10)</span><br><span class="line">res2: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为2的写法，但是开发过程中慎用，只要遇到了能看懂即可</span><br><span class="line">scala&gt; 1 to 10 by 2</span><br><span class="line">res7: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br></pre></td></tr></table></figure>
+<h5 id="4、for循环表达式"><a href="#4、for循环表达式" class="headerlink" title="4、for循环表达式"></a>4、for循环表达式</h5></li>
+<li><p>循环语法</p>
+<p>  for (i&lt;-Range){<br>  循环体<br>}</p>
+</li>
+<li><p>嵌套循环</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   for (i &lt;- 1 to 3;j &lt;- 1 to 3)&#123;</span><br><span class="line">     println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的双重for循环</span><br><span class="line"></span><br><span class="line">   for(i &lt;- 1 to 3)&#123;</span><br><span class="line">     for (j &lt;- 1 to 3)&#123;</span><br><span class="line">       println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>循环守卫</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">     for (i &lt;- 1 to 3 if i !&#x3D; 2)&#123;</span><br><span class="line">       println(i + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">  </span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">     for (i&lt;- 1 to 3)&#123;</span><br><span class="line">       if (i !&#x3D; 2)&#123;println(i + &quot;&quot;)&#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引入变量</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   for (i&lt;- 1 to 3;from &#x3D; 4 - i;j &lt;- from to 3 )&#123;</span><br><span class="line">     println((2 * i + j) + &quot;&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">   for (i &lt;- 1 to 3)&#123;</span><br><span class="line">     var from &#x3D; 4 - i</span><br><span class="line">     for (j &lt;- from to 3)&#123;</span><br><span class="line">       println((2 * i + j) + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>退出循环</p>
+<p>  使用 Boolean型的控制变量</p>
+<p> 使用嵌套函数一可以从函数中 return</p>
+<p> 使用 Breaks对象中的 break方法</p>
+<h4 id="六、scala中的参数"><a href="#六、scala中的参数" class="headerlink" title="六、scala中的参数"></a>六、scala中的参数</h4><h5 id="1、默认参数"><a href="#1、默认参数" class="headerlink" title="1、默认参数"></a>1、默认参数</h5><p>方法定义时指定默认参数值,调用时可以不传递参数</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法中指定了name默认为hello</span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   sayHello()</span><br><span class="line"> &#125;</span><br><span class="line"> def sayHello(name:String &#x3D; &quot;hello&quot;): Unit &#x3D;&#123;</span><br><span class="line">   println(name)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、可变参数"><a href="#2、可变参数" class="headerlink" title="2、可变参数"></a>2、可变参数</h5><p>定义方法时允许指定最后一个参数可以重复(变长参数)</p>
+<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法定义了一个求和方法，利用可变长参数实现不论传入多少个参数都可以将参数相加</span><br><span class="line"></span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   println(sum(1,2))</span><br><span class="line">   println(sum(1,2,3))</span><br><span class="line">   println(sum(1,2,3,4))</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这个是特殊语法，如果直接写1 to 10 则会因为其是一个Rang类型出现与需要传入的类型不匹配的错误，使用 : _* 可以解决这个问题，暂时理解为类型自动转换</span><br><span class="line"> println(sum(1 to 10: _*))</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> def sum(nums:Int*) &#x3D;&#123;</span><br><span class="line">   var result &#x3D; 0</span><br><span class="line">   for (num &lt;- nums)&#123;</span><br><span class="line">     result +&#x3D; num</span><br><span class="line">   &#125;</span><br><span class="line">   result</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
     
@@ -748,7 +711,7 @@
 
     
     <p class="article-more-link">
-      <a class="article-more-a" href="/2018/10/09/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/">展开全文 >></a>
+      <a class="article-more-a" href="/2018/10/11/Scala%E5%85%A5%E9%97%A8%E4%B8%8E%E5%AE%9E%E6%88%98/">展开全文 >></a>
     </p>
     
 
@@ -1105,7 +1068,7 @@
 <h4 id="hdfs配置文件"><a href="#hdfs配置文件" class="headerlink" title="hdfs配置文件"></a>hdfs配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入配置文件目录</span></span><br><span class="line">[black@black ~]$ cd ~/app/hadoop/etc/hadoop/</span><br><span class="line"><span class="meta">#</span><span class="bash">core-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;hdfs://black:9000&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;/home/black/tmp&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">hdfs-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;1&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:9868&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;dfs.namenode.secondary.https-address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:9869&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">	&lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.datanode.use.datanode.hostname&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">	&lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
 <h4 id="MR与Yarn配置文件"><a href="#MR与Yarn配置文件" class="headerlink" title="MR与Yarn配置文件"></a>MR与Yarn配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">yarn-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">   &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">   &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;black:18088&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">mapred-site.xml配置</span></span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">        &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">slaves配置输入本机名即可</span></span><br><span class="line">black</span><br></pre></td></tr></table></figure>
 <h4 id="格式化及启动"><a href="#格式化及启动" class="headerlink" title="格式化及启动"></a>格式化及启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[black@black hadoop]$ hdfs namenode -format</span><br><span class="line">[black@black hadoop]$ start-dfs.sh</span><br><span class="line">[black@black hadoop]$ start-yarn.sh</span><br></pre></td></tr></table></figure>
-<h4 id="web访问界面"><a href="#web访问界面" class="headerlink" title="web访问界面"></a>web访问界面</h4><p><a href="http://IP地址:50070" target="_blank" rel="noopener">http://IP地址:50070</a><br><a href="http://IP地址:18088" target="_blank" rel="noopener">http://IP地址:18088</a><br>这个地方如果windows做了地址映射也可用主机名访问</p>
+<h4 id="web访问界面"><a href="#web访问界面" class="headerlink" title="web访问界面"></a>web访问界面</h4><p><a href="http://IP地址:50070" target="_blank" rel="noopener">http://IP地址:50070</a><br><a href="http://IP地址:18088" target="_blank" rel="noopener">http://IP地址:18088</a><br>这个地方如果windows做了地址映射也可用主机名访问<br>如果使用云服务器，在云服务内部做IP地址与主机名映射的话是使用内网IP与主机名映射，如果使用外网IP则会导致hadoop的namenode报cannot assign requested address错误</p>
 
     
 
@@ -1299,11 +1262,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1311,7 +1274,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
