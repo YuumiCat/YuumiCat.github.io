@@ -248,43 +248,9 @@
 <td>不支持</td>
 <td>不支持</td>
 </tr>
-<tr>
-<td>#### 官方网址</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><a href="https://azkaban.github.io/" target="_blank" rel="noopener">官网首页</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><a href="https://azkaban.readthedocs.io/en/latest/" target="_blank" rel="noopener">文档地址</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><a href="https://github.com/azkaban/azkaban/releases" target="_blank" rel="noopener">软件下载地址</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>#### Azkaban简介</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><img src="/images/Azkaban%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="Azkaban架构图"></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<h4 id="官方网址"><a href="#官方网址" class="headerlink" title="官方网址"></a>官方网址</h4><p><a href="https://azkaban.github.io/" target="_blank" rel="noopener">官网首页</a><br><a href="https://azkaban.readthedocs.io/en/latest/" target="_blank" rel="noopener">文档地址</a><br><a href="https://github.com/azkaban/azkaban/releases" target="_blank" rel="noopener">软件下载地址</a></p>
+<h4 id="Azkaban简介"><a href="#Azkaban简介" class="headerlink" title="Azkaban简介"></a>Azkaban简介</h4><p><img src="/images/Azkaban%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="Azkaban架构图"></p>
 <ul>
 <li>Azkaban由LinkedIn开源</li>
 </ul>
@@ -552,7 +518,7 @@ ADS：为各种统计报表提供数据   数据应用层</code></pre>
     
     <h4 id="什么是ETL"><a href="#什么是ETL" class="headerlink" title="什么是ETL"></a>什么是ETL</h4><p>ETL：Extract （抽取）Transform（转换）  Load（加载）</p>
 <h4 id="日志结构示例"><a href="#日志结构示例" class="headerlink" title="日志结构示例"></a>日志结构示例</h4><p>日志随便找的，按照结构自己生成即可，可以使用SQL+存储过程造，也可以用java造，方法很多，自己研究即可，生产中实际用的日志字段要比这个多，几十上百很正常，但是处理思路差不多</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[04&#x2F;06&#x2F;2020:10:38:22 +0800]	123.235.165.233	-	65	-	POST	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av73587909	200	125	-	HIT</span><br><span class="line">[04&#x2F;06&#x2F;2020:09:12:35 +0800]	36.59.77.128	-	191	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av38152104	200	126	2215	MISS</span><br><span class="line">[04&#x2F;06&#x2F;2020:10:18:34 +0800]	171.12.191.73	-	153	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av16780324	200	165	1767	MISS</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[04&#x2F;02&#x2F;2019:10:38:22 +0800]	123.235.165.233	-	65	-	POST	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av73587909	200	125	-	HIT</span><br><span class="line">[04&#x2F;02&#x2F;2019:09:12:35 +0800]	36.59.77.128	-	191	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av38152104	200	126	2215	MISS</span><br><span class="line">[04&#x2F;02&#x2F;2019:10:18:34 +0800]	171.12.191.73	-	153	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av16780324	200	165	1767	MISS</span><br></pre></td></tr></table></figure>
 <h4 id="处理思路分步讲解"><a href="#处理思路分步讲解" class="headerlink" title="处理思路分步讲解"></a>处理思路分步讲解</h4><p>1、创建存储数据中每个字段的类对象，此部分根据日志的字段进行设计即可，每一个需要存储的字段信息对应一个对象的属性</p>
 <p>2、使用split()方法将从map()方法中传入的数据切分成字节数组</p>
 <p>3、将数据切分后可以直接set进对象的属性中的字段进行赋值操作</p>
@@ -1708,15 +1674,15 @@ ADS：为各种统计报表提供数据   数据应用层</code></pre>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Mapreduce</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1732,11 +1698,11 @@ ADS：为各种统计报表提供数据   数据应用层</code></pre>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
             
             <div class="clearfix"></div>
