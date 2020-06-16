@@ -180,6 +180,578 @@
             
 
   
+    <article id="post-Azkaban安装与简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/" target="_blank">Azkaban安装与简介</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+        <time datetime="2019-02-28T21:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="常用调度框架介绍"><a href="#常用调度框架介绍" class="headerlink" title="常用调度框架介绍"></a>常用调度框架介绍</h4><table>
+<thead>
+<tr>
+<th>功能类型</th>
+<th>Azkaban</th>
+<th>Oozie</th>
+<th>Airflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调度策略/作业编排</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>异常处理及告警</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>开发语言</td>
+<td>java</td>
+<td>java</td>
+<td>python</td>
+</tr>
+<tr>
+<td>作业配置方式</td>
+<td>key-value</td>
+<td>xml</td>
+<td>python脚本</td>
+</tr>
+<tr>
+<td>易用性和可拓展性</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>#### 官方网址</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://azkaban.github.io/" target="_blank" rel="noopener">官网首页</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://azkaban.readthedocs.io/en/latest/" target="_blank" rel="noopener">文档地址</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/azkaban/azkaban/releases" target="_blank" rel="noopener">软件下载地址</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#### Azkaban简介</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="/images/Azkaban%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="Azkaban架构图"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>Azkaban由LinkedIn开源</li>
+</ul>
+<ul>
+<li><p>Azkaban用于解决需要按照特定顺序来跑的job集合</p>
+</li>
+<li><p>Job大多是Hadoop生态圈的组件任务</p>
+</li>
+<li><p>Azkaban由Webserver、Executor、MySQL三个核心模块组成</p>
+<ul>
+<li><p>Webserver：中心管理节点，元数据的管理，项目上传解析，调度设置等等都有WebServer模块管理，调度的触发、执行实例的生成，执行实例的分发和监控等等。同时WebServer还提供了对外接口，包括日志、实例状态的查询认证。</p>
+</li>
+<li><p>Executor：任务执行节点，负责执行具体的flow，同时还会提供业务接口，查询执行实例的状态。executor可以使多节点。</p>
+</li>
+<li><p>MySQL：元数据存储，比如项目文件、项目信息、调度信息、报警规则等。同时还会存储一些业务数据，如执行实例的信息、日志等等。</p>
+<h4 id="Azkaban安装"><a href="#Azkaban安装" class="headerlink" title="Azkaban安装"></a>Azkaban安装</h4><p>下载安装包后解压至app目录<br>在根目录下执行跳过单元测试的编译命令，这个编译时间会比较长，和网速有关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;gradlew build installDist -x test</span><br></pre></td></tr></table></figure>
+<h5 id="Azkaban单机版本安装"><a href="#Azkaban单机版本安装" class="headerlink" title="Azkaban单机版本安装"></a>Azkaban单机版本安装</h5></li>
+</ul>
+</li>
+<li><p>安装包解压至app目录下</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@yummi distributions]# tar -zxvf azkaban-solo-server-0.1.0-SNAPSHOT.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>azkaban.properties配置</li>
+</ul>
+<p>在conf目录下的azkaban.properties配置Azkaban的名称、介绍、时区和端口号</p>
+<ul>
+<li>azkaban-users.xml配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;user groups&#x3D;&quot;azkaban&quot; password&#x3D;&quot;yuumi&quot; roles&#x3D;&quot;admin&quot; username&#x3D;&quot;yuumi&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动Azkaban</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#这个地方要注意，一定不要进入bin目录后启动脚本，否则会报Cannot find &#39;database.properties&#39;错误</span><br><span class="line">[root@yummi azkaban-solo-server-0.1.0-SNAPSHOT]# bin&#x2F;start-solo.sh</span><br></pre></td></tr></table></figure>
+<h5 id="Azkaban集群版本安装"><a href="#Azkaban集群版本安装" class="headerlink" title="Azkaban集群版本安装"></a>Azkaban集群版本安装</h5><ul>
+<li>安装包解压至app目录下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> #在exec的distributions目录中找到执行端安装包解压</span><br><span class="line">[root@yummi distributions]# tar -zxvf azkaban-exec-server-0.1.0-SNAPSHOT.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line">#在web端的distributions目录中找到执行端安装包解压</span><br><span class="line">[root@yummi distributions]# tar -zxvf azkaban-web-server-0.1.0-SNAPSHOT.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure></li>
+<li>在mysql中创建数据库表<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@yummi app]# mysql -uroot -p000000</span><br><span class="line">mysql&gt; CREATE DATABASE azkaban;</span><br><span class="line">#需要先解压azkaban-db&#x2F;build&#x2F;distributions下的sql压缩包，然后执行导入，创建表成功后退出</span><br><span class="line">mysql&gt; source &#x2F;root&#x2F;app&#x2F;azkaban&#x2F;azkaban-db&#x2F;build&#x2F;distributions&#x2F;azkaban-db-0.1.0-SNAPSHOT&#x2F;create-all-sql-0.1.0-SNAPSHOT.sql;</span><br></pre></td></tr></table></figure></li>
+<li>azkaban.properties配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">azkaban.name&#x3D;Azkaban Web</span><br><span class="line">azkaban.label&#x3D;My Web Azkaban</span><br><span class="line">default.timezone.id&#x3D;Asia&#x2F;Shanghai</span><br><span class="line"></span><br><span class="line">database.type&#x3D;mysql</span><br><span class="line">mysql.port&#x3D;3306</span><br><span class="line">mysql.host&#x3D;localhost</span><br><span class="line">mysql.database&#x3D;azkaban</span><br><span class="line">mysql.user&#x3D;root</span><br><span class="line">mysql.password&#x3D;000000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>azkaban-users.xml配置</li>
+</ul>
+</li>
+</ul>
+<p>与单机版本配置方式一样</p>
+<ul>
+<li>踩坑指南</li>
+</ul>
+<p>先启动exec,然后启动web,这个时候会发现web无法启动，查看日志产生一个报错：No active executors found，这是因为web存在激活和未激活两种状态，因此需要手动激活后即可启动成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#端口号是变化的，因此需要在mysql的executors表中查询</span><br><span class="line">curl  &quot;http:&#x2F;&#x2F;yummi:41540&#x2F;executor?action&#x3D;activate&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="Azkaban的Flow使用方法"><a href="#Azkaban的Flow使用方法" class="headerlink" title="Azkaban的Flow使用方法"></a>Azkaban的Flow使用方法</h4><ul>
+<li><p>创建flow20.project文件并将版本azkaban-flow-version: 2.0写进这个文件</p>
+</li>
+<li><p>创建basic.flow文件，将要执行的任务写入如下格式，粘贴即可，差一点都无法识别</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nodes:</span><br><span class="line"> - name: jobA</span><br><span class="line">    type: command</span><br><span class="line">    config:</span><br><span class="line">      command: echo &quot;This is an echoed text.&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>将编写好的文件打包成zip包</p>
+</li>
+<li><p>在web页面创建项目后选择upload上传zip包后选择执行</p>
+</li>
+<li><p>在任务中使用scheduler来配置定时调度</p>
+</li>
+<li><p>可以将编写的linux脚本也打包在zip中，然后在命令中编写sh 脚本名.sh 即可</p>
+</li>
+</ul>
+<h4 id="创建带有依赖的Flow"><a href="#创建带有依赖的Flow" class="headerlink" title="创建带有依赖的Flow"></a>创建带有依赖的Flow</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">nodes:</span><br><span class="line">  - name: jobC</span><br><span class="line">    type: noop</span><br><span class="line">    # jobC depends on jobA and jobB</span><br><span class="line">    dependsOn:</span><br><span class="line">      - jobA</span><br><span class="line">      - jobB</span><br><span class="line"></span><br><span class="line">  - name: jobA</span><br><span class="line">    type: command</span><br><span class="line">    config:</span><br><span class="line">      command: echo &quot;This is an echoed text.&quot;</span><br><span class="line"></span><br><span class="line">  - name: jobB</span><br><span class="line">    type: command</span><br><span class="line">    config:</span><br><span class="line">      command: pwd</span><br></pre></td></tr></table></figure>
+
+
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Azkaban</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数仓分层简介" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/" target="_blank">数仓分层简介</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+        <time datetime="2019-02-24T07:22:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-24</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="什么是数据仓库？"><a href="#什么是数据仓库？" class="headerlink" title="什么是数据仓库？"></a>什么是数据仓库？</h4><p>将多个数据源的数据经过ETL之后，按照一定的主题集成， 提供【决策支持】和【联机分析应用】的结构化数据环境，说法很多，爱咋说咋说</p>
+<h4 id="数仓和数据库区别"><a href="#数仓和数据库区别" class="headerlink" title="数仓和数据库区别"></a>数仓和数据库区别</h4><ul>
+<li><p>数仓面向主题，数据库面向事务</p>
+</li>
+<li><p>数仓有意的去引用冗余，而数据库则要遵守三范式，从这点上两者是相反的</p>
+</li>
+<li><p>数仓是属于OLAP（联机分析 ）各种维度 各种复杂的业务分析 ，慢一点能忍受，数据库是属于OLTP （联机事务）时效性高</p>
+</li>
+</ul>
+<h4 id="为什么要建数仓"><a href="#为什么要建数仓" class="headerlink" title="为什么要建数仓"></a>为什么要建数仓</h4><ul>
+<li><p>将复杂任务分解，可以将复杂问题简单化</p>
+</li>
+<li><p>结构清晰，减少重复开发，数仓里面是有很多层的，但是不能为了分层而分层</p>
+</li>
+<li><p>摆脱多种不同数据源、异构数据库、不同数据格式等等带来的问题</p>
+</li>
+</ul>
+<h4 id="常见文章中的分层"><a href="#常见文章中的分层" class="headerlink" title="常见文章中的分层"></a>常见文章中的分层</h4><pre><code>ODS：原始数据层： 直接加载原始数据，不做任何处理
+DWD：明细数据层，对ODS进行清洗   
+DWS：基于DWD做统计分析，服务数据层   &lt;== 轻度
+ADS：为各种统计报表提供数据，数据应用层</code></pre><h4 id="某公司业务场景分层"><a href="#某公司业务场景分层" class="headerlink" title="某公司业务场景分层"></a>某公司业务场景分层</h4><p>实际上，数仓的分层并没有固定的层数标准，是要根据不同业务场景和需求决定分几层的，决不能为了分层而分层</p>
+<pre><code>ODS：存储清洗后的数据，因为源数据除了占用空间外，业务场景中在数据清洗后几乎不会再使用
+DWS：基于DWD做统计分析   服务数据层
+ADS：为各种统计报表提供数据   数据应用层</code></pre>
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-MR数据清洗案例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/" target="_blank">MR数据清洗案例</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/" class="archive-article-date">
+        <time datetime="2019-02-18T12:19:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="什么是ETL"><a href="#什么是ETL" class="headerlink" title="什么是ETL"></a>什么是ETL</h4><p>ETL：Extract （抽取）Transform（转换）  Load（加载）</p>
+<h4 id="日志结构示例"><a href="#日志结构示例" class="headerlink" title="日志结构示例"></a>日志结构示例</h4><p>日志随便找的，按照结构自己生成即可，可以使用SQL+存储过程造，也可以用java造，方法很多，自己研究即可，生产中实际用的日志字段要比这个多，几十上百很正常，但是处理思路差不多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[04&#x2F;06&#x2F;2020:10:38:22 +0800]	123.235.165.233	-	65	-	POST	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av73587909	200	125	-	HIT</span><br><span class="line">[04&#x2F;06&#x2F;2020:09:12:35 +0800]	36.59.77.128	-	191	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av38152104	200	126	2215	MISS</span><br><span class="line">[04&#x2F;06&#x2F;2020:10:18:34 +0800]	171.12.191.73	-	153	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av16780324	200	165	1767	MISS</span><br></pre></td></tr></table></figure>
+<h4 id="处理思路分步讲解"><a href="#处理思路分步讲解" class="headerlink" title="处理思路分步讲解"></a>处理思路分步讲解</h4><p>1、创建存储数据中每个字段的类对象，此部分根据日志的字段进行设计即可，每一个需要存储的字段信息对应一个对象的属性</p>
+<p>2、使用split()方法将从map()方法中传入的数据切分成字节数组</p>
+<p>3、将数据切分后可以直接set进对象的属性中的字段进行赋值操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static String ParserLog(String log,SimpleDateFormat format)throws Exception &#123;</span><br><span class="line">       String line &#x3D; log;</span><br><span class="line">       String[] splits &#x3D; line.split(&quot;\t&quot;);</span><br><span class="line">       String time &#x3D; splits[0];</span><br><span class="line">       String ip &#x3D; splits[1];</span><br><span class="line">	&#x2F;&#x2F;......省略N多代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、将ip解析成省、市和isp ,此部分我用的ip2region离线IP解析，生产上肯定要用付费的，不要使用在线请求的那种IP解析，数据量稍大就干废了，ip2region的下载和使用请参考我另一篇博客</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * 将ip解析成省份、城市、isp</span><br><span class="line"> * 这个我是直接在网上搞了工具类，自己改了改，</span><br><span class="line"> * 需要注意的是创建IP数据库的连接的时候，把创建连接的语句放在MR的setup()方法中</span><br><span class="line"> * 这样在执行MR的时候就会只创建一次连接操作</span><br><span class="line"> * 否则每执行一个map就创建一次连接那不炸就怪了，还可以把IP数据库的内容缓存到redis中，比较香</span><br><span class="line"> * *&#x2F;</span><br><span class="line">String[] ipAnalysis &#x3D; IPAnalysis.ipAnalysis(ip);</span><br><span class="line">String provinces &#x3D; ipAnalysis[1];</span><br><span class="line">String city &#x3D; ipAnalysis[2];</span><br><span class="line">String isp &#x3D; ipAnalysis[3];</span><br></pre></td></tr></table></figure>
+<p>5、将日期数据解析成年月日，此部分使用SimpleDateFormat获取date,再使用Calendar对date进行操作，获取年月日，需要注意的是得出的数据因为格式不符，需要进行补零操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">      * 将时间解析成年月日</span><br><span class="line">      * format是SimpleDateFormat，这个也没必要每一次执行map都重复创建，也放setup()方法中</span><br><span class="line">      * *&#x2F;</span><br><span class="line"></span><br><span class="line">     Date date &#x3D; format.parse(time);</span><br><span class="line">     Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">     calendar.setTime(date);</span><br><span class="line">     String year &#x3D; calendar.get(Calendar.YEAR)+&quot;&quot;;</span><br><span class="line">     &#x2F;&#x2F;ByZero.byZero是对日期进行补零操作，工具类自己写就行，就是简单的判断</span><br><span class="line">     String month &#x3D; ByZero.byZero(calendar.get(Calendar.MONTH) + 1);</span><br><span class="line">     String day &#x3D; ByZero.byZero(calendar.get(Calendar.DATE));</span><br></pre></td></tr></table></figure>
+<p>6、解析Url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * 解析url,说白了就是各种拆，很简单，没啥可说的</span><br><span class="line"> * *&#x2F;</span><br><span class="line">String[] urlSplit &#x3D; url.split(&quot;:&#x2F;&#x2F;&quot;);</span><br><span class="line">String http &#x3D; urlSplit[0];</span><br><span class="line">String domain &#x3D; urlSplit[1].substring(0,urlSplit[1].indexOf(&quot;&#x2F;&quot;));;</span><br><span class="line">String path &#x3D; urlSplit[1].replace(domain,&quot;&quot;);</span><br></pre></td></tr></table></figure>
+<p>8、使用计数器统计日志总数、错误数据数，这个东西的结果可以写到文件中，也可以写到数据库中，要加上批次，一般可以将输出的时间作为批次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                &#x2F;&#x2F;mr进来总的日志数，使用计数器获取</span><br><span class="line">                context.getCounter(&quot;etl&quot;,&quot;access_totals&quot;).increment(1);</span><br><span class="line">                String parserLog &#x3D; ParseLog.ParserLog(value.toString(),format);</span><br><span class="line">                context.write(new Text(parserLog),NullWritable.get());</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">			&#x2F;&#x2F;这个是遇到错误日志就计数1次</span><br><span class="line">                context.getCounter(&quot;etl&quot;,&quot;access_erros&quot;).increment(1);</span><br><span class="line">                &#x2F;*e.printStackTrace();*&#x2F;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>9、打包上传服务器</p>
+<ul>
+<li><p>生产中使用的是瘦包，打的包里面不含有pom中引用的驱动，因为如果是胖包，在集群分发执行是会浪费很多网络IO资源</p>
+</li>
+<li><p>代码打包后再集群运行注意事项</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#配置一个变量代替jar路径</span><br><span class="line">export LIBJARS&#x3D;jar包path1,jar包path2</span><br><span class="line">#将第三方jar包引用添加至HADOOP_CLASSPATH中，让yarn能够管理使用</span><br><span class="line">export HADOOP_CLASSPATH&#x3D;HADOOP_CLASSPATH:需要加入的jar包path1,jar包path2</span><br><span class="line">#在集群上执行代码命令，-libjars代表调用第三方jar包</span><br><span class="line">hadoop jar 代码jar包路径  代码全类名 -libjars $&#123;LIBJARS&#125; input output</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Mapreduce</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Flume基础入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2019/02/12/Flume%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" target="_blank">Flume基础入门</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2019/02/12/Flume%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" class="archive-article-date">
+        <time datetime="2019-02-12T11:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-12</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="Flume基础介绍"><a href="#Flume基础介绍" class="headerlink" title="Flume基础介绍"></a>Flume基础介绍</h3><hr>
+<h4 id="一、网址汇总"><a href="#一、网址汇总" class="headerlink" title="一、网址汇总"></a>一、网址汇总</h4><p><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume官网</a><br><a href="http://flume.apache.org/releases/content/1.6.0/FlumeUserGuide.html" target="_blank" rel="noopener">Flume使用文档</a><br><a href="http://flume.apache.org/releases/content/1.6.0/FlumeDeveloperGuide.html" target="_blank" rel="noopener">Flume开发文档</a><br><a href="http://archive.cloudera.com/cdh5/cdh/5/flume-ng-1.6.0-cdh5.5.2.tar.gz" target="_blank" rel="noopener">CDH版本Flume下载地址</a></p>
+<h4 id="二、Flume常识简介"><a href="#二、Flume常识简介" class="headerlink" title="二、Flume常识简介"></a>二、Flume常识简介</h4><ul>
+<li><p>Flume就是一个针对日志数据进行采集和汇总的一个框架，把日志从A地方搬迁到B地方 </p>
+</li>
+<li><p>Flume分为OG （0.9版本）和NG（1.x版本） Flume从使用层面来讲就是写配置文件，其实就是配置我们的Agent，无需强行记忆配置文件，会在官网查找即可</p>
+</li>
+<li><p>当前版本Flume安装前置条件为jdk1.8，一定的内存，目录存在可读写权限以及足够的磁盘空间</p>
+</li>
+<li><p>安装时需要和java环境变量关联，在flume-env.sh中配置java的环境变量位置，具体内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java</span><br></pre></td></tr></table></figure>
+<h4 id="三、agent简介"><a href="#三、agent简介" class="headerlink" title="三、agent简介"></a>三、agent简介</h4><p>Flume的agent分为Source、Channel、Sink三个组件构成，agent的本质其实是JVM的一个进程</p>
+</li>
+<li><p>Source ：数据的来源，常用以下几种组件</p>
+<p> avro ：通过序列化的方式读取数据<br> exec  ：通过命令行的方式读取数据的方式读取数据<br> spooling ：读取目录的数据<br> taildir ：通过主动报告心跳的方式获取数据位置来读取数据</p>
+</li>
+<li><p>Channel：数据的通道，常用以下几种组件</p>
+<p> memory ：基于内存的通道<br> kafka ：使用kafka作为数据的通道<br> file ：通过文件的方式，数据存储在磁盘</p>
+</li>
+<li><p>Sink：数据输出到哪里</p>
+<p> hdfs    Hadoop<br> logger  控制台<br> avro  序列化<br> kafka</p>
+<h4 id="四、端口发消息的agent配置示例"><a href="#四、端口发消息的agent配置示例" class="headerlink" title="四、端口发消息的agent配置示例"></a>四、端口发消息的agent配置示例</h4><h5 id="1、配置"><a href="#1、配置" class="headerlink" title="1、配置"></a>1、配置</h5><p>实现44444端口的输入数据通过flume采集，然后在控制台上打印出来<br>各种情况如何配置均可以在官网查询，加重的属性即为必须的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;java</span><br><span class="line"># Name the components on this agent</span><br><span class="line">a1.sources &#x3D; r1  #source的名字  </span><br><span class="line">a1.sinks &#x3D; k1    #sink的名字</span><br><span class="line">a1.channels &#x3D; c1 #channel的名字</span><br><span class="line"></span><br><span class="line"># Describe&#x2F;configure the source   &lt;&#x3D;&#x3D; 定义source</span><br><span class="line">a1.sources.r1.type &#x3D; netcat       #netcat代表从端口读取数据，通过nc发送数据</span><br><span class="line">a1.sources.r1.bind &#x3D; 0.0.0.0      #绑定的主机地址</span><br><span class="line">a1.sources.r1.port &#x3D; 44444        #来源的端口号</span><br><span class="line"></span><br><span class="line"># Use a channel which buffers events in memory &lt;&#x3D;&#x3D; 定义channel</span><br><span class="line">a1.channels.c1.type &#x3D; memory      #代表使用内存作为channel</span><br><span class="line"></span><br><span class="line"># Describe the sink  #定义sink</span><br><span class="line">a1.sinks.k1.type &#x3D; logger           #代表以info级别将日志打印在控制台上</span><br><span class="line"></span><br><span class="line"># Bind the source and sink to the channel</span><br><span class="line">a1.sources.r1.channels &#x3D; c1  #定义source和channel的连线</span><br><span class="line">a1.sinks.k1.channel &#x3D; c1     #定义sink的channel的连线</span><br></pre></td></tr></table></figure>
+<h5 id="2、agent启动命令"><a href="#2、agent启动命令" class="headerlink" title="2、agent启动命令"></a>2、agent启动命令</h5><p>可以使用flume-ng agent命令后，系统会出现命令提示，可以选择从全局角度或者agent角度启动，本次示例是从agent角度启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flume-ng agent \</span><br><span class="line">--name a1 \   #agent的名字</span><br><span class="line">--conf $FLUME_HOME&#x2F;conf \  #flume下的conf目录</span><br><span class="line">--conf-file $FLUME_HOME&#x2F;script&#x2F;example.conf \ #具体agent配置文件地址</span><br><span class="line">-Dflume.root.logger&#x3D;INFO,console  #控制台进行日志打印（生产中不这么用）</span><br></pre></td></tr></table></figure>
+<h5 id="3、发送数据测试"><a href="#3、发送数据测试" class="headerlink" title="3、发送数据测试"></a>3、发送数据测试</h5></li>
+<li><p>flume默认以事件的方式传输数据，在控制台显示接收的数据时最多显示16个字节，如未能全部显示并非报错</p>
+</li>
+<li><p>Event：Flume数据传输的基本单元，例如一条数据就是一个Event，Event包含header和body两部分，传输的数据包含在body中</p>
+</li>
+<li><p>有两种方式可以通过端口发送数据，具体如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nc -k -l [host] [port]</span><br><span class="line">#或</span><br><span class="line">telnet [host] [port] </span><br><span class="line">#接收到的数据格式</span><br><span class="line">Event: &#123; headers:&#123;&#125; body: 68 61 68 61 68 0D                               hahah. &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="五、spool-Source与HDFS-Sink方式示例"><a href="#五、spool-Source与HDFS-Sink方式示例" class="headerlink" title="五、spool Source与HDFS Sink方式示例"></a>五、spool Source与HDFS Sink方式示例</h4><h5 id="1、配置-1"><a href="#1、配置-1" class="headerlink" title="1、配置"></a>1、配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"># Name the components on this agent</span><br><span class="line">a1.sources &#x3D; r1  </span><br><span class="line">a1.sinks &#x3D; k1    </span><br><span class="line">a1.channels &#x3D; c1 </span><br><span class="line"></span><br><span class="line"># Describe&#x2F;configure the source   </span><br><span class="line">a1.sources.r1.type &#x3D; spooldir       </span><br><span class="line">a1.sources.r1.spoolDir &#x3D; &#x2F;root&#x2F;data&#x2F;flume&#x2F;spool     </span><br><span class="line">       </span><br><span class="line"># Use a channel which buffers events in memory</span><br><span class="line">a1.channels.c1.type &#x3D; memory      </span><br><span class="line"></span><br><span class="line"># Describe the sink  </span><br><span class="line">a1.sinks.k1.type &#x3D; hdfs</span><br><span class="line">#这个端口号必须与hadoop中core-site中配置的一致</span><br><span class="line">a1.sinks.k1.hdfs.path &#x3D; hdfs:&#x2F;&#x2F;yummi:9000&#x2F;flume&#x2F;spool&#x2F;%Y%m%d%H%M </span><br><span class="line">#这种类型更直观些，不进行压缩        </span><br><span class="line">a1.sinks.k1.hdfs.fileType &#x3D; DataStream </span><br><span class="line">a1.sinks.k1.hdfs.filePrefix &#x3D; yummi- </span><br><span class="line">#因为flume默认在header中获取时间戳，如果没有则报错，此配置则可以使用本地时间戳 </span><br><span class="line">a1.sinks.k1.hdfs.useLocalTimeStamp &#x3D; true</span><br><span class="line">a1.sinks.k1.hdfs.writeFormat &#x3D; Text  </span><br><span class="line">a1.sinks.k1.hdfs.batchSize &#x3D;  10 </span><br><span class="line">#下面三种属性分别是按照时间、大小、事件数决定文件滚动，先满足哪个条件便执行哪一个，0代表不使用</span><br><span class="line">a1.sinks.k1.hdfs.rollInterval &#x3D; 60</span><br><span class="line">a1.sinks.k1.hdfs.rollSize &#x3D;  0</span><br><span class="line">a1.sinks.k1.hdfs.rollCount &#x3D; 0</span><br><span class="line"></span><br><span class="line"># Bind the source and sink to the channel</span><br><span class="line">a1.sources.r1.channels &#x3D; c1  </span><br><span class="line">a1.sinks.k1.channel &#x3D; c1</span><br></pre></td></tr></table></figure>
+<h5 id="2、agent启动命令-1"><a href="#2、agent启动命令-1" class="headerlink" title="2、agent启动命令"></a>2、agent启动命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flume-ng agent \</span><br><span class="line">--name a1 \</span><br><span class="line">--conf $FLUME_HOME&#x2F;conf \</span><br><span class="line">--conf-file $FLUME_HOME&#x2F;script&#x2F;spool.conf \</span><br><span class="line">-Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure>
+<h4 id="六、taildir-Source示例"><a href="#六、taildir-Source示例" class="headerlink" title="六、taildir Source示例"></a>六、taildir Source示例</h4><p>生产上唯一的选型 支持断点续传，不仅仅可以支持到file，也可以支持的directory</p>
+<h5 id="1、配置-2"><a href="#1、配置-2" class="headerlink" title="1、配置"></a>1、配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># Name the components on this agent</span><br><span class="line">a1.sources &#x3D; r1  </span><br><span class="line">a1.sinks &#x3D; k1    </span><br><span class="line">a1.channels &#x3D; c1 </span><br><span class="line"></span><br><span class="line"># Describe&#x2F;configure the source   </span><br><span class="line">a1.sources.r1.type &#x3D; TAILDIR </span><br><span class="line">#可以分多个文件组，每个文件组都可以自定义读取文件的位置和规则</span><br><span class="line">a1.sources.r1.filegroups &#x3D; f1 f2     </span><br><span class="line">a1.sources.r1.filegroups.f1 &#x3D; &#x2F;root&#x2F;data&#x2F;flume&#x2F;taildir&#x2F;test1&#x2F;example.log</span><br><span class="line">a1.sources.r1.headers.f1.headerKey1 &#x3D; value1</span><br><span class="line">a1.sources.r1.filegroups.f2 &#x3D; &#x2F;root&#x2F;data&#x2F;flume&#x2F;taildir&#x2F;test2&#x2F;.*log.*</span><br><span class="line">a1.sources.r1.headers.f2.headerKey1 &#x3D; value2</span><br><span class="line">a1.sources.r1.headers.f2.headerKey2 &#x3D; value2-2</span><br><span class="line">#用来记录文件读取的位置的</span><br><span class="line">a1.sources.r1.positionFile &#x3D; &#x2F;root&#x2F;log&#x2F;flume&#x2F;taildir_position.json</span><br><span class="line">a1.sources.r1.fileHeader &#x3D; true</span><br><span class="line">a1.sources.ri.maxBatchCount &#x3D; 1000</span><br><span class="line"></span><br><span class="line"># Use a channel which buffers events in memory</span><br><span class="line">a1.channels.c1.type &#x3D; memory      </span><br><span class="line"></span><br><span class="line"># Describe the sink  </span><br><span class="line">a1.sinks.k1.type &#x3D; hdfs</span><br><span class="line">#这个端口号必须与hadoop中core-site中配置的一致</span><br><span class="line">a1.sinks.k1.hdfs.path &#x3D; hdfs:&#x2F;&#x2F;yummi:9000&#x2F;flume&#x2F;taildir&#x2F;%Y%m%d%H%M         </span><br><span class="line">a1.sinks.k1.hdfs.fileType &#x3D; DataStream </span><br><span class="line">#输出至HDFS上文件的前缀</span><br><span class="line">a1.sinks.k1.hdfs.filePrefix &#x3D; yummi-  </span><br><span class="line">a1.sinks.k1.hdfs.useLocalTimeStamp &#x3D; true</span><br><span class="line">a1.sinks.k1.hdfs.writeFormat &#x3D; Text  </span><br><span class="line">a1.sinks.k1.hdfs.batchSize &#x3D;  10 </span><br><span class="line">a1.sinks.k1.hdfs.rollInterval &#x3D; 60</span><br><span class="line">a1.sinks.k1.hdfs.rollSize &#x3D;  0</span><br><span class="line">a1.sinks.k1.hdfs.rollCount &#x3D; 0</span><br><span class="line"></span><br><span class="line"># Bind the source and sink to the channel</span><br><span class="line">a1.sources.r1.channels &#x3D; c1  </span><br><span class="line">a1.sinks.k1.channel &#x3D; c1</span><br></pre></td></tr></table></figure>
+<h5 id="2、agent启动命令-2"><a href="#2、agent启动命令-2" class="headerlink" title="2、agent启动命令"></a>2、agent启动命令</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flume-ng agent \</span><br><span class="line">--name a1 \</span><br><span class="line">--conf $FLUME_HOME&#x2F;conf \</span><br><span class="line">--conf-file $FLUME_HOME&#x2F;script&#x2F;taildir.conf \</span><br><span class="line">-Dflume.root.logger&#x3D;INFO,console</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flume</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2019/02/12/Flume%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-集群资源规划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -995,505 +1567,9 @@
 
 
   
-    <article id="post-MapReduce的基本原理和运行流程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank">MapReduce的基本原理和运行流程</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/" class="archive-article-date">
-        <time datetime="2018-12-01T13:46:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-01</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="MapReduce的基本原理和运行流程"><a href="#MapReduce的基本原理和运行流程" class="headerlink" title="MapReduce的基本原理和运行流程"></a>MapReduce的基本原理和运行流程</h3><hr>
-<h4 id="MR的设计起源"><a href="#MR的设计起源" class="headerlink" title="MR的设计起源"></a>MR的设计起源</h4><ul>
-<li><p>Google最早用 Map Reducef做搜索中的倒排索引</p>
-</li>
-<li><p>数据集可以分解成许多小的数据集</p>
-</li>
-<li><p>每一个小数据集都可以完全并行地进行处理</p>
-<h4 id="MR的优点"><a href="#MR的优点" class="headerlink" title="MR的优点"></a>MR的优点</h4></li>
-<li><p>批处理PB级别数据(比如排序)</p>
-</li>
-<li><p>线性扩展</p>
-</li>
-<li><p>运行稳定,容错性高</p>
-</li>
-<li><p>可编程</p>
-<h4 id="map的运行过程"><a href="#map的运行过程" class="headerlink" title="map的运行过程"></a>map的运行过程</h4><p><img src="/images/map%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
-<h5 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h5></li>
-<li><p>MR框架首先会对文件进行分片，分片后MR框架对数据进行读取，默认按行读取，读取后转换成K-V形式，K默认为位置的偏移量，例如第一个字节偏移量是0，第三个字节的偏移量就是2，V则是读取的一行文本数据</p>
-</li>
-<li><p>转换成K-V形式数据后交由用户自定义的map函数处理，用户可以在map函数中编写业务逻辑</p>
-</li>
-<li><p>map处理完成后数据后默认会对Key值进行hash，相同的Key会分到一个相同的Partition（分区），一类Partition对应一个Reduce</p>
-</li>
-</ul>
-<h5 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h5><ul>
-<li><p>Block是HDFS上的文件的存储单元，默认128M大小</p>
-</li>
-<li><p>MR框架中的Inputformat对象会通过Split函数对文件上的Block进行逻辑划分，也就是所谓的分片，其本身不包含数据，只包含指向这些数据的位置信息</p>
-</li>
-<li><p>分片规则在默认情况下, split size= block size,在 hadoop2.x中为128M。需要注意的是 bytesremaining/ splitsize&gt;1.1不满足的话,那么最后所有剩余数据的会作为一个切片。从而不会形成例如129M文件规划成两个切片的局面。</p>
-</li>
-<li><p>一个 Split不会包含两个File的 Block,不会跨越File边界，一个Map处理一个 Split</p>
-<h4 id="Reduce的运行过程"><a href="#Reduce的运行过程" class="headerlink" title="Reduce的运行过程"></a>Reduce的运行过程</h4><p><img src="/images/Reduce%E7%9A%84%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
-</li>
-<li><p>Reduce会将各个map节点上将数据自己分区的数据copy到自己的内存缓冲区中</p>
-</li>
-<li><p>在Reduce中会将这些小的数据集合并成大的数据集并按照key值进行聚合，将value值作为迭代器交给用户使用</p>
-</li>
-<li><p>这些数据经过用户自定义的Reduce函数处理后会按照K-V的形式输出到指定的位置上</p>
-<h4 id="Shuffle过程"><a href="#Shuffle过程" class="headerlink" title="Shuffle过程"></a>Shuffle过程</h4><p>Shuffle过程处于map和reduce过程之间<br><img src="/images/Shuffle%E8%BF%87%E7%A8%8B.jpg" alt=""></p>
-<h5 id="Map端"><a href="#Map端" class="headerlink" title="Map端:"></a>Map端:</h5></li>
-<li><p>map函数处理完数据后会进入Collect阶段，此阶段将数据手机并放进环形绶冲区,缓冲区分为数据区和索引区，数据区包含具体的数据，索引区包含数据的位置。</p>
-</li>
-<li><p>在环形缓冲区中会进行Sort阶段，对在同一 Partition内的索引按照Key排序。当环形缓冲区中的数据达到一定比例时会进入Spill溢写阶段，根据排好序的索引将数据在各个分区内按顺序写到一个个小文件中</p>
-</li>
-<li><p>溢写与排序完成后进入Merge合并阶段，此阶段会在后台启动一个线程将Spill生成的小文件分批合并排序成一个大文件。</p>
-</li>
-</ul>
-<h5 id="Reducel端"><a href="#Reducel端" class="headerlink" title="Reducel端"></a>Reducel端</h5><ul>
-<li><p>map阶段处理完成后，Reduce会进入Copy阶段，将Map端的数据分批拷贝到 Reduce的Buffer缓冲区中。</p>
-</li>
-<li><p>Buffer缓冲区的数据达到一定比例后会进入Spil阶段，将内存缓冲区的数据按顺序写到小文件中。</p>
-</li>
-<li><p>Merge阶段将溢出的文件合并成一个经过排序的数据集，然后交由用户自定义的Reduce函数处理。</p>
-<h4 id="Combine优化"><a href="#Combine优化" class="headerlink" title="Combine优化"></a>Combine优化</h4><p>Combine可以在Reduce聚合前提前对部分key的value值进行一次聚合，减少资源和网络带宽的开销</p>
-</li>
-</ul>
-<h5 id="Map端-1"><a href="#Map端-1" class="headerlink" title="Map端:"></a>Map端:</h5><ul>
-<li><p>在环形缓冲区中数据排序后,溢写到磁盘前,运行 Combiner，将部分相同key的value提前进行聚合</p>
-</li>
-<li><p>在合并溢出文件输出到磁盘之前,如果存在至少3个溢出文件,则运行 Combiner,可以通过min.num. spills.for. combine设置阈值</p>
-</li>
-</ul>
-<h5 id="Reducei端"><a href="#Reducei端" class="headerlink" title="Reducei端:"></a>Reducei端:</h5><ul>
-<li>可以在合并溢出文件输出到磁盘之前,运行 combiner<h4 id="MR的整体运行过程图"><a href="#MR的整体运行过程图" class="headerlink" title="MR的整体运行过程图"></a>MR的整体运行过程图</h4><img src="/images/MR%E6%95%B4%E4%BD%93%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E5%9B%BE.jpg" alt=""><h4 id="YARN组件介绍"><a href="#YARN组件介绍" class="headerlink" title="YARN组件介绍"></a>YARN组件介绍</h4><img src="/images/Yarn%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt=""><h5 id="Resource-Manager"><a href="#Resource-Manager" class="headerlink" title="Resource Manager"></a>Resource Manager</h5></li>
-<li>主要职责是调度,对应用程序的整体进行资源分配。</li>
-</ul>
-<h5 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h5><ul>
-<li>单个节点上物理资源的集合,比如内存和CPU。</li>
-</ul>
-<h5 id="NodeManage"><a href="#NodeManage" class="headerlink" title="NodeManage"></a>NodeManage</h5><ul>
-<li>管理 Container生命周期,资源使用情况,节点健康状况。</li>
-</ul>
-<h5 id="Application-Master"><a href="#Application-Master" class="headerlink" title="Application Master"></a>Application Master</h5><ul>
-<li><p>协调集群中的应用程序,与 ResourceManagert协商资源</p>
-<h4 id="MapReduce-on-Yarn"><a href="#MapReduce-on-Yarn" class="headerlink" title="MapReduce on Yarn"></a>MapReduce on Yarn</h4><p><img src="/images/MR_on_yarn.jpg" alt=""></p>
-</li>
-<li><p>客户端提交MR程序,向RM请求资源,并将程序依赖的资源上传到HDFS。</p>
-</li>
-<li><p>RM分配一个 Container0,NM启动AM,用来管理这个MR程序,AM计算好所需资源后向RM请求资源。</p>
-</li>
-<li><p>NM在各个节点上启动 Maptaski和 Reducetask。</p>
-</li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MapReduce</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2018/12/01/MapReduce%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HDFS编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2018/11/18/HDFS%E7%BC%96%E7%A8%8B/" target="_blank">HDFS编程</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2018/11/18/HDFS%E7%BC%96%E7%A8%8B/" class="archive-article-date">
-        <time datetime="2018-11-18T02:26:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="HDFS编程"><a href="#HDFS编程" class="headerlink" title="HDFS编程"></a>HDFS编程</h3><hr>
-<h4 id="HDFS编程简介"><a href="#HDFS编程简介" class="headerlink" title="HDFS编程简介"></a>HDFS编程简介</h4><pre><code>FileSystem：文件系统编程的入口点
-本地开发和服务器端的版本“不一定”需要相同，最好是相同
-打包到服务器运行，我们是不打hadoop的依赖进去的 这叫所谓的瘦包
-瘦包：仅仅包含源码  很小的
-胖包：所有的东西都打进去，一般公司不建议使用</code></pre><h4 id="POM文件配置"><a href="#POM文件配置" class="headerlink" title="POM文件配置"></a>POM文件配置</h4><p>Maven依赖查询：<a href="https://mvnrepository.com/" target="_blank" rel="noopener">https://mvnrepository.com/</a></p>
-<h5 id="配置hadoop依赖"><a href="#配置hadoop依赖" class="headerlink" title="配置hadoop依赖"></a>配置hadoop依赖</h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">hadoop.version</span>&gt;</span>2.6.0-cdh5.16.2<span class="tag">&lt;/<span class="name">hadoop.version</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.hadoop<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hadoop-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;hadoop.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="配置cdh仓库地址"><a href="#配置cdh仓库地址" class="headerlink" title="配置cdh仓库地址"></a>配置cdh仓库地址</h5><p>因为下载的是cdh版本，所以必须配置cdh仓库地址</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">id</span>&gt;</span>cloudera<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repository.cloudera.com/artifactory/cloudera-repos/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="HDFS编程方法示例"><a href="#HDFS编程方法示例" class="headerlink" title="HDFS编程方法示例"></a>HDFS编程方法示例</h4><h5 id="获取文件操作对象"><a href="#获取文件操作对象" class="headerlink" title="获取文件操作对象"></a>获取文件操作对象</h5><p>get()方法的第三个参数是指定操作用户名，如不指定则会使用当前本机的用户名，可能会有权限问题</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URI uri = <span class="keyword">new</span> URI(<span class="string">"hdfs://39.107.23.136:9000"</span>);</span><br><span class="line">      FileSystem fileSystem = FileSystem.get(uri, <span class="keyword">new</span> Configuration(), <span class="string">"black"</span>);</span><br></pre></td></tr></table></figure>
-<h5 id="关闭资源"><a href="#关闭资源" class="headerlink" title="关闭资源"></a>关闭资源</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fileSystem.close();</span><br></pre></td></tr></table></figure>
-<h5 id="创建目录方法"><a href="#创建目录方法" class="headerlink" title="创建目录方法"></a>创建目录方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void mkdir()throws Exception&#123;</span><br><span class="line">    fileSystem.mkdirs(new Path(&quot;&#x2F;hdfs1&quot;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="将本地文件上传至hdfs"><a href="#将本地文件上传至hdfs" class="headerlink" title="将本地文件上传至hdfs"></a>将本地文件上传至hdfs</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  @Test</span><br><span class="line">public void copyFromLocalFile ()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;input&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;&#x2F;hdfs&quot;);</span><br><span class="line">    fileSystem.copyFromLocalFile(src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="将hdfs文件拉取至本地"><a href="#将hdfs文件拉取至本地" class="headerlink" title="将hdfs文件拉取至本地"></a>将hdfs文件拉取至本地</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;将hdfs上文件的内容复制到本地所指定的文件中，必须指定本地路径和存储数据的文件名，delsrc参数是个boolean值，表示是否删除源数据</span><br><span class="line">@Test</span><br><span class="line">public void copyToLocalFile()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;&#x2F;hdfs&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;output&#x2F;black.txt&quot;);</span><br><span class="line">    fileSystem.copyToLocalFile(true,src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="将hdfs上文件剪切至目标位置并重命名"><a href="#将hdfs上文件剪切至目标位置并重命名" class="headerlink" title="将hdfs上文件剪切至目标位置并重命名"></a>将hdfs上文件剪切至目标位置并重命名</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void rename()throws Exception&#123;</span><br><span class="line">    Path src &#x3D; new Path(&quot;&#x2F;hdfs&#x2F;black&quot;);</span><br><span class="line">    Path dst &#x3D; new Path(&quot;&#x2F;hdfs1&#x2F;blackrename&quot;);</span><br><span class="line">    fileSystem.rename(src,dst);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="删除hdfs上目标位置文件"><a href="#删除hdfs上目标位置文件" class="headerlink" title="删除hdfs上目标位置文件"></a>删除hdfs上目标位置文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void delete()throws Exception&#123;</span><br><span class="line">    fileSystem.delete(new Path(&quot;&#x2F;hdfs1&#x2F;black&quot;),true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="获取文件下的目录信息"><a href="#获取文件下的目录信息" class="headerlink" title="获取文件下的目录信息"></a>获取文件下的目录信息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">public void listFiles()throws Exception&#123;</span><br><span class="line">    &#x2F;&#x2F;获取文件状态，因为文件可能多个，所以返回迭代器</span><br><span class="line">    RemoteIterator&lt;LocatedFileStatus&gt; files &#x3D; fileSystem.listFiles(new Path(&quot;&#x2F;hdfs1&#x2F;&quot;), true);</span><br><span class="line">    while (files.hasNext())&#123;</span><br><span class="line">        &#x2F;&#x2F;获取其中一个文件的状态信息</span><br><span class="line">        LocatedFileStatus fileStatus &#x3D; files.next();</span><br><span class="line">        short replication &#x3D; fileStatus.getReplication();</span><br><span class="line">        long accessTime &#x3D; fileStatus.getAccessTime();</span><br><span class="line">        FsPermission permission &#x3D; fileStatus.getPermission();</span><br><span class="line">        long len &#x3D; fileStatus.getLen();</span><br><span class="line">        Path path &#x3D; fileStatus.getPath();</span><br><span class="line">        boolean directory &#x3D; fileStatus.isDirectory();</span><br><span class="line">        System.out.println(replication + &quot;---&quot; + permission + &quot;---&quot; + len + &quot;---&quot; + path);</span><br><span class="line">        &#x2F;&#x2F;获取文件的块信息，因为一个文件可能不止一个块存储，因此返回的是数组</span><br><span class="line">        BlockLocation[] blockLocations &#x3D; fileStatus.getBlockLocations();</span><br><span class="line">        &#x2F;&#x2F;遍历数组</span><br><span class="line">        for (BlockLocation location:blockLocations)&#123;</span><br><span class="line">            &#x2F;&#x2F;获取块所在主机信息，之所以是数组，是因为块可能存在副本</span><br><span class="line">            String[] hosts &#x3D; location.getHosts();</span><br><span class="line">            for (String host:hosts)&#123;</span><br><span class="line">                System.out.println(host);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="/code/hadoop/hdfs/HdfsApiTest.java">hdfs编程测试代码</a></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HDFS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2018/11/18/HDFS%E7%BC%96%E7%A8%8B/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Scala高级特性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2018/10/18/Scala%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" target="_blank">Scala高级特性</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2018/10/18/Scala%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/" class="archive-article-date">
-        <time datetime="2018-10-18T13:09:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-18</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="Scala高级特性"><a href="#Scala高级特性" class="headerlink" title="Scala高级特性"></a>Scala高级特性</h3><hr>
-<h4 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h4><p>目的是对scala语言进行增强，主要分为隐式参数、隐式类型、隐式类</p>
-<h5 id="什么是隐式转换"><a href="#什么是隐式转换" class="headerlink" title="什么是隐式转换"></a>什么是隐式转换</h5><ol>
-<li>隐式转换函数是指那些以implicit关键字声明的带有单个参数的函数，这样的函数将被自动应用，将值从一种类型转换成另一种类型</li>
-<li>可以给隐式转换函数起任何名称，建议使用source2target形式</li>
-<li>工作中通常将隐式转换单独放在一起，用的时候导包即可<h5 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;定义隐式转换的公式：implict def x2y(传入普通的x):返回牛逼的y &#x3D; new 牛逼的y(...)</span><br><span class="line">  object ImplicitApp &#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    implicit def man2superman(man: Man): SuperMan &#x3D; new SuperMan(man.name)</span><br><span class="line">    val han &#x3D; new Man(&quot;han&quot;)</span><br><span class="line">    han.fly</span><br><span class="line">	&#x2F;&#x2F;file的隐式转换</span><br><span class="line">    implicit def file2RichFile(file: File): RichFile &#x3D; new RichFile(file)</span><br><span class="line">    val file &#x3D; new File(&quot;F:\\bigdata\\blackdata-spark\\data\\file.txt&quot;)</span><br><span class="line">    val content &#x3D; file.read()</span><br><span class="line">    println(content)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Man(val name:String)&#123;&#125;</span><br><span class="line">class SuperMan(val name:String)&#123;</span><br><span class="line">  def fly: Unit &#x3D;&#123;</span><br><span class="line">    println(name + &quot;在飞&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;定义对java.io.File类的增强，添加读取方法</span><br><span class="line">class RichFile(val file:File)&#123;</span><br><span class="line">  def read()&#x3D;&#123;</span><br><span class="line">    Source.fromFile(file.getPath).mkString</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="隐式参数转换"><a href="#隐式参数转换" class="headerlink" title="隐式参数转换"></a>隐式参数转换</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">  &#x2F;&#x2F;这个参数必须在sayHello2方法执行前面，否则先执行方法就会报找不到implicit变量的错</span><br><span class="line">  implicit val name &#x3D; &quot;yummi&quot;</span><br><span class="line">  &#x2F;&#x2F;implicit val name1 &#x3D; &quot;black&quot; </span><br><span class="line">  def sayHello(msg:String): Unit &#x3D; println(s&quot;$msg hello&quot; )</span><br><span class="line">  def sayHello2(implicit msg:String): Unit &#x3D; println(s&quot;$msg hello&quot; )</span><br><span class="line">  &#x2F;&#x2F;因为传入的是隐式参数，在不使用参数调用的情况下会自上而下的查找implicit修饰的且类型匹配的变量作为参数</span><br><span class="line">  sayHello2&#x2F;&#x2F;输出的结果是yummi</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="隐式类转换"><a href="#隐式类转换" class="headerlink" title="隐式类转换"></a>隐式类转换</h5>implicit 修饰的类会对传入的类进行增强<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">object ImplicitApp &#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    val file &#x3D; new File(&quot;F:\\bigdata\\blackdata-spark\\data\\file.txt&quot;)</span><br><span class="line">    val content &#x3D; file.read</span><br><span class="line">    println(content)</span><br><span class="line">  &#125;</span><br><span class="line">  implicit class FilePlus (val file:File)&#123;</span><br><span class="line">    def read&#x3D;&#123;Source.fromFile(file.getPath).mkString&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="隐式转换注意事项"><a href="#隐式转换注意事项" class="headerlink" title="隐式转换注意事项"></a>隐式转换注意事项</h5></li>
-</ol>
-<ul>
-<li>对于隐式转换函数，编译器最关心的是它的类型签名，也就是说将哪一种类型转换成另一种类型</li>
-<li>不支持嵌套的隐式转换</li>
-<li>隐式转换的函数名是任意的，与函数名无关，只与函数的签名（函数参数与返回值类型）有关</li>
-<li>如果当前作用域中存在函数签名相同但是函数名称不同的两个隐式转换函数则会在进行隐式转换过程中报错</li>
-<li>代码如果能够在不使用隐式转换情况下能编译通过则不会进行隐式转换<h4 id="scala中的泛型"><a href="#scala中的泛型" class="headerlink" title="scala中的泛型"></a>scala中的泛型</h4>泛型的意义在于对类型的约束<h5 id="泛型的基本使用示例"><a href="#泛型的基本使用示例" class="headerlink" title="泛型的基本使用示例"></a>泛型的基本使用示例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">object GenericApp &#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    val mml &#x3D; new MM[Int,CupEnum,Int](78 ,CupEnum.A, 170)</span><br><span class="line">    val mm2 &#x3D; new MM[Int,CupEnum,Int](76, CupEnum.C, 170)</span><br><span class="line">    val mm3 &#x3D; new MM[Int,CupEnum,Int](98, CupEnum.E, 175)</span><br><span class="line">    println(mml.toString)</span><br><span class="line">    println(mm2.toString)</span><br><span class="line">    println(mm3.toString)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;定义泛型时可以不确定具体类型，用随意的代号替代，但是调用时需传入具体类型</span><br><span class="line">class MM[one,two,three](val faceValue:one,val cub:two,val height:three)&#123;</span><br><span class="line">&#x2F;&#x2F;重写toString方法</span><br><span class="line">  override def toString: String &#x3D; faceValue + &quot;\t&quot; + cub + &quot;\t&quot; +height</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;Scala中枚举的定义</span><br><span class="line">object CupEnum extends Enumeration&#123;</span><br><span class="line">  type  CupEnum &#x3D; Value</span><br><span class="line">  val A,B,C,D,E &#x3D; Value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2018/10/18/Scala%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Scala中高级函数与模式匹配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2018/10/15/Scala%E4%B8%AD%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0%E4%B8%8E%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" target="_blank">Scala中高级函数与模式匹配</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2018/10/15/Scala%E4%B8%AD%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0%E4%B8%8E%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="archive-article-date">
-        <time datetime="2018-10-15T14:01:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="scala高级函数与模式匹配"><a href="#scala高级函数与模式匹配" class="headerlink" title="scala高级函数与模式匹配"></a>scala高级函数与模式匹配</h3><hr>
-<h4 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h4><p>scala中的模式匹配可以通过值、集合、类型等等进行匹配，对比java强大很多</p>
-<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">变量 match&#123;</span><br><span class="line">case 值1 &#x3D;&gt;</span><br><span class="line">case 值2 &#x3D;&gt;</span><br><span class="line">case 值3 &#x3D;&gt;</span><br><span class="line">case _ &#x3D;&gt; ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="根据内容进行匹配示例"><a href="#根据内容进行匹配示例" class="headerlink" title="根据内容进行匹配示例"></a>根据内容进行匹配示例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">val teachers &#x3D; Array(&quot;Aoi sola&quot;,&quot;YuiHatano&quot;,&quot;Akiho Yoshizawa&quot;,&quot;J&quot;)</span><br><span class="line">val teacher &#x3D; teachers(Random.nextInt(teachers.length))</span><br><span class="line">teacher match &#123;</span><br><span class="line">  case &quot;Aoi sola&quot; &#x3D;&gt; println(&quot;空老师&quot;)</span><br><span class="line">  case &quot;YuiHatano&quot; &#x3D;&gt; println(&quot;波老师&quot;)</span><br><span class="line">  case &quot;Akiho Yoshizawa&quot; &#x3D;&gt; println(&quot;吉老师&quot;)</span><br><span class="line">  case _&#x3D;&gt; println(&quot;J&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="根据集合进行模式匹配"><a href="#根据集合进行模式匹配" class="headerlink" title="根据集合进行模式匹配"></a>根据集合进行模式匹配</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def greeting(array: Array[String])&#x3D;&#123;</span><br><span class="line">  array match &#123;</span><br><span class="line">    &#x2F;&#x2F;集合中只有一个元素且是&quot;zhangsan&quot;则匹配</span><br><span class="line">    case Array(&quot;zhangsan&quot;) &#x3D;&gt; println(&quot;hello zhangsan&quot;)</span><br><span class="line">    &#x2F;&#x2F;集合中有两个元素则匹配</span><br><span class="line">    case Array(x,y) &#x3D;&gt; println(x + &quot;&#x3D;&gt;&quot; + y )</span><br><span class="line">    &#x2F;&#x2F;集合第一个元素是&quot;zhangsan&quot;则匹配</span><br><span class="line">    case Array(&quot;zhangsan&quot;,_*) &#x3D;&gt; println(&quot;hello zhangsan and your friend&quot;)</span><br><span class="line">    &#x2F;&#x2F;上述条件都不满足则匹配</span><br><span class="line">    case _ &#x3D;&gt; println(&quot;大家好&quot;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h5 id="根据类型进行模式匹配"><a href="#根据类型进行模式匹配" class="headerlink" title="根据类型进行模式匹配"></a>根据类型进行模式匹配</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def matchType(obj:Any): Unit &#x3D;&#123;</span><br><span class="line">  obj match &#123;</span><br><span class="line">    case i:Int &#x3D;&gt; println(&quot;Int&quot;)</span><br><span class="line">    case s:String &#x3D;&gt; println(&quot;String&quot;)</span><br><span class="line">    case m:Map[_,_] &#x3D;&gt; println(&quot;Map&quot;)</span><br><span class="line">    case _ &#x3D;&gt; println(&quot;other&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="scala中的异常处理"><a href="#scala中的异常处理" class="headerlink" title="scala中的异常处理"></a>scala中的异常处理</h4><h5 id="什么是异常"><a href="#什么是异常" class="headerlink" title="什么是异常"></a>什么是异常</h5><ul>
-<li>异常是在程序执行期间发生的事件,它会中断正在执行程序的正常指令流。为了能够及时有效地处理程序中的运行错误,必须使用异常类</li>
-<li>Scala的方法可以通过抛出异常的方法的方式来终止相关代码的运行,不必通过返回值。<h5 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h5></li>
-<li>抛出某异常</li>
-<li>系统查找可以接受该异常的异常处理器</li>
-<li>控制器在离抛出点最近的处理器中恢复</li>
-<li>如果没有找到符合要求的异常处理器,则程序退出</li>
-<li>与Java不同, Scala没有“受检”异常，所有异常都是 Throwable的子类型<h5 id="模式匹配在异常处理中的应用"><a href="#模式匹配在异常处理中的应用" class="headerlink" title="模式匹配在异常处理中的应用"></a>模式匹配在异常处理中的应用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">  val i &#x3D; 1&#x2F;0</span><br><span class="line">&#125;catch &#123;</span><br><span class="line">  case e:ArithmeticException &#x3D;&gt; println(&quot;除数不能为0&quot;)</span><br><span class="line">  case e:Exception &#x3D;&gt; println(e.getMessage)</span><br><span class="line">  case _ &#x3D;&gt; println(&quot;other&quot;)</span><br><span class="line">&#125;finally &#123;</span><br><span class="line">  &#x2F;&#x2F;可有可无，一般用于关闭文件流或关闭数据库连接</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><h5 id="的常用方法"><a href="#的常用方法" class="headerlink" title="_ 的常用方法"></a>_ 的常用方法</h5></li>
-<li>起到占位符作用</li>
-<li>将函数传递给变量示例</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scala&gt;   def syHello(name:String)&#x3D;&#123;</span><br><span class="line">     |     println(&quot;hello&quot;)</span><br><span class="line">     |   &#125;</span><br><span class="line">syHello: (name: String)Unit</span><br><span class="line">&#x2F;&#x2F;如果不使用_则会报错，使用后可以把方法赋值给变量</span><br><span class="line">scala&gt; var syHelloFunc &#x3D; syHello _</span><br><span class="line">syHelloFunc: String &#x3D;&gt; Unit &#x3D; &lt;function1&gt;</span><br><span class="line">&#x2F;&#x2F;使用变量即可代替方法</span><br><span class="line">scala&gt; syHelloFunc(&quot;&quot;)</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
-<h5 id="map函数"><a href="#map函数" class="headerlink" title="map函数"></a>map函数</h5><p>一 一映射，对里面的每一个元素都作用上一个function</p>
-<ul>
-<li>示例1<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">  val l &#x3D; List(1,2,3,4,5,6,7,8)</span><br><span class="line">  &#x2F;&#x2F;map函数可以对集合中每一个元素进行操作，x为传入的参数</span><br><span class="line">  println(l.map((x:Int) &#x3D;&gt; x*2))</span><br><span class="line">  &#x2F;&#x2F;因为是针对每一个元素操作，因此（）可以省略</span><br><span class="line">  println(l.map(x &#x3D;&gt; x*2))</span><br><span class="line">  &#x2F;&#x2F;同样是因为针对每一个元素操作，可以使用占位符 _ 代替x,同时使用foreach对每一个元素进行打印</span><br><span class="line">  l.map(_*2).foreach(println(_))</span><br><span class="line">&#125;</span><br><span class="line">  val l1 &#x3D; List(&quot;List&quot;,&quot;Map&quot;)</span><br><span class="line">  &#x2F;&#x2F;将元素中的字母转换成小写</span><br><span class="line">  println(l1.map(_.toLowerCase))</span><br></pre></td></tr></table></figure></li>
-<li>示例2<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    val l &#x3D; List(Array((&quot;han&quot;,3)),Array((&quot;bo&quot;,2)))</span><br><span class="line">    l.map(x &#x3D;&gt; x.map(t &#x3D;&gt; (t._1,t._2 + 2))).map(y &#x3D;&gt;y.foreach(println(_)))</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;结果如下</span><br><span class="line">(han,5)</span><br><span class="line">(bo,4)</span><br></pre></td></tr></table></figure>
-<h5 id="filter函数"><a href="#filter函数" class="headerlink" title="filter函数"></a>filter函数</h5>返回满足条件的值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">  val l &#x3D; List(1,2,3,4,5,6)</span><br><span class="line">  &#x2F;&#x2F;打印小于4的值</span><br><span class="line">  l.filter(_ &lt; 4).foreach(println(_))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="reduce函数"><a href="#reduce函数" class="headerlink" title="reduce函数"></a>reduce函数</h5>相邻的元素两两执行我们需要的操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">  val l &#x3D; List(1,2,9,3,4,5,6)</span><br><span class="line">  &#x2F;&#x2F;打印前四个的值</span><br><span class="line">  l.take(4).foreach(println(_))</span><br><span class="line">  &#x2F;&#x2F;集合中的元素两两相加后得出结果为30</span><br><span class="line">  println(l.reduce(_+_))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="zip函数"><a href="#zip函数" class="headerlink" title="zip函数"></a>zip函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val l1 &#x3D; List(1,2,3,4)</span><br><span class="line">l1: List[Int] &#x3D; List(1, 2, 3, 4)</span><br><span class="line">scala&gt; val l2 &#x3D; List(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;)</span><br><span class="line">l2: List[String] &#x3D; List(a, b, c, d, e)</span><br><span class="line">&#x2F;&#x2F;两个集合响应位置进行合并，其中一个集合比另一个集合多出来的元素不参与合并</span><br><span class="line">scala&gt; l1.zip(l2)</span><br><span class="line">res1: List[(Int, String)] &#x3D; List((1,a), (2,b), (3,c), (4,d))</span><br></pre></td></tr></table></figure>
-<h5 id="flatten函数"><a href="#flatten函数" class="headerlink" title="flatten函数"></a>flatten函数</h5>压平操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val f &#x3D; List(List(1,2),List(3,4),List(5,6))</span><br><span class="line">f: List[List[Int]] &#x3D; List(List(1, 2), List(3, 4), List(5, 6))</span><br><span class="line"></span><br><span class="line">scala&gt; f.flatten</span><br><span class="line">res0: List[Int] &#x3D; List(1, 2, 3, 4, 5, 6)</span><br></pre></td></tr></table></figure>
-<h5 id="flatMap函数"><a href="#flatMap函数" class="headerlink" title="flatMap函数"></a>flatMap函数</h5>压平后进行map<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; f</span><br><span class="line">res1: List[List[Int]] &#x3D; List(List(1, 2), List(3, 4), List(5, 6))</span><br><span class="line">&#x2F;&#x2F;第一个下划线代表内部的List(),第二个代表List里面的元素</span><br><span class="line">scala&gt; f.flatMap(_.map(_*2))</span><br><span class="line">res2: List[Int] &#x3D; List(2, 4, 6, 8, 10, 12)</span><br></pre></td></tr></table></figure>
-<h5 id="groupBy函数"><a href="#groupBy函数" class="headerlink" title="groupBy函数"></a>groupBy函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt;  val array &#x3D; List((&quot;a&quot;,10),(&quot;b&quot;,100),(&quot;c&quot;,200),(&quot;a&quot;,300))</span><br><span class="line">array: List[(String, Int)] &#x3D; List((a,10), (b,100), (c,200), (a,300))</span><br><span class="line">&#x2F;&#x2F;按照Tuple中的第一个元素分组，返回Map类型，key就是Tuple中的第一个元素</span><br><span class="line">scala&gt; array.groupBy(x &#x3D;&gt; x._1)</span><br><span class="line">res0: scala.collection.immutable.Map[String,List[(String, Int)]] &#x3D; Map(b -&gt; List((b,100)), a -&gt; List((a,10), (a,300)), c -&gt; List((c,200)))</span><br></pre></td></tr></table></figure>
-<h5 id="mapValues函数"><a href="#mapValues函数" class="headerlink" title="mapValues函数"></a>mapValues函数</h5>对K-V形式的数据中的values进行操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val word &#x3D;  List(a,b,c,d,e,f)                            ^</span><br><span class="line">scala&gt; val word &#x3D;  List(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;)</span><br><span class="line">word: List[String] &#x3D; List(a, b, c, d, e, f)</span><br><span class="line">scala&gt; val wordWith &#x3D; word.map(x &#x3D;&gt; (x,1))</span><br><span class="line">wordWith: List[(String, Int)] &#x3D; List((a,1), (b,1), (c,1), (d,1), (e,1), (f,1))</span><br><span class="line">scala&gt; val groupByWord &#x3D; wordWith.groupBy(x &#x3D;&gt; x._1)</span><br><span class="line">groupByWord: scala.collection.immutable.Map[String,List[(String, Int)]] &#x3D; Map(e -&gt; List((e,1)), f -&gt; List((f,1)), a -&gt; List((a,1)), b -&gt; List((b,1)), c -&gt; List((c,1)), d -&gt; List((d,1)))</span><br><span class="line">scala&gt; groupByWord.mapValues(x &#x3D;&gt; x.map(t &#x3D;&gt; t._2).sum)</span><br><span class="line">res1: scala.collection.immutable.Map[String,Int] &#x3D; Map(e -&gt; 1, f -&gt; 1, a -&gt; 1, b -&gt; 1, c -&gt; 1, d -&gt; 1)</span><br></pre></td></tr></table></figure>
-<h5 id="sorted与sortBy"><a href="#sorted与sortBy" class="headerlink" title="sorted与sortBy"></a>sorted与sortBy</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val l1 &#x3D; List(1,2,3,5,8,6)</span><br><span class="line">l1: List[Int] &#x3D; List(1, 2, 3, 5, 8, 6)</span><br><span class="line">&#x2F;&#x2F;sorted默认升序</span><br><span class="line">scala&gt; l1.sorted</span><br><span class="line">res2: List[Int] &#x3D; List(1, 2, 3, 5, 6, 8)</span><br><span class="line">&#x2F;&#x2F;sortBy可以设定根据自己的需求排序，减号 代表倒序</span><br><span class="line">scala&gt; l1.sortBy(x &#x3D;&gt; -x)</span><br><span class="line">res4: List[Int] &#x3D; List(8, 6, 5, 3, 2, 1)</span><br></pre></td></tr></table></figure>
-<h5 id="交集、并集、差集"><a href="#交集、并集、差集" class="headerlink" title="交集、并集、差集"></a>交集、并集、差集</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val l1 &#x3D; List(1,2,3,5,8,6)</span><br><span class="line">l1: List[Int] &#x3D; List(1, 2, 3, 5, 8, 6)</span><br><span class="line">scala&gt; val l2 &#x3D; List(1,3,5)</span><br><span class="line">l2: List[Int] &#x3D; List(1, 3, 5)</span><br><span class="line">&#x2F;&#x2F;求两个集合的差集，l1 - l2</span><br><span class="line">scala&gt; l1.diff(l2)</span><br><span class="line">res5: List[Int] &#x3D; List(2, 8, 6)</span><br><span class="line">&#x2F;求两个集合的差集，l2 - l1</span><br><span class="line">scala&gt; l2.diff(l1)</span><br><span class="line">res6: List[Int] &#x3D; List()</span><br><span class="line">&#x2F;&#x2F;求两个集合的交集</span><br><span class="line">scala&gt; l1.intersect(l2)</span><br><span class="line">res7: List[Int] &#x3D; List(1, 3, 5)</span><br><span class="line">&#x2F;&#x2F;求两个集合的并集</span><br><span class="line">scala&gt; l1.union(l2)</span><br><span class="line">res8: List[Int] &#x3D; List(1, 2, 3, 5, 8, 6, 1, 3, 5)</span><br><span class="line">&#x2F;&#x2F;利用并集进行去重操作</span><br><span class="line">scala&gt; l1.union(l2).distinct</span><br><span class="line">res9: List[Int] &#x3D; List(1, 2, 3, 5, 8, 6)</span><br></pre></td></tr></table></figure>
-<h5 id="currying"><a href="#currying" class="headerlink" title="currying"></a>currying</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;两者结果相同</span><br><span class="line">    def sum(a:Int,b:Int) &#x3D; a + b</span><br><span class="line">    def sum2(a:Int)(b:Int) &#x3D; a + b</span><br></pre></td></tr></table></figure>
-<h5 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h5>包在花括号里面但是没有match的一组case语句<br>[String,String]分别输输入的类型和返回的类型<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def syHello:PartialFunction[String,String]&#x3D;&#123;</span><br><span class="line">  case &quot;Aoi sola&quot; &#x3D;&gt; &quot;空老师&quot;</span><br><span class="line">  case &quot;YuiHatano&quot; &#x3D;&gt; &quot;波老师&quot;</span><br><span class="line">  case &quot;Akiho Yoshizawa&quot; &#x3D;&gt; &quot;吉老师&quot;</span><br><span class="line">  case _&#x3D;&gt; &quot;J&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;调用方法，返回空老师</span><br><span class="line">  println(syHello(&quot;Aoi sola&quot;))</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2018/10/15/Scala%E4%B8%AD%E9%AB%98%E7%BA%A7%E5%87%BD%E6%95%B0%E4%B8%8E%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1624,7 +1700,23 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Azkaban</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flume</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Mapreduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1637,10 +1729,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">

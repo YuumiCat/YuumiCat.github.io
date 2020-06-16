@@ -10,21 +10,20 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Scala面向对象 一、Scala数据类型 1、基本数据类型    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型 2、字符串操作 Scala用底层的java.lang.String类来表示字符串。  通过StrigOps类给字符串追加了上百种操作。  Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用 3、数值">
+  <meta name="description" content="Scala面向对象 一、类的定义1、什么是类类是具有共同属性和行为的对象的集合。类定义了对象的属性和方法，Scalar中的类不声明为 public,一个 Scala源文件中可以有多个类。 12345class Persion&amp;#123;  private var age &#x3D; 0 &#x2F;&#x2F;变量必须初始化  def eat()&amp;#123;println(&quot;chi&amp;q">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala面向对象">
 <meta property="og:url" content="http://yuumicat.com/2018/10/14/Scala%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="Scala面向对象 一、Scala数据类型 1、基本数据类型    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型 2、字符串操作 Scala用底层的java.lang.String类来表示字符串。  通过StrigOps类给字符串追加了上百种操作。  Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用 3、数值">
+<meta property="og:description" content="Scala面向对象 一、类的定义1、什么是类类是具有共同属性和行为的对象的集合。类定义了对象的属性和方法，Scalar中的类不声明为 public,一个 Scala源文件中可以有多个类。 12345class Persion&amp;#123;  private var age &#x3D; 0 &#x2F;&#x2F;变量必须初始化  def eat()&amp;#123;println(&quot;chi&amp;q">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yuumicat.com/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg">
-<meta property="og:image" content="http://yuumicat.com/images/Scala%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B.jpg">
+<meta property="og:image" content="http://yuumicat.com/images/scala%E7%9A%84getter%E5%92%8Csetter%E6%96%B9%E6%B3%95.jpg">
 <meta property="article:published_time" content="2018-10-14T10:32:38.000Z">
-<meta property="article:modified_time" content="2020-05-26T09:35:51.628Z">
+<meta property="article:modified_time" content="2020-06-16T04:24:08.641Z">
 <meta property="article:author" content="YuumiCat">
 <meta property="article:tag" content="Scala">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yuumicat.com/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg">
+<meta name="twitter:image" content="http://yuumicat.com/images/scala%E7%9A%84getter%E5%92%8Csetter%E6%96%B9%E6%B3%95.jpg">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
   
@@ -212,7 +211,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">2k字</span>
+      <span class="post-count">3.1k字</span>
     </span>
   </span>
 
@@ -221,7 +220,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">8分</span>
+      <span class="post-count">12分</span>
     </span>
   </span>
 </div>
@@ -233,134 +232,149 @@
   <div class="article-entry" itemprop="articleBody">
     
     <h3 id="Scala面向对象"><a href="#Scala面向对象" class="headerlink" title="Scala面向对象"></a>Scala面向对象</h3><hr>
-<h4 id="一、Scala数据类型"><a href="#一、Scala数据类型" class="headerlink" title="一、Scala数据类型"></a>一、Scala数据类型</h4><p><img src="/images/Scala%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.jpg" alt="数据类型结构图"></p>
-<h5 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h5><p><img src="/images/Scala%E5%B8%B8%E7%94%A8%E7%B1%BB%E5%9E%8B.jpg" alt="常用数据类型"><br>    与java不同的是，这些类型是类，Scala并不刻意区分基本类型和引用类型</p>
-<h5 id="2、字符串操作"><a href="#2、字符串操作" class="headerlink" title="2、字符串操作"></a>2、字符串操作</h5><ul>
-<li><p>Scala用底层的java.lang.String类来表示字符串。</p>
+<h4 id="一、类的定义"><a href="#一、类的定义" class="headerlink" title="一、类的定义"></a>一、类的定义</h4><h5 id="1、什么是类"><a href="#1、什么是类" class="headerlink" title="1、什么是类"></a>1、什么是类</h5><p>类是具有共同属性和行为的对象的集合。类定义了对象的属性和方法，Scalar中的类不声明为 public,一个 Scala源文件中可以有多个类。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Persion&#123;</span><br><span class="line">  private var age &#x3D; 0 &#x2F;&#x2F;变量必须初始化</span><br><span class="line">  def eat()&#123;println(&quot;chi&quot;)&#125;&#x2F;&#x2F;方法默认是公有的</span><br><span class="line">  def current() &#x3D; age</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、类成员的可见性（作用域）"><a href="#2、类成员的可见性（作用域）" class="headerlink" title="2、类成员的可见性（作用域）"></a>2、类成员的可见性（作用域）</h5><ul>
+<li><p>scala类中所有成员默认为公有可见，包内所有作用域都可以访问公有成员</p>
 </li>
-<li><p>通过StrigOps类给字符串追加了上百种操作。</p>
+<li><p>private只对本类与嵌套类型可见，对于private，在scala中也提供了类似于java中的getter和setter方法进行读取和修改</p>
 </li>
-<li><p>Scala将 String对象隐式地转换成 StringOps对象,接着 StringOps的方法可以被调用</p>
-<h5 id="3、数值类型相关操作"><a href="#3、数值类型相关操作" class="headerlink" title="3、数值类型相关操作"></a>3、数值类型相关操作</h5></li>
-<li><p>Scala提供了 RichInt、RichDouble、 Rich Char等。</p>
+<li><p>protected针对本类及其继承类型都有可见</p>
+<h5 id="3、类的使用"><a href="#3、类的使用" class="headerlink" title="3、类的使用"></a>3、类的使用</h5><p>在scala中类的使用也是通过构造对象和调用方法来实现，但如果在定义方法时不带（）则会强制的在方法调用时不加（）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Persion&#123;</span><br><span class="line">  private var age &#x3D; 0 &#x2F;&#x2F;变量必须初始化</span><br><span class="line">  def eat&#123;println(&quot;chi&quot;)&#125;&#x2F;&#x2F;方法默认是公有的</span><br><span class="line">  def bob() &#x3D; age</span><br><span class="line">&#125;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    val persion &#x3D; new Persion</span><br><span class="line">    persion.eat &#x2F;&#x2F;因为在类的定义中此方法没有加括号，因此方法在调用时强制不加（）</span><br><span class="line">    persion.bob()</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="4、带-getter和-setter的属性"><a href="#4、带-getter和-setter的属性" class="headerlink" title="4、带 getter和 setter的属性"></a>4、带 getter和 setter的属性</h5></li>
+<li><p>一对getter和setter通常被称做属性</p>
 </li>
-<li><p>Scala有 Bigint和 Bigdecimal类,用于任意大小(但有穷)的数字。可以用常规的数学操作符来操作它们。</p>
-<h4 id="二、Scala值与变量的声明"><a href="#二、Scala值与变量的声明" class="headerlink" title="二、Scala值与变量的声明"></a>二、Scala值与变量的声明</h4><h5 id="1、变量与常量"><a href="#1、变量与常量" class="headerlink" title="1、变量与常量"></a>1、变量与常量</h5></li>
+<li><p>Scala为每个字段都提供 getter和 setter方法</p>
+</li>
+<li><p>以字段age为例,Sala中 getter和 setter分别为age和age_=</p>
+</li>
+<li><p>任何时候都可以自己重新定义 getter和 setter方法,如果我们不显示的定义，则scala会默认加上 getter和 setter方法</p>
+</li>
+<li><p>Scala可以实现只读属性,不能实现只写属性，也就是说可以没有setter,但是必须有getter</p>
+<h5 id="5、自定义属性"><a href="#5、自定义属性" class="headerlink" title="5、自定义属性"></a>5、自定义属性</h5></li>
+<li><p>var foo: 针对可变的变量，Scala自动合成一个 getter和ー个 setter，也可以自定义foo方法（getter方法）和foo_=方法（setter方法）</p>
+</li>
+<li><p>val foo: 针对不可变的变量，Scala自动合成一个 getter方法，也可以自定义一个foo方法（getter方法）</p>
+<h5 id="6、关于bean属性"><a href="#6、关于bean属性" class="headerlink" title="6、关于bean属性"></a>6、关于bean属性</h5><p><img src="/images/scala%E7%9A%84getter%E5%92%8Csetter%E6%96%B9%E6%B3%95.jpg" alt=""></p>
+<h4 id="二、不同的构造"><a href="#二、不同的构造" class="headerlink" title="二、不同的构造"></a>二、不同的构造</h4><h5 id="1、主构造器"><a href="#1、主构造器" class="headerlink" title="1、主构造器"></a>1、主构造器</h5></li>
+<li><p>scala类的定义主体就是类的构造器，称为主构造器，此处和java中使用构造方法实现构造不同</p>
+</li>
+<li><p>在类名之后使用（）来列出主构造器的参数列表</p>
+</li>
+<li><p>主构造器会执行类中定义的所有语句</p>
+</li>
+<li><p>scala会自动为主构造器的参数构建为私有属性，并提供对应的getter和setter方法,参考bean属性那张图</p>
+</li>
+<li><p>如果类名之后没有参数，则该类具备一个无参主构造器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Persion1(val name:String, val age:Int)&#123;</span><br><span class="line">  &#x2F;&#x2F;（）中的内容就是主构造器的参数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、辅助构造器"><a href="#2、辅助构造器" class="headerlink" title="2、辅助构造器"></a>2、辅助构造器</h5></li>
+<li><p>scala中可以包含零个或者多个辅助构造器</p>
+</li>
+<li><p>辅助构造器由this进行定义，this的返回值类型为Unit</p>
+</li>
+<li><p>每一个辅助构造器都必须调用其他辅助构造器或者主构造器</p>
+</li>
+<li><p>参数不能使用var|val修饰</p>
+</li>
 </ul>
-<p>使用val声明常量，使用var声明变量</p>
-<h5 id="2、基本语法"><a href="#2、基本语法" class="headerlink" title="2、基本语法"></a>2、基本语法</h5><ul>
-<li><p>val|var 变量名[:数据类型] = 初始值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Persion1&#123;</span><br><span class="line">  private var age1 &#x3D; 0</span><br><span class="line">  private var name1 &#x3D; &quot;&quot;</span><br><span class="line">  def this(name1:String)&#123;</span><br><span class="line">    this()&#x2F;&#x2F;调用主构造器</span><br><span class="line">    this.name1 &#x3D; name1</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;辅助构造器的参数中不用加val</span><br><span class="line">  def this(name1:String ,age1:Int)&#123;</span><br><span class="line">    this(name1)&#x2F;&#x2F;调用前一个辅助构造器</span><br><span class="line">    this.age1 &#x3D; age1</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="三、类的继承"><a href="#三、类的继承" class="headerlink" title="三、类的继承"></a>三、类的继承</h4><ul>
+<li>scala中类的继承与java中相似，子类会继承父类的所有属性和方法，但是不支持多继承</li>
+<li>在子类中使用父类的属性不需要使用val修饰符，但是如果使用父类中没有的属性则必须加修饰符</li>
+<li>在new子类的时候，先执行父类的构造器，然后执行子类的构造器</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Student(val name:String,val age:Int)&#123;</span><br><span class="line">  val school &#x3D; &quot;五道口&quot;</span><br><span class="line">  println(&quot;Student&quot;)</span><br><span class="line">&#125;</span><br><span class="line">class Child(name:String, age: Int, val major:String) extends Student(name:String, age: Int)&#123;</span><br><span class="line">  println(&quot;Child&quot;)</span><br><span class="line">&#125;</span><br><span class="line">object Student&#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    val child &#x3D; new Child(&quot;hanboran&quot;, 27, &quot;math&quot;)</span><br><span class="line">    println(child.name +&quot;\t&quot; + child.age + &quot;\t&quot; + child.major + &quot;\t&quot;+child.school)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="四、Object对象"><a href="#四、Object对象" class="headerlink" title="四、Object对象"></a>四、Object对象</h4><h5 id="1、单例对象"><a href="#1、单例对象" class="headerlink" title="1、单例对象"></a>1、单例对象</h5><ul>
+<li>Object对象的属性和方法默认都是静态的，只有一个实例</li>
+<li>采用懒加载模式，对象的构造器在对象第一次被使用时调用</li>
+<li>不能提供构造器参数，可以通过 对象名.方法名 进行调用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">object Accounts &#123;</span><br><span class="line">  private var lastNumber &#x3D; 0</span><br><span class="line">  def newNumber() &#x3D; &#123;lastNumber +&#x3D; 1; lastNumber&#125;</span><br><span class="line">  Accounts.newNumber()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、单例对象使用场景"><a href="#2、单例对象使用场景" class="headerlink" title="2、单例对象使用场景"></a>2、单例对象使用场景</h5><ul>
+<li><p>作为存放工具函数或者常量的地方</p>
 </li>
-<li><p>Scala中声明值或者变量如果不做初始化会报错</p>
+<li><p>高效的共享单个不可变实例</p>
 </li>
-<li><p>Scala存在推断机制，可以根据初始值自动推断变量类型、但是递归调用无法推断，必须显式的写出数据类型</p>
+<li><p>需要用单个实例来协调某个服务时（参考单例模式）</p>
+<h5 id="3、伴生对象"><a href="#3、伴生对象" class="headerlink" title="3、伴生对象"></a>3、伴生对象</h5></li>
+<li><p>当一个单例对象和他的同名类一起出现时，这是单例对象被称为同名类的伴生对象，这个类被称为单例对象的伴生类</p>
 </li>
-<li><p>声明多个变量时可以采用 val|var 变量名1,变量名2 = 初始值 的写法，但是为了表达方便，一般每一行只声明一个变量</p>
-<h5 id="3、-声明变量过程中-的使用"><a href="#3、-声明变量过程中-的使用" class="headerlink" title="3、 声明变量过程中 _ 的使用"></a>3、 声明变量过程中 _ 的使用</h5></li>
-<li><p>在声明变量过程中 _  可以作为占位符进行使用，根据不同类型推导出不同类型默认值，此时必须声明类型，否则会由于无法推导报错</p>
+<li><p>伴生类和伴生对象必须存在于同一个文件内，可以相互访问私有成员</p>
+</li>
+<li><p>没有同名类的单例对象被称为孤立对象，一般情况下，scala的入口点main方法就时定义在一个孤立对象中</p>
+</li>
+<li><p>类的伴生对象可以访问，但是并不在作用域中，也就是说在类中调用伴生对象中的方法时也需要使用 对象名.方法名 的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">object Accounts &#123;</span><br><span class="line">  private var lastNumber &#x3D; 0</span><br><span class="line">  def newNumber() &#x3D; &#123;lastNumber +&#x3D; 1; lastNumber&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Accounts&#123;</span><br><span class="line">    Accounts.newNumber()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="五、Apply方法"><a href="#五、Apply方法" class="headerlink" title="五、Apply方法"></a>五、Apply方法</h4><h5 id="1、Apply方法介绍"><a href="#1、Apply方法介绍" class="headerlink" title="1、Apply方法介绍"></a>1、Apply方法介绍</h5><p>在scala中可以通过用类名（参数）的方式创建对象，Scala会在相应类的伴生对象中查找方法名为apply且参数列表与传入的参数一致的方法，并用传入的参数调用apply方法，在apply方法中new 对象即可实现通过用类名（参数）的方式创建对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">object Accounts &#123;</span><br><span class="line">  println(&quot;object apply&quot;)</span><br><span class="line">  def apply(id: String, name: String): Accounts &#x3D; new Accounts(id, name)</span><br><span class="line">&#125;</span><br><span class="line">class Accounts(val id:String,name:String)&#123;</span><br><span class="line">  def apply(id: String, name: String) &#x3D; &#123;println(&quot;class apply&quot;)&#125;</span><br><span class="line">&#125;</span><br><span class="line">object Test&#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    &#x2F;&#x2F;使用类名（）的方式调用的是object伴生对象中的Apply方法</span><br><span class="line">    Accounts(&quot;&quot;,&quot;&quot;)</span><br><span class="line">    Accounts.apply(&quot;&quot;,&quot;&quot;)</span><br><span class="line">    &#x2F;&#x2F;使用对象（）的方式调用的是class中的Apply方法，几乎不使用这种方法</span><br><span class="line">    val accounts &#x3D; new Accounts(&quot;&quot;, &quot;&quot;)</span><br><span class="line">    accounts(&quot;&quot;,&quot;&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、Apply方法的设计原因"><a href="#2、Apply方法的设计原因" class="headerlink" title="2、Apply方法的设计原因"></a>2、Apply方法的设计原因</h5></li>
+<li><p>保持对象和函数之间使用的一致性，面向对象：“对象.方法” VS “函数(参数)”</p>
+</li>
+<li><p>Scala中一切都是对象，包括函数也是对象，Scala中的函数既可以用括号的调用方式，也可以使用点号的调用方式</p>
+<h4 id="六、方法重写与字段重写"><a href="#六、方法重写与字段重写" class="headerlink" title="六、方法重写与字段重写"></a>六、方法重写与字段重写</h4><h5 id="1、方法重写"><a href="#1、方法重写" class="headerlink" title="1、方法重写"></a>1、方法重写</h5></li>
+<li><p>Scala重写一个非抽象方法必须使用override修饰符</p>
+</li>
+<li><p>继承抽象类和特质时重写方法可以不写override修饰符</p>
+</li>
+<li><p>钻石结构中重写方法时需要写override修饰符</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; var name:String &#x3D; _</span><br><span class="line">name: String &#x3D; null</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Int &#x3D; _</span><br><span class="line">num: Int &#x3D; 0</span><br><span class="line"></span><br><span class="line">scala&gt; var num:Double &#x3D; _</span><br><span class="line">num: Double &#x3D; 0.0</span><br><span class="line"></span><br><span class="line">scala&gt; var boolean:Boolean &#x3D; _</span><br><span class="line">boolean: Boolean &#x3D; false</span><br></pre></td></tr></table></figure>
-<h4 id="三、函数与方法的定义和使用"><a href="#三、函数与方法的定义和使用" class="headerlink" title="三、函数与方法的定义和使用"></a>三、函数与方法的定义和使用</h4><h5 id="1、方法定义"><a href="#1、方法定义" class="headerlink" title="1、方法定义"></a>1、方法定义</h5><p>def 方法名 (参数列表):方法返回值类型={方法体}</p>
-<p>代码块最后一行的值就是方法体的返回值，可以省略return关键字，但是如果要在方法体中间便返回值则需要使用return关键字，例如在方法体中根据不同情况返回不同的值，此时则需要使用return关键字</p>
-<h5 id="2、方法的调用"><a href="#2、方法的调用" class="headerlink" title="2、方法的调用"></a>2、方法的调用</h5><p>不带参数的方法调用通常不使用（），例如StringOps类的 distinct方法便省略了（）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; &quot;hello&quot;.distinct</span><br><span class="line">res0: String &#x3D; helo</span><br></pre></td></tr></table></figure>
-<h5 id="3、静态方法"><a href="#3、静态方法" class="headerlink" title="3、静态方法"></a>3、静态方法</h5><p>Scala中是没有静态方法的，但是可以通过伴生对象的方式实现静态方法，如下所示，Object所修饰的类名与Class修饰的相同，Object Account则是Class Account的伴生对象，也就是说在scala中使用Object即可实现静态方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Class Account&#123;</span><br><span class="line">	&#x2F;&#x2F;实例方法</span><br><span class="line">&#125;</span><br><span class="line">Object Account&#123;</span><br><span class="line">&#x2F;&#x2F;静态方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="4、函数的定义"><a href="#4、函数的定义" class="headerlink" title="4、函数的定义"></a>4、函数的定义</h5><p>函数是一个对象，可以赋值给一个变量</p>
-<p>val 函数名=(参数列表)=&gt;{函数体}</p>
-<h5 id="5、方法转换函数"><a href="#5、方法转换函数" class="headerlink" title="5、方法转换函数"></a>5、方法转换函数</h5><p>方法可以转换成函数，通常有以下两种转换方式，但是函数不可以转换成方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Persion(val name:String)&#123;</span><br><span class="line">  override def toString: String &#x3D; getClass.getName + &quot;[name&#x3D;&quot; + name + &quot;]&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、override的错误提示"><a href="#2、override的错误提示" class="headerlink" title="2、override的错误提示"></a>2、override的错误提示</h5><p>override修饰符可以在多种情况下给出错误提示，例如：</p>
 <ul>
-<li><p>val 函数名 = 方法名 _</p>
+<li><p>拼写错了方法名</p>
 </li>
-<li><p>在需要函数的地方提供一个方法，则此方法会自动转换成函数</p>
-<h5 id="6、方法与函数的区别"><a href="#6、方法与函数的区别" class="headerlink" title="6、方法与函数的区别"></a>6、方法与函数的区别</h5></li>
+<li><p>在新方法中使用了错误的参数类型</p>
+</li>
+<li><p>在超类中引入了新的方法，而这个新的方法与子类中的方法相抵触</p>
+<h5 id="3、字段重写"><a href="#3、字段重写" class="headerlink" title="3、字段重写"></a>3、字段重写</h5></li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>函数</th>
-<th>方法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>可以作为单独表达式单独存在</td>
-<td>只有参数为空的方法可以单独存在</td>
-</tr>
-<tr>
-<td>必须有参数列表</td>
-<td>可以没有参数列表</td>
-</tr>
-<tr>
-<td>函数名代表函数对象本身</td>
-<td>方法名代表方法调用</td>
-</tr>
-<tr>
-<td>函数不可转换成方法</td>
-<td>方法可以转换成函数</td>
-</tr>
-<tr>
-<td>函数可以作为参数传递</td>
-<td>方法在作为参数传递时会自动转换成函数</td>
-</tr>
-<tr>
-<td>#### 四、条件表达式</td>
-<td></td>
-</tr>
-<tr>
-<td>scala中的条件表达式与java中大致相同，均为if 和else表达式，不过scala也有自己的特性如下：</td>
-<td></td>
-</tr>
-<tr>
-<td>##### 1、条件表达式的值可以赋给变量</td>
-<td></td>
-</tr>
-<tr>
-<td><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (x&gt;0) s &#x3D; 1 else s &#x3D; -1</span><br><span class="line">&#x2F;&#x2F;也可以这样写</span><br><span class="line">val s &#x3D; if(x&gt;0) 1 else -1</span><br></pre></td></tr></table></figure></td>
-<td></td>
-</tr>
-<tr>
-<td>##### 2、条件表达式返回的类型</td>
-<td></td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>如果分支的类型一致,则表达式的类型与分支类型一致</p>
+<h4 id="七、抽象类"><a href="#七、抽象类" class="headerlink" title="七、抽象类"></a>七、抽象类</h4><h5 id="1、抽象类"><a href="#1、抽象类" class="headerlink" title="1、抽象类"></a>1、抽象类</h5><p> 如果一个类包含没有实现的成员，则此类必须使用abstract修饰，定义为抽象类，该类不能被初始化,一般是写一个实现类来继承抽象类，然后在使用实现类的实例进行操作即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abstract class Persion(val name:String)&#123;</span><br><span class="line">  def id:Int &#x2F;&#x2F;没有方法体，此类是一个抽象类</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、抽象方法"><a href="#2、抽象方法" class="headerlink" title="2、抽象方法"></a>2、抽象方法</h5><ul>
+<li><p>抽象类中不需要对抽象方法使用abstract进行修饰，只需要将方法体省略，scala会自动判断</p>
 </li>
-<li><p>如果分支的类型不一致,则表达式的类型是分支类型的公共超类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; val x &#x3D; 10</span><br><span class="line">x: Int &#x3D; 10</span><br><span class="line"></span><br><span class="line">scala&gt; val y &#x3D; if (x&gt;0) &quot;string&quot; else -1</span><br><span class="line">y: Any &#x3D; string</span><br></pre></td></tr></table></figure>
-<h5 id="3、else缺失的情况"><a href="#3、else缺失的情况" class="headerlink" title="3、else缺失的情况"></a>3、else缺失的情况</h5><p>if (x&gt;0) 1 等同于 if (x&gt;0) 1 else() 也就是说每个表达式都应该有值</p>
-<h4 id="五、循环表达式"><a href="#五、循环表达式" class="headerlink" title="五、循环表达式"></a>五、循环表达式</h4><h5 id="1、while循环表达式"><a href="#1、while循环表达式" class="headerlink" title="1、while循环表达式"></a>1、while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while (&#x2F;&#x2F;表达式)&#123;</span><br><span class="line">  &#x2F;&#x2F;循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="2、do-while循环表达式"><a href="#2、do-while循环表达式" class="headerlink" title="2、do while循环表达式"></a>2、do while循环表达式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">&#x2F;&#x2F;循环体</span><br><span class="line">&#125; while (&#x2F;&#x2F;表达式)</span><br></pre></td></tr></table></figure>
-<h5 id="3、Range介绍与使用"><a href="#3、Range介绍与使用" class="headerlink" title="3、Range介绍与使用"></a>3、Range介绍与使用</h5></li>
-<li><p>Range类介绍</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F;Range的三个参数为开始字段，结束字段和步长，步长省略情况下默认为1，但不能为0，否则报错</span><br><span class="line">class Range(val start : scala.Int, val end : scala.Int, val step : scala.Int)</span><br></pre></td></tr></table></figure></li>
-<li><p>Range用法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;这种用法得到的是Range，特点是左闭右开</span><br><span class="line">scala&gt; Range(1,10)</span><br><span class="line">res3: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;带步长的使用示例</span><br><span class="line">scala&gt; Range(1,10,2)</span><br><span class="line">res4: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为负数的使用示例</span><br><span class="line">scala&gt; Range(10,-1,-1)</span><br><span class="line">res6: scala.collection.immutable.Range &#x3D; Range(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)</span><br></pre></td></tr></table></figure></li>
-<li><p>until用法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此种写法底层调用了Range,因此得到的依然是Range，特点是左闭右开</span><br><span class="line">scala&gt; 1 until 10</span><br><span class="line">res5: scala.collection.immutable.Range &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9)</span><br></pre></td></tr></table></figure></li>
-<li><p>to用法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scala&gt; 1 to 10</span><br><span class="line">res1: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;两种编写方法等价，表示1调用to方法并将10作为参数传入，得到的是一个Range.Inclusive，特点是左闭右闭</span><br><span class="line">scala&gt; 1.to(10)</span><br><span class="line">res2: scala.collection.immutable.Range.Inclusive &#x3D; Range(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;步长为2的写法，但是开发过程中慎用，只要遇到了能看懂即可</span><br><span class="line">scala&gt; 1 to 10 by 2</span><br><span class="line">res7: scala.collection.immutable.Range &#x3D; Range(1, 3, 5, 7, 9)</span><br></pre></td></tr></table></figure>
-<h5 id="4、for循环表达式"><a href="#4、for循环表达式" class="headerlink" title="4、for循环表达式"></a>4、for循环表达式</h5></li>
-<li><p>循环语法</p>
-<p>  for (i&lt;-Range){<br>  循环体<br>}</p>
+<li><p>某类中存在至少一个抽象方法，则此类必须是抽象类</p>
 </li>
-<li><p>嵌套循环</p>
-<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   for (i &lt;- 1 to 3;j &lt;- 1 to 3)&#123;</span><br><span class="line">     println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的双重for循环</span><br><span class="line"></span><br><span class="line">   for(i &lt;- 1 to 3)&#123;</span><br><span class="line">     for (j &lt;- 1 to 3)&#123;</span><br><span class="line">       println(&quot;\t&quot;+ i + j +&quot;\t&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>循环守卫</p>
-<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">     for (i &lt;- 1 to 3 if i !&#x3D; 2)&#123;</span><br><span class="line">       println(i + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">  </span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">     for (i&lt;- 1 to 3)&#123;</span><br><span class="line">       if (i !&#x3D; 2)&#123;println(i + &quot;&quot;)&#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
+<li><p>子类中重写超类的抽象方法时，不需要加override关键字</p>
+<h5 id="3、抽象字段"><a href="#3、抽象字段" class="headerlink" title="3、抽象字段"></a>3、抽象字段</h5></li>
+<li><p>抽象字段就是一个没有初始值的字段</p>
 </li>
-<li><p>引入变量</p>
-<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">   for (i&lt;- 1 to 3;from &#x3D; 4 - i;j &lt;- from to 3 )&#123;</span><br><span class="line">     println((2 * i + j) + &quot;&quot;)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;上面的写法等价于下面的写法</span><br><span class="line"></span><br><span class="line">   for (i &lt;- 1 to 3)&#123;</span><br><span class="line">     var from &#x3D; 4 - i</span><br><span class="line">     for (j &lt;- from to 3)&#123;</span><br><span class="line">       println((2 * i + j) + &quot;&quot;)</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>退出循环</p>
-<p>  使用 Boolean型的控制变量</p>
-<p> 使用嵌套函数一可以从函数中 return</p>
-<p> 使用 Breaks对象中的 break方法</p>
-<h4 id="六、scala中的参数"><a href="#六、scala中的参数" class="headerlink" title="六、scala中的参数"></a>六、scala中的参数</h4><h5 id="1、默认参数"><a href="#1、默认参数" class="headerlink" title="1、默认参数"></a>1、默认参数</h5><p>方法定义时指定默认参数值,调用时可以不传递参数</p>
-<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法中指定了name默认为hello</span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   sayHello()</span><br><span class="line"> &#125;</span><br><span class="line"> def sayHello(name:String &#x3D; &quot;hello&quot;): Unit &#x3D;&#123;</span><br><span class="line">   println(name)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h5 id="2、可变参数"><a href="#2、可变参数" class="headerlink" title="2、可变参数"></a>2、可变参数</h5><p>定义方法时允许指定最后一个参数可以重复(变长参数)</p>
-<figure class="highlight plain"><figcaption><span>inenums</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;此方法定义了一个求和方法，利用可变长参数实现不论传入多少个参数都可以将参数相加</span><br><span class="line"></span><br><span class="line"> def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">   println(sum(1,2))</span><br><span class="line">   println(sum(1,2,3))</span><br><span class="line">   println(sum(1,2,3,4))</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;这个是特殊语法，如果直接写1 to 10 则会因为其是一个Rang类型出现与需要传入的类型不匹配的错误，使用 : _* 可以解决这个问题，暂时理解为类型自动转换</span><br><span class="line"> println(sum(1 to 10: _*))</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> def sum(nums:Int*) &#x3D;&#123;</span><br><span class="line">   var result &#x3D; 0</span><br><span class="line">   for (num &lt;- nums)&#123;</span><br><span class="line">     result +&#x3D; num</span><br><span class="line">   &#125;</span><br><span class="line">   result</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<li><p>抽象字段必须声明类型</p>
 </li>
+<li><p>子类中重写抽象字段时不需要写override关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abstract class Persion&#123;</span><br><span class="line">  def id:Int &#x2F;&#x2F;没有方法体，此类是一个抽象类</span><br><span class="line">  val  userId:Int</span><br><span class="line">  val name:String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="八、trait-特质"><a href="#八、trait-特质" class="headerlink" title="八、trait(特质)"></a>八、trait(特质)</h4><h5 id="1、什么是特质"><a href="#1、什么是特质" class="headerlink" title="1、什么是特质"></a>1、什么是特质</h5></li>
+<li><p>Scala中不允许类从多个超类继承</p>
+</li>
+<li><p>特质可以理解为某一类事物身上的某一特征，用于在类之间共享程序接口和字段，类似于java的接口</p>
+</li>
+<li><p>类和对象可以扩展特质，但是特质不能被实例化，因此特质没有参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">trait Logger&#123;</span><br><span class="line">  def log(msg:String)&#x2F;&#x2F;这个是抽象方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2、特质当做接口使用的特点"><a href="#2、特质当做接口使用的特点" class="headerlink" title="2、特质当做接口使用的特点"></a>2、特质当做接口使用的特点</h5></li>
+<li><p>特质中未必实现的方法默认为抽象的</p>
+</li>
+<li><p>重写特质的抽象方法时不需要给出overwrite关键字</p>
+</li>
+<li><p>使用特质时用extends关键字</p>
+</li>
+<li><p>一个类需要多个特质时，多个特质用with关键字来关联</p>
+</li>
+<li><p>scala类只可以有一个超类，但可以有任意个特质</p>
+<h5 id="3、带有具体实现的特质"><a href="#3、带有具体实现的特质" class="headerlink" title="3、带有具体实现的特质"></a>3、带有具体实现的特质</h5></li>
+<li><p>特质中的方法并不一定必须是抽象的，可以有具体实现，这也是和接口的区别</p>
+</li>
+<li><p>让特质拥有具体实现存在一个弊端，那就是当特质改变时，所有混入了该特质的类都必须重新编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">  trait Logger&#123;</span><br><span class="line">    def log(msg:String)&#x3D;&#123;println(msg)&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">##### 4、继承类的特质</span><br><span class="line"> - 特质继承类的时候，这个类会成为所有混入该特质的超类</span><br><span class="line"> - 如果存在A类、B类、C特质，当A类扩展了B类时，只有B类是C特质的超类下的一个子类才可以混入该特质</span><br><span class="line"> &#96;&#96;&#96;scala?linenums</span><br><span class="line">trait LogException（特质） extends Exception（特质的超类）</span><br><span class="line">class TestException（A类） extends IOException（B类） with LogException</span><br><span class="line">class TestList extends Logger with LogException &#x2F;&#x2F;报错了，因为 Logger不属于Exception的子类</span><br><span class="line">&#96;&#96;&#96;  </span><br><span class="line">#### 九、case class(样例类)</span><br><span class="line">##### 1、case class的默认特点</span><br><span class="line"> - case class是一种特殊的类，通过在class前面加cass来定义，经过优化后被用于模式匹配</span><br><span class="line"> - case class中构造器中的每一个参数默认都是 val 除非被显示的定义为 var </span><br><span class="line"> - case class在伴生对象中提供了apply方法，可以不使用new直接构造出对象</span><br><span class="line"> - case class提供unapply方法让模式匹配可以工作</span><br><span class="line"> - case class会自动生成toString、equals、hashCode和copy方法</span><br><span class="line"> - case class 类名（）里面必须加参数，case object 对象名则绝对不能加（参数）</span><br><span class="line"> - case class会默认自动实现序列化接口</span><br><span class="line"> &#96;&#96;&#96;scala?linenums</span><br><span class="line">object CaseClass &#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    println(Cat(&quot;Yummi&quot;).name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;case class默认在伴生对象中提供了apply方法，可以不使用new直接构造出对象</span><br><span class="line">case class Cat(name:String)</span><br></pre></td></tr></table></figure>
+<h5 id="2、case-class类与普通类的区别"><a href="#2、case-class类与普通类的区别" class="headerlink" title="2、case class类与普通类的区别"></a>2、case class类与普通类的区别</h5></li>
+<li><p>new case class 的类名创建对象 与 使用case class 的类名（）方式直接创建对象时创建的对象指向同一内存地址，也可以说是同一个对象  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">object CaseClass &#123;</span><br><span class="line">  def main(args: Array[String]): Unit &#x3D; &#123;</span><br><span class="line">    val black1 &#x3D; new per(&quot;black&quot;, 18)</span><br><span class="line">    val black2 &#x3D; new per(&quot;black&quot;, 18)</span><br><span class="line">    val yummi1 &#x3D; per1(&quot;yummi&quot;, 27)</span><br><span class="line">    val yummi2 &#x3D; new per1(&quot;yummi&quot;, 27)</span><br><span class="line">    if(black1 &#x3D;&#x3D; black2)&#123;</span><br><span class="line">      println(&quot;black1 与 black2为同一对象&quot;)</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      println(&quot;black1 与 black2不为同一对象&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    if(yummi1 &#x3D;&#x3D; yummi2)&#123;</span><br><span class="line">      println(&quot;yummi1 与 yummi2同一对象&quot;)</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      println(&quot;yummi1 与 yummi2不为同一对象&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class per(name:String,age:Int)</span><br><span class="line"></span><br><span class="line">case class per1(name:String,age:Int)</span><br></pre></td></tr></table></figure>
+<h5 id="3、case-class的密封"><a href="#3、case-class的密封" class="headerlink" title="3、case class的密封"></a>3、case class的密封</h5></li>
+<li><p>当case class的超类使用关键字sealed修饰，编译器会校对该超类对象的模式匹配中是否列出了全部的子case类</p>
+</li>
+<li><p>该超类的的子类只能和超类在同一个文件中，形成封闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sealed abstract class Amount</span><br><span class="line">case class Dollar()extends Amount</span><br><span class="line">case class Current() extends Amount</span><br></pre></td></tr></table></figure></li>
 </ul>
 
     
@@ -664,7 +678,23 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Azkaban</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flume</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Mapreduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MapReduce</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,10 +707,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hive</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HDFS</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://YuumiCat.com">
-  <title>Tag: 项目 | 韩勃然的博客</title>
+  <title>数仓分层简介 | 韩勃然的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="blackdata,企业在职">
-<meta property="og:type" content="website">
-<meta property="og:title" content="韩勃然的博客">
-<meta property="og:url" content="http://yuumicat.com/tags/%E9%A1%B9%E7%9B%AE/index.html">
+  <meta name="description" content="什么是数据仓库？将多个数据源的数据经过ETL之后，按照一定的主题集成， 提供【决策支持】和【联机分析应用】的结构化数据环境，说法很多，爱咋说咋说 数仓和数据库区别 数仓面向主题，数据库面向事务  数仓有意的去引用冗余，而数据库则要遵守三范式，从这点上两者是相反的  数仓是属于OLAP（联机分析 ）各种维度 各种复杂的业务分析 ，慢一点能忍受，数据库是属于OLTP （联机事务）时效性高   为什么要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数仓分层简介">
+<meta property="og:url" content="http://yuumicat.com/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="blackdata,企业在职">
+<meta property="og:description" content="什么是数据仓库？将多个数据源的数据经过ETL之后，按照一定的主题集成， 提供【决策支持】和【联机分析应用】的结构化数据环境，说法很多，爱咋说咋说 数仓和数据库区别 数仓面向主题，数据库面向事务  数仓有意的去引用冗余，而数据库则要遵守三范式，从这点上两者是相反的  数仓是属于OLAP（联机分析 ）各种维度 各种复杂的业务分析 ，慢一点能忍受，数据库是属于OLTP （联机事务）时效性高   为什么要">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-24T07:22:40.000Z">
+<meta property="article:modified_time" content="2020-06-16T04:31:06.556Z">
 <meta property="article:author" content="YuumiCat">
+<meta property="article:tag" content="hive">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
@@ -173,151 +176,256 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-数仓分层简介" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/09/%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%92/" class="archive-article-date">
-        <time datetime="2019-02-09T07:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/09/%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%92/" target="_blank">集群资源规划</a>
   
+    <h1 class="article-title" itemprop="name">
+      数仓分层简介
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+        <time datetime="2019-02-24T07:22:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-24</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">438字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">1分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="什么是数据仓库？"><a href="#什么是数据仓库？" class="headerlink" title="什么是数据仓库？"></a>什么是数据仓库？</h4><p>将多个数据源的数据经过ETL之后，按照一定的主题集成， 提供【决策支持】和【联机分析应用】的结构化数据环境，说法很多，爱咋说咋说</p>
+<h4 id="数仓和数据库区别"><a href="#数仓和数据库区别" class="headerlink" title="数仓和数据库区别"></a>数仓和数据库区别</h4><ul>
+<li><p>数仓面向主题，数据库面向事务</p>
+</li>
+<li><p>数仓有意的去引用冗余，而数据库则要遵守三范式，从这点上两者是相反的</p>
+</li>
+<li><p>数仓是属于OLAP（联机分析 ）各种维度 各种复杂的业务分析 ，慢一点能忍受，数据库是属于OLTP （联机事务）时效性高</p>
+</li>
+</ul>
+<h4 id="为什么要建数仓"><a href="#为什么要建数仓" class="headerlink" title="为什么要建数仓"></a>为什么要建数仓</h4><ul>
+<li><p>将复杂任务分解，可以将复杂问题简单化</p>
+</li>
+<li><p>结构清晰，减少重复开发，数仓里面是有很多层的，但是不能为了分层而分层</p>
+</li>
+<li><p>摆脱多种不同数据源、异构数据库、不同数据格式等等带来的问题</p>
+</li>
+</ul>
+<h4 id="常见文章中的分层"><a href="#常见文章中的分层" class="headerlink" title="常见文章中的分层"></a>常见文章中的分层</h4><pre><code>ODS：原始数据层： 直接加载原始数据，不做任何处理
+DWD：明细数据层，对ODS进行清洗   
+DWS：基于DWD做统计分析，服务数据层   &lt;== 轻度
+ADS：为各种统计报表提供数据，数据应用层</code></pre><h4 id="某公司业务场景分层"><a href="#某公司业务场景分层" class="headerlink" title="某公司业务场景分层"></a>某公司业务场景分层</h4><p>实际上，数仓的分层并没有固定的层数标准，是要根据不同业务场景和需求决定分几层的，决不能为了分层而分层</p>
+<pre><code>ODS：存储清洗后的数据，因为源数据除了占用空间外，业务场景中在数据清洗后几乎不会再使用
+DWS：基于DWD做统计分析   服务数据层
+ADS：为各种统计报表提供数据   数据应用层</code></pre>
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          YuumiCat
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://YuumiCat.com/2019/02/24/数仓分层简介/" title="数仓分层简介" target="_blank">http://YuumiCat.com/2019/02/24/数仓分层简介/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hive</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/05/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2019-02-05T12:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-05</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Azkaban安装与简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MR数据清洗案例</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/05/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">数据处理简介</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/03/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2019-02-03T11:36:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/03/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">项目开发简介</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -358,9 +466,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

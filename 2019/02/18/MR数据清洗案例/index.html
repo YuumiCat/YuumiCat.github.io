@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://YuumiCat.com">
-  <title>Tag: 项目 | 韩勃然的博客</title>
+  <title>MR数据清洗案例 | 韩勃然的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="blackdata,企业在职">
-<meta property="og:type" content="website">
-<meta property="og:title" content="韩勃然的博客">
-<meta property="og:url" content="http://yuumicat.com/tags/%E9%A1%B9%E7%9B%AE/index.html">
+  <meta name="description" content="什么是ETLETL：Extract （抽取）Transform（转换）  Load（加载） 日志结构示例日志随便找的，按照结构自己生成即可，可以使用SQL+存储过程造，也可以用java造，方法很多，自己研究即可，生产中实际用的日志字段要比这个多，几十上百很正常，但是处理思路差不多 123[04&#x2F;06&#x2F;2020:10:38:22 +0800]	123.235.165.233	-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MR数据清洗案例">
+<meta property="og:url" content="http://yuumicat.com/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="blackdata,企业在职">
+<meta property="og:description" content="什么是ETLETL：Extract （抽取）Transform（转换）  Load（加载） 日志结构示例日志随便找的，按照结构自己生成即可，可以使用SQL+存储过程造，也可以用java造，方法很多，自己研究即可，生产中实际用的日志字段要比这个多，几十上百很正常，但是处理思路差不多 123[04&#x2F;06&#x2F;2020:10:38:22 +0800]	123.235.165.233	-">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-18T12:19:45.000Z">
+<meta property="article:modified_time" content="2020-06-16T04:29:07.014Z">
 <meta property="article:author" content="YuumiCat">
+<meta property="article:tag" content="Mapreduce">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
@@ -173,151 +176,256 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-MR数据清洗案例" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/09/%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%92/" class="archive-article-date">
-        <time datetime="2019-02-09T07:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/09/%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%92/" target="_blank">集群资源规划</a>
   
+    <h1 class="article-title" itemprop="name">
+      MR数据清洗案例
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/" class="archive-article-date">
+        <time datetime="2019-02-18T12:19:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.1k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">4分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="什么是ETL"><a href="#什么是ETL" class="headerlink" title="什么是ETL"></a>什么是ETL</h4><p>ETL：Extract （抽取）Transform（转换）  Load（加载）</p>
+<h4 id="日志结构示例"><a href="#日志结构示例" class="headerlink" title="日志结构示例"></a>日志结构示例</h4><p>日志随便找的，按照结构自己生成即可，可以使用SQL+存储过程造，也可以用java造，方法很多，自己研究即可，生产中实际用的日志字段要比这个多，几十上百很正常，但是处理思路差不多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[04&#x2F;06&#x2F;2020:10:38:22 +0800]	123.235.165.233	-	65	-	POST	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av73587909	200	125	-	HIT</span><br><span class="line">[04&#x2F;06&#x2F;2020:09:12:35 +0800]	36.59.77.128	-	191	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av38152104	200	126	2215	MISS</span><br><span class="line">[04&#x2F;06&#x2F;2020:10:18:34 +0800]	171.12.191.73	-	153	-	GET	https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;av16780324	200	165	1767	MISS</span><br></pre></td></tr></table></figure>
+<h4 id="处理思路分步讲解"><a href="#处理思路分步讲解" class="headerlink" title="处理思路分步讲解"></a>处理思路分步讲解</h4><p>1、创建存储数据中每个字段的类对象，此部分根据日志的字段进行设计即可，每一个需要存储的字段信息对应一个对象的属性</p>
+<p>2、使用split()方法将从map()方法中传入的数据切分成字节数组</p>
+<p>3、将数据切分后可以直接set进对象的属性中的字段进行赋值操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static String ParserLog(String log,SimpleDateFormat format)throws Exception &#123;</span><br><span class="line">       String line &#x3D; log;</span><br><span class="line">       String[] splits &#x3D; line.split(&quot;\t&quot;);</span><br><span class="line">       String time &#x3D; splits[0];</span><br><span class="line">       String ip &#x3D; splits[1];</span><br><span class="line">	&#x2F;&#x2F;......省略N多代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、将ip解析成省、市和isp ,此部分我用的ip2region离线IP解析，生产上肯定要用付费的，不要使用在线请求的那种IP解析，数据量稍大就干废了，ip2region的下载和使用请参考我另一篇博客</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * 将ip解析成省份、城市、isp</span><br><span class="line"> * 这个我是直接在网上搞了工具类，自己改了改，</span><br><span class="line"> * 需要注意的是创建IP数据库的连接的时候，把创建连接的语句放在MR的setup()方法中</span><br><span class="line"> * 这样在执行MR的时候就会只创建一次连接操作</span><br><span class="line"> * 否则每执行一个map就创建一次连接那不炸就怪了，还可以把IP数据库的内容缓存到redis中，比较香</span><br><span class="line"> * *&#x2F;</span><br><span class="line">String[] ipAnalysis &#x3D; IPAnalysis.ipAnalysis(ip);</span><br><span class="line">String provinces &#x3D; ipAnalysis[1];</span><br><span class="line">String city &#x3D; ipAnalysis[2];</span><br><span class="line">String isp &#x3D; ipAnalysis[3];</span><br></pre></td></tr></table></figure>
+<p>5、将日期数据解析成年月日，此部分使用SimpleDateFormat获取date,再使用Calendar对date进行操作，获取年月日，需要注意的是得出的数据因为格式不符，需要进行补零操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">      * 将时间解析成年月日</span><br><span class="line">      * format是SimpleDateFormat，这个也没必要每一次执行map都重复创建，也放setup()方法中</span><br><span class="line">      * *&#x2F;</span><br><span class="line"></span><br><span class="line">     Date date &#x3D; format.parse(time);</span><br><span class="line">     Calendar calendar &#x3D; Calendar.getInstance();</span><br><span class="line">     calendar.setTime(date);</span><br><span class="line">     String year &#x3D; calendar.get(Calendar.YEAR)+&quot;&quot;;</span><br><span class="line">     &#x2F;&#x2F;ByZero.byZero是对日期进行补零操作，工具类自己写就行，就是简单的判断</span><br><span class="line">     String month &#x3D; ByZero.byZero(calendar.get(Calendar.MONTH) + 1);</span><br><span class="line">     String day &#x3D; ByZero.byZero(calendar.get(Calendar.DATE));</span><br></pre></td></tr></table></figure>
+<p>6、解析Url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line"> * 解析url,说白了就是各种拆，很简单，没啥可说的</span><br><span class="line"> * *&#x2F;</span><br><span class="line">String[] urlSplit &#x3D; url.split(&quot;:&#x2F;&#x2F;&quot;);</span><br><span class="line">String http &#x3D; urlSplit[0];</span><br><span class="line">String domain &#x3D; urlSplit[1].substring(0,urlSplit[1].indexOf(&quot;&#x2F;&quot;));;</span><br><span class="line">String path &#x3D; urlSplit[1].replace(domain,&quot;&quot;);</span><br></pre></td></tr></table></figure>
+<p>8、使用计数器统计日志总数、错误数据数，这个东西的结果可以写到文件中，也可以写到数据库中，要加上批次，一般可以将输出的时间作为批次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">        protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                &#x2F;&#x2F;mr进来总的日志数，使用计数器获取</span><br><span class="line">                context.getCounter(&quot;etl&quot;,&quot;access_totals&quot;).increment(1);</span><br><span class="line">                String parserLog &#x3D; ParseLog.ParserLog(value.toString(),format);</span><br><span class="line">                context.write(new Text(parserLog),NullWritable.get());</span><br><span class="line">            &#125; catch (Exception e) &#123;</span><br><span class="line">			&#x2F;&#x2F;这个是遇到错误日志就计数1次</span><br><span class="line">                context.getCounter(&quot;etl&quot;,&quot;access_erros&quot;).increment(1);</span><br><span class="line">                &#x2F;*e.printStackTrace();*&#x2F;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>9、打包上传服务器</p>
+<ul>
+<li><p>生产中使用的是瘦包，打的包里面不含有pom中引用的驱动，因为如果是胖包，在集群分发执行是会浪费很多网络IO资源</p>
+</li>
+<li><p>代码打包后再集群运行注意事项</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#配置一个变量代替jar路径</span><br><span class="line">export LIBJARS&#x3D;jar包path1,jar包path2</span><br><span class="line">#将第三方jar包引用添加至HADOOP_CLASSPATH中，让yarn能够管理使用</span><br><span class="line">export HADOOP_CLASSPATH&#x3D;HADOOP_CLASSPATH:需要加入的jar包path1,jar包path2</span><br><span class="line">#在集群上执行代码命令，-libjars代表调用第三方jar包</span><br><span class="line">hadoop jar 代码jar包路径  代码全类名 -libjars $&#123;LIBJARS&#125; input output</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          YuumiCat
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://YuumiCat.com/2019/02/18/MR数据清洗案例/" title="MR数据清洗案例" target="_blank">http://YuumiCat.com/2019/02/18/MR数据清洗案例/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Mapreduce</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2019/02/18/MR%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97%E6%A1%88%E4%BE%8B/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/05/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2019-02-05T12:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-05</time>
-</a>
 
+
+<nav id="article-nav">
+  
+    <a href="/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          数仓分层简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/12/Flume%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Flume基础入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/05/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">数据处理简介</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/03/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2019-02-03T11:36:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/03/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">项目开发简介</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -358,9 +466,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,

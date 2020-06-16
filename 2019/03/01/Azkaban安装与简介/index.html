@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://YuumiCat.com">
-  <title>Tag: 项目 | 韩勃然的博客</title>
+  <title>Azkaban安装与简介 | 韩勃然的博客</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="blackdata,企业在职">
-<meta property="og:type" content="website">
-<meta property="og:title" content="韩勃然的博客">
-<meta property="og:url" content="http://yuumicat.com/tags/%E9%A1%B9%E7%9B%AE/index.html">
+  <meta name="description" content="常用调度框架介绍   功能类型 Azkaban Oozie Airflow    调度策略&#x2F;作业编排 支持 支持 支持   异常处理及告警 支持 支持 支持   开发语言 java java python   作业配置方式 key-value xml python脚本   易用性和可拓展性 支持 不支持 不支持   #### 官方网址      官网首页      文档地址      软件下载地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azkaban安装与简介">
+<meta property="og:url" content="http://yuumicat.com/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/index.html">
 <meta property="og:site_name" content="韩勃然的博客">
-<meta property="og:description" content="blackdata,企业在职">
+<meta property="og:description" content="常用调度框架介绍   功能类型 Azkaban Oozie Airflow    调度策略&#x2F;作业编排 支持 支持 支持   异常处理及告警 支持 支持 支持   开发语言 java java python   作业配置方式 key-value xml python脚本   易用性和可拓展性 支持 不支持 不支持   #### 官方网址      官网首页      文档地址      软件下载地址">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yuumicat.com/images/Azkaban%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+<meta property="article:published_time" content="2019-02-28T21:01:12.000Z">
+<meta property="article:modified_time" content="2020-06-16T04:33:45.593Z">
 <meta property="article:author" content="YuumiCat">
+<meta property="article:tag" content="Azkaban">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yuumicat.com/images/Azkaban%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
   
     <link rel="alternative" href="/atom.xml" title="韩勃然的博客" type="application/atom+xml">
   
@@ -173,151 +178,372 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Azkaban安装与简介" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/09/%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%92/" class="archive-article-date">
-        <time datetime="2019-02-09T07:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-09</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/09/%E9%9B%86%E7%BE%A4%E8%B5%84%E6%BA%90%E8%A7%84%E5%88%92/" target="_blank">集群资源规划</a>
   
+    <h1 class="article-title" itemprop="name">
+      Azkaban安装与简介
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
+<a href="/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/" class="archive-article-date">
+        <time datetime="2019-02-28T21:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-01</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">4分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h4 id="常用调度框架介绍"><a href="#常用调度框架介绍" class="headerlink" title="常用调度框架介绍"></a>常用调度框架介绍</h4><table>
+<thead>
+<tr>
+<th>功能类型</th>
+<th>Azkaban</th>
+<th>Oozie</th>
+<th>Airflow</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调度策略/作业编排</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>异常处理及告警</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>开发语言</td>
+<td>java</td>
+<td>java</td>
+<td>python</td>
+</tr>
+<tr>
+<td>作业配置方式</td>
+<td>key-value</td>
+<td>xml</td>
+<td>python脚本</td>
+</tr>
+<tr>
+<td>易用性和可拓展性</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>#### 官方网址</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://azkaban.github.io/" target="_blank" rel="noopener">官网首页</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://azkaban.readthedocs.io/en/latest/" target="_blank" rel="noopener">文档地址</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/azkaban/azkaban/releases" target="_blank" rel="noopener">软件下载地址</a></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>#### Azkaban简介</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="/images/Azkaban%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="Azkaban架构图"></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>Azkaban由LinkedIn开源</li>
+</ul>
+<ul>
+<li><p>Azkaban用于解决需要按照特定顺序来跑的job集合</p>
+</li>
+<li><p>Job大多是Hadoop生态圈的组件任务</p>
+</li>
+<li><p>Azkaban由Webserver、Executor、MySQL三个核心模块组成</p>
+<ul>
+<li><p>Webserver：中心管理节点，元数据的管理，项目上传解析，调度设置等等都有WebServer模块管理，调度的触发、执行实例的生成，执行实例的分发和监控等等。同时WebServer还提供了对外接口，包括日志、实例状态的查询认证。</p>
+</li>
+<li><p>Executor：任务执行节点，负责执行具体的flow，同时还会提供业务接口，查询执行实例的状态。executor可以使多节点。</p>
+</li>
+<li><p>MySQL：元数据存储，比如项目文件、项目信息、调度信息、报警规则等。同时还会存储一些业务数据，如执行实例的信息、日志等等。</p>
+<h4 id="Azkaban安装"><a href="#Azkaban安装" class="headerlink" title="Azkaban安装"></a>Azkaban安装</h4><p>下载安装包后解压至app目录<br>在根目录下执行跳过单元测试的编译命令，这个编译时间会比较长，和网速有关</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;gradlew build installDist -x test</span><br></pre></td></tr></table></figure>
+<h5 id="Azkaban单机版本安装"><a href="#Azkaban单机版本安装" class="headerlink" title="Azkaban单机版本安装"></a>Azkaban单机版本安装</h5></li>
+</ul>
+</li>
+<li><p>安装包解压至app目录下</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@yummi distributions]# tar -zxvf azkaban-solo-server-0.1.0-SNAPSHOT.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>azkaban.properties配置</li>
+</ul>
+<p>在conf目录下的azkaban.properties配置Azkaban的名称、介绍、时区和端口号</p>
+<ul>
+<li>azkaban-users.xml配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;user groups&#x3D;&quot;azkaban&quot; password&#x3D;&quot;yuumi&quot; roles&#x3D;&quot;admin&quot; username&#x3D;&quot;yuumi&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动Azkaban</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#这个地方要注意，一定不要进入bin目录后启动脚本，否则会报Cannot find &#39;database.properties&#39;错误</span><br><span class="line">[root@yummi azkaban-solo-server-0.1.0-SNAPSHOT]# bin&#x2F;start-solo.sh</span><br></pre></td></tr></table></figure>
+<h5 id="Azkaban集群版本安装"><a href="#Azkaban集群版本安装" class="headerlink" title="Azkaban集群版本安装"></a>Azkaban集群版本安装</h5><ul>
+<li>安装包解压至app目录下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> #在exec的distributions目录中找到执行端安装包解压</span><br><span class="line">[root@yummi distributions]# tar -zxvf azkaban-exec-server-0.1.0-SNAPSHOT.tar.gz -C ~&#x2F;app&#x2F;</span><br><span class="line">#在web端的distributions目录中找到执行端安装包解压</span><br><span class="line">[root@yummi distributions]# tar -zxvf azkaban-web-server-0.1.0-SNAPSHOT.tar.gz -C ~&#x2F;app&#x2F;</span><br></pre></td></tr></table></figure></li>
+<li>在mysql中创建数据库表<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@yummi app]# mysql -uroot -p000000</span><br><span class="line">mysql&gt; CREATE DATABASE azkaban;</span><br><span class="line">#需要先解压azkaban-db&#x2F;build&#x2F;distributions下的sql压缩包，然后执行导入，创建表成功后退出</span><br><span class="line">mysql&gt; source &#x2F;root&#x2F;app&#x2F;azkaban&#x2F;azkaban-db&#x2F;build&#x2F;distributions&#x2F;azkaban-db-0.1.0-SNAPSHOT&#x2F;create-all-sql-0.1.0-SNAPSHOT.sql;</span><br></pre></td></tr></table></figure></li>
+<li>azkaban.properties配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">azkaban.name&#x3D;Azkaban Web</span><br><span class="line">azkaban.label&#x3D;My Web Azkaban</span><br><span class="line">default.timezone.id&#x3D;Asia&#x2F;Shanghai</span><br><span class="line"></span><br><span class="line">database.type&#x3D;mysql</span><br><span class="line">mysql.port&#x3D;3306</span><br><span class="line">mysql.host&#x3D;localhost</span><br><span class="line">mysql.database&#x3D;azkaban</span><br><span class="line">mysql.user&#x3D;root</span><br><span class="line">mysql.password&#x3D;000000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>azkaban-users.xml配置</li>
+</ul>
+</li>
+</ul>
+<p>与单机版本配置方式一样</p>
+<ul>
+<li>踩坑指南</li>
+</ul>
+<p>先启动exec,然后启动web,这个时候会发现web无法启动，查看日志产生一个报错：No active executors found，这是因为web存在激活和未激活两种状态，因此需要手动激活后即可启动成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#端口号是变化的，因此需要在mysql的executors表中查询</span><br><span class="line">curl  &quot;http:&#x2F;&#x2F;yummi:41540&#x2F;executor?action&#x3D;activate&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="Azkaban的Flow使用方法"><a href="#Azkaban的Flow使用方法" class="headerlink" title="Azkaban的Flow使用方法"></a>Azkaban的Flow使用方法</h4><ul>
+<li><p>创建flow20.project文件并将版本azkaban-flow-version: 2.0写进这个文件</p>
+</li>
+<li><p>创建basic.flow文件，将要执行的任务写入如下格式，粘贴即可，差一点都无法识别</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nodes:</span><br><span class="line"> - name: jobA</span><br><span class="line">    type: command</span><br><span class="line">    config:</span><br><span class="line">      command: echo &quot;This is an echoed text.&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>将编写好的文件打包成zip包</p>
+</li>
+<li><p>在web页面创建项目后选择upload上传zip包后选择执行</p>
+</li>
+<li><p>在任务中使用scheduler来配置定时调度</p>
+</li>
+<li><p>可以将编写的linux脚本也打包在zip中，然后在命令中编写sh 脚本名.sh 即可</p>
+</li>
+</ul>
+<h4 id="创建带有依赖的Flow"><a href="#创建带有依赖的Flow" class="headerlink" title="创建带有依赖的Flow"></a>创建带有依赖的Flow</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">nodes:</span><br><span class="line">  - name: jobC</span><br><span class="line">    type: noop</span><br><span class="line">    # jobC depends on jobA and jobB</span><br><span class="line">    dependsOn:</span><br><span class="line">      - jobA</span><br><span class="line">      - jobB</span><br><span class="line"></span><br><span class="line">  - name: jobA</span><br><span class="line">    type: command</span><br><span class="line">    config:</span><br><span class="line">      command: echo &quot;This is an echoed text.&quot;</span><br><span class="line"></span><br><span class="line">  - name: jobB</span><br><span class="line">    type: command</span><br><span class="line">    config:</span><br><span class="line">      command: pwd</span><br></pre></td></tr></table></figure>
+
+
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          YuumiCat
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="http://YuumiCat.com/2019/03/01/Azkaban安装与简介/" title="Azkaban安装与简介" target="_blank">http://YuumiCat.com/2019/03/01/Azkaban安装与简介/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Azkaban</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yuumicat.com/2019/03/01/Azkaban%E5%AE%89%E8%A3%85%E4%B8%8E%E7%AE%80%E4%BB%8B/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/05/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2019-02-05T12:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-05</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/24/%E6%95%B0%E4%BB%93%E5%88%86%E5%B1%82%E7%AE%80%E4%BB%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数仓分层简介</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/05/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">数据处理简介</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/02/03/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="archive-article-date">
-        <time datetime="2019-02-03T11:36:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/02/03/%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">项目开发简介</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">项目</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
 
 
           </div>
@@ -358,9 +584,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
